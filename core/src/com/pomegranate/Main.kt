@@ -23,14 +23,15 @@ class Main : ApplicationAdapter() {
         ls = SingleTexture("badlogic.jpg", GetLcs.byLcs(0.5f), GetLcs.byLcs(0.5f)).also{
             it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
         }
-        box = ColouredBox(GetLcs.byLcs(0.5f), GetLcs.byLcs(0.5f)).also{
+        box = ColouredBox(GetLcs.byLcs(0.7f), GetLcs.byLcs(0.1f)).also{
             it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
-            it.recolour(Color(1f,1f,0f,1f))
+            it.recolour(Color(0.2f,0.2f,0f,1f))
         }
-        tb = TextBox("Kannst du die engel sehen? Sie widen fallen nur für dich. Kannst du die engel sehen? Hey",24,Color(1f,1f,1f,1f),w= GetLcs.byLcs(0.5f),h= GetLcs.byLcs(1f)).also{
+        tb = TextBox("Kannst du die engel sehen?\nSie widen fallen nur für dich.\nKannst du die engel sehen?\nHey",0,Color(1f,1f,1f,1f),w= GetLcs.byLcs(0.7f),h= GetLcs.byLcs(0.1f)).also{
             it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
         }
-        println(GetLcs.byLcs(0.5f).asPixel())
+        println("aaa${"aaabbb".indexOf("c")}")
+
 
     }
 
@@ -42,7 +43,9 @@ class Main : ApplicationAdapter() {
         batch.begin()
         //ls.draw(batch)
         //batch.draw(img, 0f, 0f)
+        box.draw(batch)
         tb.draw(batch)
+
         batch.end()
     }
 
