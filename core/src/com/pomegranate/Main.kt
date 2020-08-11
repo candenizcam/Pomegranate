@@ -1,17 +1,15 @@
 package com.pomegranate
 
-import LcsModule.GetLcs
+import modules.LcsModule.GetLcs
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.engine.model.visuals.TextBox
-import visuals.ColouredBox
-import visuals.OmniVisual
-import visuals.SingleTexture
+import modules.visuals.TextBox
+import modules.visuals.ColouredBox
+import modules.visuals.OmniVisual
+import modules.visuals.SingleTexture
 
 
 class Main : ApplicationAdapter() {
@@ -22,15 +20,15 @@ class Main : ApplicationAdapter() {
     override fun create() {
         GetLcs.lcsInitialize()
         batch = SpriteBatch()
-        ls = SingleTexture("badlogic.jpg", GetLcs.byLcs(0.5f),GetLcs.byLcs(0.5f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.5f))
+        ls = SingleTexture("badlogic.jpg", GetLcs.byLcs(0.5f), GetLcs.byLcs(0.5f)).also{
+            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
         }
-        box = ColouredBox(GetLcs.byLcs(0.5f),GetLcs.byLcs(0.5f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.5f))
+        box = ColouredBox(GetLcs.byLcs(0.5f), GetLcs.byLcs(0.5f)).also{
+            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
             it.recolour(Color(1f,1f,0f,1f))
         }
-        tb = TextBox("Kannst du die engel sehen? Sie widen fallen nur für dich. Kannst du die engel sehen? Hey",24,Color(1f,1f,1f,1f),w=GetLcs.byLcs(0.5f),h=GetLcs.byLcs(1f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.5f))
+        tb = TextBox("Kannst du die engel sehen? Sie widen fallen nur für dich. Kannst du die engel sehen? Hey",24,Color(1f,1f,1f,1f),w= GetLcs.byLcs(0.5f),h= GetLcs.byLcs(1f)).also{
+            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
         }
         println(GetLcs.byLcs(0.5f).asPixel())
 

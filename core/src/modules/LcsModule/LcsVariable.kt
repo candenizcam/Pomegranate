@@ -1,4 +1,4 @@
-package LcsModule
+package modules.LcsModule
 
 /** A variable to be used for LCS usage
  * v is a LCS value
@@ -17,11 +17,11 @@ class LcsVariable(private val v: Float, private val coeff: Float) {
         return LcsVariable(v + other.asLcs(), coeff)
     }
 
-    fun minus(other: LcsVariable): LcsVariable{
+    fun minus(other: LcsVariable): LcsVariable {
         return LcsVariable(v - other.asLcs(), coeff)
     }
 
-    operator fun div(other:LcsVariable): LcsVariable{
-        return LcsVariable(v/ other.asLcs(), coeff)
+    operator fun div(other: LcsVariable): LcsVariable {
+        return LcsVariable(v / other.asLcs(), coeff)
     }
 }
