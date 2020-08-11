@@ -1,0 +1,103 @@
+microphone.png
+size: 1820, 400
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+broken
+  rotate: false
+  xy: 0, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: -1
+hot
+  rotate: false
+  xy: 260, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 1
+hot
+  rotate: false
+  xy: 520, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 2
+hot
+  rotate: false
+  xy: 780, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 3
+hot
+  rotate: false
+  xy: 1040, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 4
+izel
+  rotate: false
+  xy: 1300, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 1
+izel
+  rotate: false
+  xy: 1560, 0
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 2
+izel
+  rotate: false
+  xy: 0, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 3
+izel
+  rotate: false
+  xy: 260, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 4
+working
+  rotate: false
+  xy: 520, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: -1
+stuck
+  rotate: false
+  xy: 780, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 1
+stuck
+  rotate: false
+  xy: 1040, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 2
+stuck
+  rotate: false
+  xy: 1300, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 4
+stuck
+  rotate: false
+  xy: 1560, 200
+  size: 260, 200
+  orig: 260, 200
+  offset: 0, 0
+  index: 3
