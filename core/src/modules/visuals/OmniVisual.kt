@@ -1,5 +1,6 @@
 package modules.visuals
 
+import com.badlogic.gdx.graphics.Color
 import modules.LcsModule.GetLcs
 import modules.LcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -23,6 +24,8 @@ abstract class OmniVisual(x:lv= GetLcs.byLcs(0f), y: lv= GetLcs.byLcs(0f), w: lv
     abstract fun changeActiveSprite(ns: Int)
 
     abstract fun update()
+
+    abstract fun recolour(c: Color)
 
 
 

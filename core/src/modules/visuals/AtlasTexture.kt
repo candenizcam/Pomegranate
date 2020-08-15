@@ -1,5 +1,6 @@
 package modules.visuals
 
+import com.badlogic.gdx.graphics.Color
 import modules.LcsModule.GetLcs
 import modules.LcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -65,6 +66,12 @@ open class AtlasTexture(private val path: String, val region: String="", w: lv =
 
             }
             return it.toList()
+        }
+    }
+
+    override fun recolour(c: Color) {
+        sprites.forEach {
+            it.color = c
         }
     }
 

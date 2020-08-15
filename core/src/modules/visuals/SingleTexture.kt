@@ -3,6 +3,7 @@ package modules.visuals
 import modules.LcsModule.GetLcs
 import modules.LcsModule.LcsVariable as lv
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -34,6 +35,10 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
 
     override fun changeActiveSprite(ns: Int) {}
     override fun update() {}
+
+    override fun recolour(c: Color) {
+        s.color = c
+    }
 
 
     private fun createSprite(): Sprite {

@@ -40,5 +40,12 @@ object GetLcs {
         return LcsVariable(initialHeight / lcsCoeff * times, lcsCoeff)
     }
 
+    /** Returns a 0 valued LCS variable
+     *
+     */
+    fun ofZero(): LcsVariable {
+        return LcsVariable(0f,lcsCoeff)
+    }
+
 
 }

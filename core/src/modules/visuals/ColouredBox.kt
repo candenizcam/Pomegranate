@@ -43,7 +43,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
 
     /** Changes the colour of the block
      */
-    fun recolour(c: Color){
+    override fun recolour(c: Color){
         s.color = c
     }
 
@@ -51,7 +51,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
      * also, boy do i like this little bit of code
      */
     private fun createSprite(): Sprite {
-        Pixmap(width.asPixel().toInt(), height.asPixel().toInt(), Pixmap.Format.RGBA8888).also {
+        Pixmap(width.asPixel().toInt()+1, height.asPixel().toInt()+1, Pixmap.Format.RGBA8888).also {
             it.setColor(1f,1f,1f,1f)
             it.fill()
             Sprite(Texture(it)).also { it2->

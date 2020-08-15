@@ -14,28 +14,27 @@ import modules.LcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class TextBox(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=-1, var padding: lv=GetLcs.byLcs(0f)): OmniVisual(w, h) {
+class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=-1, var padding: lv=GetLcs.byLcs(0f)): OmniVisual(w, h) {
+    var initSize = size
     var displayText= text
     var gl = GlyphLayout()
     init{
         width = w
         height = h
     }
-    var font = createFont(size).also{
-        it.color = colour
-    }
+    var font = createFont(colour)
 
 
 
     override fun relocate(x: lv, y: lv) {
         cX = x
         cY = y
-        println("width is ${width.asPixel()}")
     }
 
     override fun resize(w: lv, h: lv) {
         width = w
         height = h
+        font = createFont(font.color)
     }
 
     override fun draw(batch: SpriteBatch) {
@@ -55,6 +54,9 @@ class TextBox(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1
     override fun changeActiveSprite(ns: Int) {}
 
     override fun update() {}
+    override fun recolour(c: Color) {
+        font = createFont(c)
+    }
 
     /** Reduces the size of the display string by squeezing it into the defined box
      */
@@ -100,18 +102,19 @@ class TextBox(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1
         return outPunto
     }
 
-    private fun createFont(size: Int): BitmapFont {
+    private fun createFont(color: Color): BitmapFont {
         val ftfg = FreeTypeFontGenerator(Gdx.files.internal("fonts/PTMono-Regular.ttf"))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
-        parameter.color = Color(1f,1f,1f,1f)
-        parameter.size = size
-        if (size==0){
+        parameter.color = color
+        parameter.size = initSize
+        if (initSize==0){
             parameter.size = 3
             parameter.size = reduceToPunto(displayText, parameter, ftfg)
         }
         return ftfg.generateFont(parameter).also {
             displayText = reduceToHeight(displayText,it)
             gl = GlyphLayout(it, displayText,it.color,width.asPixel(),align,true)
+
             ftfg.dispose()
         }
     }
