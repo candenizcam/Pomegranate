@@ -9,13 +9,14 @@ import modules.LcsModule.LcsVariable
 abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
     override var block: LcsRect = rect
     protected var elements =  mutableListOf<UiElement>()
+    protected var blocks =  mutableListOf<LcsRect>()
     protected var stepsList = listOf(1f)
     init{
         isEquallyDividedTo(1)
     }
 
 
-    abstract fun replaceElement(n: Int, e: UiElement, stretch: Boolean=false)
+
     abstract fun isDividedToBiased(n: List<Float>)
 
     private fun updateBlock(){
@@ -48,9 +49,21 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
     }
 
     override fun draw(batch: SpriteBatch) {
-        elements.forEach {
-            it.draw(batch)
+        if(visible){
+            elements.forEach {
+                it.draw(batch)
+            }
         }
+
+    }
+
+    fun replaceElement(n: Int, e: UiElement, stretch: Boolean){
+        e.stretch = stretch
+        if(stretch){
+            e.resize(blocks[n].width,blocks[n].height)
+        }
+        e.relocate(blocks[n].cX,blocks[n].cY)
+        elements[n] = e
     }
 
 }

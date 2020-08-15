@@ -2,11 +2,12 @@ package modules.Layout
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.LcsModule.GetLcs
+import modules.LcsModule.GetLcsRect
 import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
 
-class PlaceholderElement(id: String, rect : LcsRect): UiElement(id) {
-    override var block = rect
+class PlaceholderElement(id: String): UiElement(id) {
+    override var block = GetLcsRect.getZero()
 
     override fun update() {}
 

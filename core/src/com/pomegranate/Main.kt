@@ -11,6 +11,7 @@ import modules.Layout.OmniLayout
 import modules.Layout.PinupImage
 import modules.Layout.RowLayout
 import modules.LcsModule.GetLcsRect
+import modules.LcsModule.LcsVariable
 import modules.visuals.BlockText
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
@@ -56,13 +57,13 @@ class Main : ApplicationAdapter() {
          */
         val rr1 = ColLayout("testRows",GetLcsRect.byBorders(GetLcs.ofWidth(0f),GetLcs.ofWidth(1f),GetLcs.ofHeight(0f),GetLcs.ofHeight(1f))).also {
             it.isDividedToBiased(listOf(5f,1f,4f))
-            PinupImage("i1",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.BLUE), width= GetLcs.byLcs(0.5f),height = GetLcs.byLcs(0.5f)).also{it2->
+            PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
                 it.replaceElement(0,it2, true)
             }
-            PinupImage("i2",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.RED), width= GetLcs.byLcs(0.5f),height = GetLcs.byLcs(0.5f)).also{it2->
+            PinupImage("i2",ColouredBox(colour =  Color.RED)).also{it2->
                 it.replaceElement(1,it2,true)
             }
-            PinupImage("i3",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.WHITE), width= GetLcs.byLcs(0.5f),height = GetLcs.byLcs(0.5f)).also{it2->
+            PinupImage("i3",ColouredBox(colour = Color.WHITE)).also{it2->
                 it.replaceElement(2,it2, true)
             }
 
@@ -70,20 +71,16 @@ class Main : ApplicationAdapter() {
 
         rl = RowLayout("testRows",GetLcsRect.byBorders(GetLcs.ofWidth(0f),GetLcs.ofWidth(1f),GetLcs.ofHeight(0f),GetLcs.ofHeight(1f))).also {
             it.isDividedToBiased(listOf(5f,1f,4f))
-            PinupImage("i1",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.CORAL), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                it.replaceElement(0,it2, true)
-            }
-            PinupImage("i1",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                it.replaceElement(0,it2, true)
-            }
             it.replaceElement(0,rr1,true)
-            PinupImage("i2",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.GOLD), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
+
+            PinupImage("i22",ColouredBox(colour =  Color.CYAN), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
                 it.replaceElement(1,it2,true)
             }
-            PinupImage("i3",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.BLACK), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                it.replaceElement(2,it2, true)
+            PinupImage("i2g",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.DARK_GRAY),GetLcsRect.byParameters(GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f)),true).also{ it2->
+                it.replaceElement(1,it2,false)
             }
-            PinupImage("i3",ls,GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
+
+            PinupImage("i3",ls,width = GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
                 it.replaceElement(2,it2,true)
             }
         }

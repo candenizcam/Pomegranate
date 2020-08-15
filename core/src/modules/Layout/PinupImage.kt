@@ -8,27 +8,44 @@ import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
 import modules.visuals.OmniVisual
 
-class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariable= GetLcs.byPixel(0f), var height: LcsVariable = GetLcs.byPixel(0f)): UiElement(id) {
-    var cX = GetLcs.byPixel(0f)
-    var cY = GetLcs.byPixel(0f)
+/** Used to display a single OmniVisual
+ */
+class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariable= GetLcs.byPixel(0f), var height: LcsVariable = GetLcs.byPixel(0f), fitImage: Boolean=true): UiElement(id) {
+    var cX = GetLcs.ofZero()
+    var cY = GetLcs.ofZero()
     override lateinit var block: LcsRect
     init{
-        if ((width.asPixel() == 0f) || (height.asPixel() == 0f)){
+        if (fitImage){
             width = image.width
             height = image.height
         } else {
             image.resize(width,height)
         }
         block = GetLcsRect.byParameters(image.width,image.height,GetLcs.byLcs(0f),GetLcs.byLcs(0f))
+        println("init $id")
     }
+
+    /** This constructor enables a block input
+     */
+    constructor(id: String, image: OmniVisual, block: LcsRect, fitImage: Boolean =false) : this(id,image,fitImage=fitImage){
+        this.block = block
+        width = block.width
+        height = block.height
+        if (fitImage){
+            this.image.resize(width,height)
+        }
+        this.image.relocate(block.cX,block.cY)
+    }
+
 
     override fun draw(batch: SpriteBatch) {
-        image.draw(batch)
+        if(visible){
+            image.draw(batch)
+        }
+
     }
 
-    override fun update() {
-
-    }
+    override fun update() {}
 
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         cX = x
