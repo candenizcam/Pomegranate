@@ -47,5 +47,12 @@ object GetLcs {
         return LcsVariable(0f,lcsCoeff)
     }
 
+    fun ofX(): LcsVariable {
+        return LcsVariable(Gdx.input.x.toFloat()/Gdx.graphics.width*initialWidth/lcsCoeff,lcsCoeff)
+    }
+
+    fun ofY(): LcsVariable {
+        return LcsVariable((1-Gdx.input.y.toFloat()/Gdx.graphics.height)*initialHeight/lcsCoeff,lcsCoeff)
+    }
 
 }

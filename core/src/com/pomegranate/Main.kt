@@ -6,12 +6,12 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.Layout.ColLayout
-import modules.Layout.OmniLayout
-import modules.Layout.PinupImage
-import modules.Layout.RowLayout
+import modules.uiElements.Layouts.ColLayout
+import modules.uiElements.Layouts.OmniLayout
+import modules.uiElements.PinupImage
+import modules.uiElements.Layouts.RowLayout
 import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsVariable
+import modules.uiElements.SetButton
 import modules.visuals.BlockText
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
@@ -55,7 +55,7 @@ class Main : ApplicationAdapter() {
         }
 
          */
-        val rr1 = ColLayout("testRows",GetLcsRect.byBorders(GetLcs.ofWidth(0f),GetLcs.ofWidth(1f),GetLcs.ofHeight(0f),GetLcs.ofHeight(1f))).also {
+        val rr1 = ColLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
             it.isDividedToBiased(listOf(5f,1f,4f))
             PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
                 it.replaceElement(0,it2, true)
@@ -69,7 +69,7 @@ class Main : ApplicationAdapter() {
 
         }
 
-        rl = RowLayout("testRows",GetLcsRect.byBorders(GetLcs.ofWidth(0f),GetLcs.ofWidth(1f),GetLcs.ofHeight(0f),GetLcs.ofHeight(1f))).also {
+        rl = RowLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
             it.isDividedToBiased(listOf(5f,1f,4f))
             it.replaceElement(0,rr1,true)
 
@@ -80,8 +80,16 @@ class Main : ApplicationAdapter() {
                 it.replaceElement(1,it2,false)
             }
 
-            PinupImage("i3",ls,width = GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                it.replaceElement(2,it2,true)
+            SetButton("sb", GetLcsRect.byParameters(GetLcs.byLcs(0.2f),GetLcs.byLcs(0.2f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f))).also{it2->
+                it2.block = GetLcsRect.byParameters(GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f))
+                ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.FIREBRICK).also{sbon->
+                    ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.BROWN).also{sboff->
+                        it2.setVisuals(sbon,sboff,true)
+                    }
+                }
+
+                it2.clicked = {println("clickedbetter")}
+                it.replaceElement(2,it2,false)
             }
         }
     }
@@ -89,6 +97,8 @@ class Main : ApplicationAdapter() {
     override fun render() {
         Gdx.gl.glClearColor(0.4f, 0.05f, 0.1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
+        rl.update()
+        //println("click: ${GetLcs.ofX().asPixel()} ${GetLcs.ofY().asPixel()}")
         batch.begin()
         //box.draw(batch)
         //tb.draw(batch)

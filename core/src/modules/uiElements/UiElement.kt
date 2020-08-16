@@ -1,4 +1,4 @@
-package modules.Layout
+package modules.uiElements
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.LcsModule.LcsRect
@@ -10,6 +10,7 @@ abstract class UiElement(var id: String) {
 
 
     var visible = true
+
 
     abstract fun update()
     abstract fun relocate(x: LcsVariable, y: LcsVariable)

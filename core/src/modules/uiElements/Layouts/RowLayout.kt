@@ -1,9 +1,9 @@
-package modules.Layout
+package modules.uiElements.Layouts
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.LcsModule.GetLcsRect
 import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.uiElements.PlaceholderElement
+import modules.uiElements.UiElement
 
 class RowLayout(id: String, rect: LcsRect): OmniLayout(id, rect) {
 

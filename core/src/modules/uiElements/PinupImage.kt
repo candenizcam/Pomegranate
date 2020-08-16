@@ -1,4 +1,4 @@
-package modules.Layout
+package modules.uiElements
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -14,6 +14,7 @@ class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariabl
     var cX = GetLcs.ofZero()
     var cY = GetLcs.ofZero()
     override lateinit var block: LcsRect
+
     init{
         if (fitImage){
             width = image.width
@@ -36,6 +37,7 @@ class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariabl
         }
         this.image.relocate(block.cX,block.cY)
     }
+
 
 
     override fun draw(batch: SpriteBatch) {

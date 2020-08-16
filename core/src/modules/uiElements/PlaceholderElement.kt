@@ -1,9 +1,7 @@
-package modules.Layout
+package modules.uiElements
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcs
 import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
 
 class PlaceholderElement(id: String): UiElement(id) {

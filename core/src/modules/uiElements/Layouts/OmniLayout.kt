@@ -1,9 +1,10 @@
-package modules.Layout
+package modules.uiElements.Layouts
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.LcsModule.GetLcsRect
 import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
+import modules.uiElements.UiElement
 
 
 abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
@@ -40,7 +41,11 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
         isDividedToBiased(b)
     }
 
-    override fun update() {}
+    override fun update() {
+        elements.forEach {
+            it.update()
+        }
+    }
 
     /** Relocates the layout, to a spesific x y location
      */
