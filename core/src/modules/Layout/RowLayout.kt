@@ -8,6 +8,8 @@ import modules.LcsModule.LcsVariable
 class RowLayout(id: String, rect: LcsRect): OmniLayout(id, rect) {
 
 
+    /** Makes a biased partition of rows based on a bias array
+     */
     override fun isDividedToBiased(n: List<Float>){
         stepsList = n
         val total = n.sum()

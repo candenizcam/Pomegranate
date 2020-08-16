@@ -17,8 +17,10 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
 
 
 
-    abstract fun isDividedToBiased(n: List<Float>)
+    abstract fun isDividedToBiased(n: List<Float>) //divides the layout to a list of bias numbers
 
+    /** This function is a helper to reorganise all the elements after a difference is made to the block
+     */
     private fun updateBlock(){
         val bottle = elements
         isDividedToBiased(stepsList)
@@ -27,6 +29,9 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
         }
     }
 
+    /** Creates an equally divided layout with n members
+     * This class works with isDividedToBiased but it has simpler usage
+     */
     fun isEquallyDividedTo(n: Int){
         val b = mutableListOf<Float>()
         for(i in 0 until n){
@@ -36,13 +41,16 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
     }
 
     override fun update() {}
+
+    /** Relocates the layout, to a spesific x y location
+     */
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         block = GetLcsRect.byParameters(block.width,block.height,x,y)
         updateBlock()
-
-
     }
 
+    /** Resizes the layout to a spesific width and height location
+     */
     override fun resize(w: LcsVariable, h: LcsVariable) {
         block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
         updateBlock()
@@ -54,9 +62,10 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
                 it.draw(batch)
             }
         }
-
     }
 
+    /** Replaces the nth element of the layout this function is the standard way to put an element to the layout
+     */
     fun replaceElement(n: Int, e: UiElement, stretch: Boolean){
         e.stretch = stretch
         if(stretch){
