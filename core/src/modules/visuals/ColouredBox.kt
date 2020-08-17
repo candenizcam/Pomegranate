@@ -12,6 +12,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     private var s: Sprite = createSprite() //creates a block with the relevant colour
 
 
+
     override fun relocate(x: lv, y: lv) {
         cX = x
         cY = y
@@ -44,6 +45,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     /** Changes the colour of the block
      */
     override fun recolour(c: Color){
+        colour = c
         s.color = c
     }
 

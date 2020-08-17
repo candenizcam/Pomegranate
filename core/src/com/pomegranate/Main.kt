@@ -32,152 +32,36 @@ class Main : ApplicationAdapter() {
     override fun create() {
         GetLcs.lcsInitialize()
         batch = SpriteBatch()
-        ls = SingleTexture("badlogic.jpg", GetLcs.byLcs(0.5f), GetLcs.byLcs(0.5f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
-        }
-        box = ColouredBox(GetLcs.byLcs(0.7f), GetLcs.byLcs(0.2f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
-            it.recolour(Color(0.2f,0.2f,0f,1f))
-        }
-        val s = "Kannst du die engel sehen?\n" +
-                "Sie widen fallen nur für dich.\n" +
-                "Kannst du die engel sehen?\n" +
-                "Hey"
-        tb = BlockText(s,0,Color(1f,0f,1f,1f),w= GetLcs.byLcs(0.7f),h= GetLcs.byLcs(0.2f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
-            it.recolour(Color(0f,1f,1f,1f))
-        }
-        /*
-        ColouredBox(GetLcs.byLcs(0.7f), GetLcs.byLcs(0.1f)).also{
-            it.relocate(GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
-            it.recolour(Color(0.2f,0.6f,0f,1f))
-        }.also {
-            pi = PinupImage(it, GetLcs.byPixel(0f),GetLcs.byPixel(0f)).also{it2->
-                it2.relocate(GetLcs.byLcs(0.5f),GetLcs.byLcs(0.055f))
-                it2.recolour(Color(0f,0.1f,0f,1f))
-            }
+        val image_1 = ColouredBox().also{
+            it.recolour(Color.CYAN)
         }
 
-         */
-        val rr2 =ColLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
-            it.divideBlocksToBiased(listOf(5f,1f,4f))
-            PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
-                it.replaceElement(0,it2, true)
-            }
-            PinupImage("testRows_1",ColouredBox(colour =  Color.RED)).also{it2->
-                it.replaceElement(1,it2,true)
-            }
-            PinupImage("i3",ColouredBox(colour = Color.WHITE)).also{it2->
-                it.replaceElement(2,it2, true)
-            }
-            //it.replaceElement(0,rr1,false)
-
+        val image_2 = ColouredBox().also{
+            it.recolour(Color.DARK_GRAY)
+        }
+        val image_3 = ColouredBox().also{
+            it.recolour(Color.FOREST)
         }
 
-
-        val rr1 = PinboardLayout("testPin",GetLcsRect.ofFullScreen()).also{
-            PinupImage("i",ColouredBox(colour =  Color.LIGHT_GRAY), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                //it.replaceElement(1,it2,true)
-                it.addElement(it2, GetLcsRect.ofFullScreen(),true)
-            }
-
-            PinupImage("i22",ColouredBox(colour =  Color.CYAN), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                //it.replaceElement(1,it2,true)
-                it.addElement(it2, GetLcsRect.byBorders(GetLcs.ofWidth(0.3f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.3f),GetLcs.ofHeight(0.5f)),true)
-            }
-
-            PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                it.removeElement("i223")
-                it.addElement(it2, GetLcsRect.byBorders(GetLcs.ofWidth(0.6f),GetLcs.ofWidth(0.8f),GetLcs.ofHeight(0.6f),GetLcs.ofHeight(0.8f)),true)
-            }
-            PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-
-                it.addPlot("comeonlan", 0.1f,0.2f,0.2f,0.4f)
-                //it.replaceElement("comeonlan",rr2,true)
-            }
-
-
-
+        val sampleLayout = ColLayout("sampleRow",rect = GetLcsRect.ofFullScreen()).also{
+            it.divideBlocksToBiased(listOf(GetLcs.initialWidth-GetLcs.lcsCoeff,GetLcs.lcsCoeff*2,GetLcs.initialWidth-GetLcs.lcsCoeff))
         }
-
-
-/*
-        val rr1 =ColLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
-            it.divideBlocksToBiased(listOf(5f,1f,4f))
-            PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
-                it.replaceElement(0,it2, true)
-            }
-            PinupImage("i2",ColouredBox(colour =  Color.RED)).also{it2->
-                it.replaceElement(1,it2,true)
-            }
-            PinupImage("i3",ColouredBox(colour = Color.WHITE)).also{it2->
-                it.replaceElement(2,it2, true)
-            }
-            //it.replaceElement(0,rr1,false)
-
-        }
-
- */
-
-
-
-        rl = RowLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
-            it.divideBlocksToBiased(listOf(5f,1f,4f))
-            it.replaceElement(0,rr1,true)
-
-            PinupImage("i22",ColouredBox(colour =  Color.CYAN), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
-                it.replaceElement(1,it2,true)
-            }
-            PinupImage("i2g",ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.DARK_GRAY),GetLcsRect.byParameters(GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f)),true).also{ it2->
-                it.replaceElement(1,it2,false)
-            }
-
-            SetButton("sb", GetLcsRect.byParameters(GetLcs.byLcs(0.2f),GetLcs.byLcs(0.2f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f))).also{it2->
-                it2.block = GetLcsRect.byParameters(GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f),GetLcs.byLcs(0.1f))
-                ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.FIREBRICK).also{sbon->
-                    ColouredBox(GetLcs.ofWidth(1f),GetLcs.ofHeight(1f), Color.BROWN).also{sboff->
-                        it2.setVisuals(sbon,sboff,true)
-                    }
-                }
-
-                it2.clicked = {println("clickedbetter")}
-                it.replaceElement(2,it2,false)
-            }
-        }
-        val e = rl.getElement("testPin")
-        println(e.id)
-        if(e is PinupImage){
-            e.recolour(Color.FOREST)
-        }
-
-        val sampleLayout = RowLayout("sampleRow",rect = GetLcsRect.ofFullScreen()).also{
-            it.isEquallyDividedTo(3)
-        }
-
-
         sc = Scene("s1",1f)
         sc.getMainLayout().also {
             if(it is PinboardLayout){
                 it.addElement(sampleLayout, GetLcsRect.ofFullScreen(),true)
             }
         }
-        
-        sc.replaceElement("sampleRow&sampleRow_0",rr2,true)
-        sc.replaceElement("sampleRow&testRows&i3",rr1,true)
+        sc.replaceElement("sampleRow&sampleRow_0",SetButton("button_1",image_1,image_2),true)
+        sc.replaceElement("sampleRow&sampleRow_2",PinupImage("pi1",image_3),true)
 
     }
 
     override fun render() {
         Gdx.gl.glClearColor(0.4f, 0.05f, 0.1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        //rl.update()
-        //println("click: ${GetLcs.ofX().asPixel()} ${GetLcs.ofY().asPixel()}")
         sc.update()
-
         batch.begin()
-        //box.draw(batch)
-        //tb.draw(batch)
-        //rl.draw(batch)
         sc.draw(batch)
         batch.end()
     }
