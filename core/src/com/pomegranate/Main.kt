@@ -57,6 +57,21 @@ class Main : ApplicationAdapter() {
         }
 
          */
+        val rr2 =ColLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
+            it.divideBlocksToBiased(listOf(5f,1f,4f))
+            PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
+                it.replaceElement(0,it2, true)
+            }
+            PinupImage("i2",ColouredBox(colour =  Color.RED)).also{it2->
+                it.replaceElement(1,it2,true)
+            }
+            PinupImage("i3",ColouredBox(colour = Color.WHITE)).also{it2->
+                it.replaceElement(2,it2, true)
+            }
+            //it.replaceElement(0,rr1,false)
+
+        }
+
 
         val rr1 = PinboardLayout("testPin",GetLcsRect.ofFullScreen()).also{
             PinupImage("i",ColouredBox(colour =  Color.LIGHT_GRAY), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
@@ -71,13 +86,12 @@ class Main : ApplicationAdapter() {
 
             PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
                 it.removeElement("i223")
-                //it.replaceElement(1,it2,true)
                 it.addElement(it2, GetLcsRect.byBorders(GetLcs.ofWidth(0.6f),GetLcs.ofWidth(0.8f),GetLcs.ofHeight(0.6f),GetLcs.ofHeight(0.8f)),true)
             }
             PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
 
                 it.addPlot("comeonlan", 0.1f,0.2f,0.2f,0.4f)
-                it.replaceElement("comeonlan",it2,true)
+                it.replaceElement("comeonlan",rr2,true)
             }
 
 
