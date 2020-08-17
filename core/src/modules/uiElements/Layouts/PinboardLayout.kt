@@ -72,20 +72,7 @@ class PinboardLayout(id:String, rect: LcsRect): OmniLayout(id,rect) {
         }
     }
 
-    /** Overloads the above function
-     *
-     */
-    fun replaceElement(id:String,e: UiElement, stretch: Boolean=false){
-        e.stretch = stretch
-        elements.forEach {
-            if(it.id==id){
-                val i = elements.indexOfFirst {it2-> it2.id == id }
-                adjustElementTo(e,subBlocks[i])
-                elements[i] = e
-                return
-            }
-        }
-    }
+
 
 
     /** Adjusts subblocks to new block

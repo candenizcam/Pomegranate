@@ -11,6 +11,7 @@ import modules.uiElements.Layouts.OmniLayout
 import modules.uiElements.PinupImage
 import modules.uiElements.Layouts.RowLayout
 import modules.LcsModule.GetLcsRect
+import modules.scenes.Scene
 import modules.uiElements.Layouts.PinboardLayout
 import modules.uiElements.SetButton
 import modules.visuals.BlockText
@@ -26,6 +27,7 @@ class Main : ApplicationAdapter() {
     lateinit var tb: BlockText
     lateinit var pi: PinupImage
     lateinit var rl: OmniLayout
+    lateinit var sc: Scene
 
     override fun create() {
         GetLcs.lcsInitialize()
@@ -62,7 +64,7 @@ class Main : ApplicationAdapter() {
             PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
                 it.replaceElement(0,it2, true)
             }
-            PinupImage("i2",ColouredBox(colour =  Color.RED)).also{it2->
+            PinupImage("testRows_1",ColouredBox(colour =  Color.RED)).also{it2->
                 it.replaceElement(1,it2,true)
             }
             PinupImage("i3",ColouredBox(colour = Color.WHITE)).also{it2->
@@ -142,19 +144,43 @@ class Main : ApplicationAdapter() {
                 it.replaceElement(2,it2,false)
             }
         }
+        val e = rl.getElement("testPin")
+        println(e.id)
+        if(e is PinupImage){
+            e.recolour(Color.FOREST)
+        }
 
+        val sampleLayout = RowLayout("sampleRow",rect = GetLcsRect.ofFullScreen()).also{
+            it.isEquallyDividedTo(3)
+        }
+
+
+        sc = Scene("s1",1f)
+        sc.getMainLayout().also {
+            if(it is PinboardLayout){
+                it.addElement(sampleLayout, GetLcsRect.ofFullScreen(),true)
+            }
+            it.getElement("sampleRow").also{it2->
+                if(it2 is OmniLayout){
+                    it2.replaceElement("sampleRow_1",rr2,true)
+                }
+            }
+        }
 
     }
 
     override fun render() {
         Gdx.gl.glClearColor(0.4f, 0.05f, 0.1f, 1f)
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        rl.update()
+        //rl.update()
         //println("click: ${GetLcs.ofX().asPixel()} ${GetLcs.ofY().asPixel()}")
+        sc.update()
+
         batch.begin()
         //box.draw(batch)
         //tb.draw(batch)
-        rl.draw(batch)
+        //rl.draw(batch)
+        sc.draw(batch)
         batch.end()
     }
 

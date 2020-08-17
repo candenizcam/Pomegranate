@@ -6,6 +6,7 @@ import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
 import modules.uiElements.PlaceholderElement
 import modules.uiElements.UiElement
+import java.lang.Exception
 
 
 abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
@@ -22,7 +23,10 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
                 try{
                     elements[index]
                 } catch(e: IndexOutOfBoundsException){
-                    elements.add(PlaceholderElement("${id}n"))
+                    elements.forEach {
+                        if(it.id=="${id}_$index") throw Exception("ID clash at $id")
+                    }
+                    elements.add(PlaceholderElement("${id}_$index"))
                 }
             }
             adjustElements()
@@ -68,7 +72,52 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
      */
     fun replaceElement(n: Int, e: UiElement, stretch: Boolean){
         e.stretch = stretch
-        elements[n] = adjustElementTo(e,subBlocks[n])
+        for (i in elements.indices){
+            if(i==n){
+                elements[n] = adjustElementTo(e,subBlocks[n])
+            } else{
+                if (elements[i].id==e.id) throw Exception("ID clash at $id")
+            }
+        }
+    }
+
+    /** Overloads the above function
+     *
+     */
+    fun replaceElement(id:String,e: UiElement, stretch: Boolean=false){
+        e.stretch = stretch
+        elements.forEach {
+            if(it.id==id){
+                val i = elements.indexOfFirst {it2-> it2.id == id }
+                adjustElementTo(e,subBlocks[i])
+                elements[i] = e
+                return
+            } else if(it.id==e.id){
+                throw Exception("ID clash at $id")
+            }
+        }
+    }
+
+
+
+    fun getElement(id:String): UiElement {
+        val l = id.split("&")
+        elements.forEach {
+            if (it.id ==l.first()){
+                return if(l.size==1){
+                    it
+                } else{
+                    if(it is OmniLayout){
+                        it.getElement(l.subList(1,l.lastIndex+1).joinToString("&"))
+                    } else{
+                        throw Exception("id depth is not matched")
+                    }
+
+                }
+            }
+        }
+        throw Exception("id not found")
+
     }
 
 
