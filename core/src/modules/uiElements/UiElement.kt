@@ -17,4 +17,12 @@ abstract class UiElement(var id: String) {
     abstract fun resize(w: LcsVariable, h: LcsVariable)
     abstract fun draw(batch: SpriteBatch)
 
+    protected fun adjustElementTo(e: UiElement, r: LcsRect): UiElement {
+        if(e.stretch){
+            e.resize(r.width,r.height)
+        }
+        e.relocate(r.cX,r.cY)
+        return e
+    }
+
 }

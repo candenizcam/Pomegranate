@@ -34,4 +34,8 @@ object GetLcsRect {
         val l = GetLcs.ofZero()
         return LcsRect(l,l,l,l,l,l,l,l)
     }
+
+    fun ofFullScreen():LcsRect{
+        return GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))
+    }
 }

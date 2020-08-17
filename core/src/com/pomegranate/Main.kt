@@ -11,6 +11,7 @@ import modules.uiElements.Layouts.OmniLayout
 import modules.uiElements.PinupImage
 import modules.uiElements.Layouts.RowLayout
 import modules.LcsModule.GetLcsRect
+import modules.uiElements.Layouts.PinboardLayout
 import modules.uiElements.SetButton
 import modules.visuals.BlockText
 import modules.visuals.ColouredBox
@@ -25,6 +26,7 @@ class Main : ApplicationAdapter() {
     lateinit var tb: BlockText
     lateinit var pi: PinupImage
     lateinit var rl: OmniLayout
+
     override fun create() {
         GetLcs.lcsInitialize()
         batch = SpriteBatch()
@@ -55,8 +57,30 @@ class Main : ApplicationAdapter() {
         }
 
          */
-        val rr1 = ColLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
-            it.isDividedToBiased(listOf(5f,1f,4f))
+
+        val rr1 = PinboardLayout("testPin",GetLcsRect.ofFullScreen()).also{
+            PinupImage("i",ColouredBox(colour =  Color.LIGHT_GRAY), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
+                //it.replaceElement(1,it2,true)
+                it.addElement(it2, GetLcsRect.ofFullScreen(),true)
+            }
+
+            PinupImage("i22",ColouredBox(colour =  Color.CYAN), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
+                //it.replaceElement(1,it2,true)
+                it.addElement(it2, GetLcsRect.byBorders(GetLcs.ofWidth(0.3f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.3f),GetLcs.ofHeight(0.5f)),true)
+            }
+
+            PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
+                it.removeElement("i223")
+                //it.replaceElement(1,it2,true)
+                it.addElement(it2, GetLcsRect.byBorders(GetLcs.ofWidth(0.6f),GetLcs.ofWidth(0.8f),GetLcs.ofHeight(0.6f),GetLcs.ofHeight(0.8f)),true)
+            }
+
+        }
+
+
+/*
+        val rr1 =ColLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
+            it.divideBlocksToBiased(listOf(5f,1f,4f))
             PinupImage("i1",ColouredBox(colour= Color.BLUE)).also{it2->
                 it.replaceElement(0,it2, true)
             }
@@ -66,11 +90,16 @@ class Main : ApplicationAdapter() {
             PinupImage("i3",ColouredBox(colour = Color.WHITE)).also{it2->
                 it.replaceElement(2,it2, true)
             }
+            //it.replaceElement(0,rr1,false)
 
         }
 
+ */
+
+
+
         rl = RowLayout("testRows", GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))).also {
-            it.isDividedToBiased(listOf(5f,1f,4f))
+            it.divideBlocksToBiased(listOf(5f,1f,4f))
             it.replaceElement(0,rr1,true)
 
             PinupImage("i22",ColouredBox(colour =  Color.CYAN), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
@@ -92,6 +121,8 @@ class Main : ApplicationAdapter() {
                 it.replaceElement(2,it2,false)
             }
         }
+
+
     }
 
     override fun render() {
