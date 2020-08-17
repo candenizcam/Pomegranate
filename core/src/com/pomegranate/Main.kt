@@ -74,6 +74,13 @@ class Main : ApplicationAdapter() {
                 //it.replaceElement(1,it2,true)
                 it.addElement(it2, GetLcsRect.byBorders(GetLcs.ofWidth(0.6f),GetLcs.ofWidth(0.8f),GetLcs.ofHeight(0.6f),GetLcs.ofHeight(0.8f)),true)
             }
+            PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
+
+                it.addPlot("comeonlan", 0.1f,0.2f,0.2f,0.4f)
+                it.replaceElement("comeonlan",it2,true)
+            }
+
+
 
         }
 
