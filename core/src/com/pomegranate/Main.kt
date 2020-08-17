@@ -93,7 +93,7 @@ class Main : ApplicationAdapter() {
             PinupImage("i322",ColouredBox(colour =  Color.BLUE), width= GetLcs.byLcs(0.1f),height = GetLcs.byLcs(0.1f)).also{it2->
 
                 it.addPlot("comeonlan", 0.1f,0.2f,0.2f,0.4f)
-                it.replaceElement("comeonlan",rr2,true)
+                //it.replaceElement("comeonlan",rr2,true)
             }
 
 
@@ -160,12 +160,10 @@ class Main : ApplicationAdapter() {
             if(it is PinboardLayout){
                 it.addElement(sampleLayout, GetLcsRect.ofFullScreen(),true)
             }
-            it.getElement("sampleRow").also{it2->
-                if(it2 is OmniLayout){
-                    it2.replaceElement("sampleRow_1",rr2,true)
-                }
-            }
         }
+        
+        sc.replaceElement("sampleRow&sampleRow_0",rr2,true)
+        sc.replaceElement("sampleRow&testRows&i3",rr1,true)
 
     }
 
