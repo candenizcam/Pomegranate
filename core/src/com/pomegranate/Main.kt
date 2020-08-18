@@ -42,18 +42,51 @@ class Main : ApplicationAdapter() {
         val image_3 = ColouredBox().also{
             it.recolour(Color.FOREST)
         }
+        val image_4 = ColouredBox().also{
+            it.recolour(Color(1f,0f,0f,1f))
+        }
+
+        val image_5 = ColouredBox().also{
+            it.recolour(Color(0.5f,0f,0f,1f))
+        }
+        val image_6 = ColouredBox().also{
+            it.recolour(Color(0f,0f,1f,1f))
+        }
+
+        val image_7 = ColouredBox().also{
+            it.recolour(Color(0f,0f,0.5f,1f))
+        }
+        val image_8 = ColouredBox().also{
+            it.recolour(Color(0f,1f,0f,1f))
+        }
+
+        val image_9 = ColouredBox().also{
+            it.recolour(Color(0f,0.5f,0f,1f))
+        }
 
         val sampleLayout = ColLayout("sampleRow",rect = GetLcsRect.ofFullScreen()).also{
             it.divideBlocksToBiased(listOf(GetLcs.initialWidth-GetLcs.lcsCoeff,GetLcs.lcsCoeff*2,GetLcs.initialWidth-GetLcs.lcsCoeff))
         }
+        val sl2 = PinboardLayout("middleBoard",GetLcsRect.ofFullScreen()).also{
+            it.addPlot("deep",0.1f,0.4f,0.1f,0.4f)
+            it.addPlot("surf",0.3f,0.4f,0.3f,0.4f)
+            it.replaceElement("deep",SetButton("button_1",image_4,image_5),true)
+            it.replaceElement("surf",SetButton("button_2",image_6,image_7),true)
+            it.toTop("button_1")
+        }
+
         sc = Scene("s1",1f)
         sc.getMainLayout().also {
             if(it is PinboardLayout){
+
+                it.addPlot("above",0.1f,0.4f,0.1f,0.4f)
+                it.replaceElement("above",SetButton("button_3",image_8,image_9),true)
                 it.addElement(sampleLayout, GetLcsRect.ofFullScreen(),true)
             }
         }
         sc.replaceElement("sampleRow&sampleRow_0",SetButton("button_1",image_1,image_2),true)
         sc.replaceElement("sampleRow&sampleRow_2",PinupImage("pi1",image_3),true)
+        sc.replaceElement("sampleRow&sampleRow_1",sl2,true)
 
     }
 

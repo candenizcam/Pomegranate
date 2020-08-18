@@ -1,6 +1,7 @@
 package modules.uiElements.Layouts
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import modules.LcsModule.GetLcs
 import modules.LcsModule.GetLcsRect
 import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
@@ -117,6 +118,37 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
             }
         }
         throw Exception("id not found")
+
+    }
+
+    /** Handles touch for all hierarchies
+     */
+    override fun touchHandler(): Boolean {
+        subBlocks.reversed().forEachIndexed {index,it->
+            if(it.contains(GetLcs.ofX(),GetLcs.ofY())){
+                if (elements.reversed()[index].touchHandler()) return true
+            }
+        }
+        return false
+
+    }
+
+    fun toTop(id: String){
+        val n = elements.indexOfFirst {it.id==id  }
+        if(n<0){
+            throw Exception("Index Not Found")
+        }
+        subBlocks.add(subBlocks.removeAt(n))
+        elements.add(elements.removeAt(n))
+    }
+
+    fun toBottom(id: String){
+        val n = elements.indexOfFirst {it.id==id  }
+        if(n>=0){
+            throw Exception("Index Not Found")
+        }
+        subBlocks.add(0,subBlocks.removeAt(n))
+        elements.add(0,elements.removeAt(n))
 
     }
 

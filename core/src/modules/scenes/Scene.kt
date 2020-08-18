@@ -19,6 +19,7 @@ open class Scene(val id: String, var zOrder: Float, protected var layout: OmniLa
 
     fun update(){
         if(visible){
+            layout.touchHandler()
             layout.update()
         }
     }

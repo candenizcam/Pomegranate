@@ -19,6 +19,9 @@ class SetButton(id: String): UiElement(id) {
             field = value
             adjustVisuals()
         }
+
+
+
     private var drawIndex = 0
     private var visualList =  listOf<OmniVisual>()
     var clicked = {println("$id clicked")}
@@ -68,13 +71,10 @@ class SetButton(id: String): UiElement(id) {
         }
     }
 
-
-
-
-    /** Runs on every update
-     * is used particularly to adjust clicking
+    /** Handles touching
+     * hierarchy is handled by the callers in layout
      */
-    override fun update() {
+    override fun touchHandler(): Boolean {
         val containing = block.contains(GetLcs.ofX(),GetLcs.ofY())
         if (drawIndex==1){
             drawIndex = if (Gdx.input.isTouched){
@@ -88,7 +88,13 @@ class SetButton(id: String): UiElement(id) {
                 drawIndex = if(containing) 1 else 0
             }
         }
+        return containing
     }
+
+
+    /** Runs on every update
+     */
+    override fun update() {}
 
     /** Relocates the button to x y
      */

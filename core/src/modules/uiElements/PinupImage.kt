@@ -15,6 +15,7 @@ class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariabl
     var cY = GetLcs.ofZero()
     override lateinit var block: LcsRect
 
+
     init{
         if (fitImage){
             width = image.width
@@ -44,7 +45,10 @@ class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariabl
         if(visible){
             image.draw(batch)
         }
+    }
 
+    override fun touchHandler(): Boolean {
+        return GetLcsRect.byParameters(width,height,cX,cY).contains(GetLcs.ofX(),GetLcs.ofY())
     }
 
     override fun update() {}

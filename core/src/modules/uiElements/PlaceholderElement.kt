@@ -7,8 +7,9 @@ import modules.LcsModule.LcsVariable
 class PlaceholderElement(id: String): UiElement(id) {
     override var block = GetLcsRect.getZero()
 
-    override fun update() {}
 
+    override fun touchHandler(): Boolean {return false}
+    override fun update() {}
     override fun relocate(x: LcsVariable, y: LcsVariable) {}
     override fun resize(w: LcsVariable, h: LcsVariable) {}
 
