@@ -38,4 +38,8 @@ object GetLcsRect {
     fun ofFullScreen():LcsRect{
         return GetLcsRect.byBorders(GetLcs.ofWidth(0f), GetLcs.ofWidth(1f), GetLcs.ofHeight(0f), GetLcs.ofHeight(1f))
     }
+
+    fun ofCentreSquare(): LcsRect{
+        return GetLcsRect.byParameters(GetLcs.byLcs(1f),GetLcs.byLcs(1f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.5f))
+    }
 }

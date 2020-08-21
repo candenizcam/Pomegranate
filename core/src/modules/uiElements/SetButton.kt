@@ -115,6 +115,17 @@ class SetButton(id: String): UiElement(id) {
         }
     }
 
+    /*
+    override fun reblock(r: LcsRect) {
+        visualList.forEach {
+            it.resize(r.width,r.height)
+            it.relocate(r.cX,r.cY)
+        }
+        block = r
+    }
+
+     */
+
     /** Called on every draw
      */
     override fun draw(batch: SpriteBatch) {

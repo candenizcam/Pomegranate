@@ -10,36 +10,15 @@ import modules.visuals.OmniVisual
 
 /** Used to display a single OmniVisual
  */
-class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariable= GetLcs.byPixel(0f), var height: LcsVariable = GetLcs.byPixel(0f), fitImage: Boolean=true): UiElement(id) {
-    var cX = GetLcs.ofZero()
-    var cY = GetLcs.ofZero()
-    override lateinit var block: LcsRect
-
-
+class PinupImage(id:String, private var image: OmniVisual, override var block: LcsRect= GetLcsRect.getZero(), fitImage: Boolean=true): UiElement(id) {
     init{
         if (fitImage){
-            width = image.width
-            height = image.height
+            block = GetLcsRect.byParameters(image.width,image.height,GetLcs.ofZero(),GetLcs.ofZero())
         } else {
-            image.resize(width,height)
+            image.resize(block.width,block.height)
+            image.relocate(block.cX,block.cY)
         }
-        block = GetLcsRect.byParameters(image.width,image.height,GetLcs.byLcs(0f),GetLcs.byLcs(0f))
-        println("init $id")
     }
-
-    /** This constructor enables a block input
-     */
-    constructor(id: String, image: OmniVisual, block: LcsRect, fitImage: Boolean =false) : this(id,image,fitImage=fitImage){
-        this.block = block
-        width = block.width
-        height = block.height
-        if (fitImage){
-            this.image.resize(width,height)
-        }
-        this.image.relocate(block.cX,block.cY)
-    }
-
-
 
     override fun draw(batch: SpriteBatch) {
         if(visible){
@@ -48,24 +27,29 @@ class PinupImage(id:String, private var image: OmniVisual, var width: LcsVariabl
     }
 
     override fun touchHandler(): Boolean {
-        return GetLcsRect.byParameters(width,height,cX,cY).contains(GetLcs.ofX(),GetLcs.ofY())
+        return block.contains(GetLcs.ofX(),GetLcs.ofY())
     }
 
-    override fun update() {}
+    override fun update() {image.update()}
 
     override fun relocate(x: LcsVariable, y: LcsVariable) {
-        cX = x
-        cY = y
+        block = GetLcsRect.byParameters(block.width,block.height,x,y)
         image.relocate(x,y)
-        block = GetLcsRect.byParameters(image.width,image.height,image.cX,image.cY)
     }
 
     override fun resize(w: LcsVariable, h: LcsVariable) {
-        width=w
-        height=h
-        block = GetLcsRect.byParameters(image.width,image.height,image.cX,image.cY)
+        block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
         image.resize(w,h)
     }
+
+    /*
+    override fun reblock(r: LcsRect) {
+        image.resize(r.width,r.height)
+        image.relocate(r.cX,r.cY)
+        block = r
+    }
+
+     */
 
     fun recolour(c: Color){
         image.recolour(c)

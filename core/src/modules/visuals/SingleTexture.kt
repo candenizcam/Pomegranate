@@ -24,9 +24,11 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
     }
 
     override fun resize(w: lv, h: lv) {
-        width = w
-        height = h
-        s.setSize(width.asPixel(),height.asPixel())
+        if(!((w==width)&&(h==height))){
+            width = w
+            height = h
+            s.setSize(width.asPixel(),height.asPixel())
+        }
     }
 
     override fun draw(batch: SpriteBatch) {
@@ -38,6 +40,13 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
 
     override fun recolour(c: Color) {
         s.color = c
+    }
+
+    override fun copy(): OmniVisual {
+        SingleTexture(path,width,height).also {
+            it.relocate(cX,cY)
+            return it
+        }
     }
 
 

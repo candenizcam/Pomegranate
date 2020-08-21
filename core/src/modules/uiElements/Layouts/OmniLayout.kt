@@ -71,8 +71,7 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
 
     /** Replaces the nth element of the layout this function is the standard way to put an element to the layout
      */
-    fun replaceElement(n: Int, e: UiElement, stretch: Boolean){
-        e.stretch = stretch
+    fun replaceElement(n: Int, e: UiElement){
         for (i in elements.indices){
             if(i==n){
                 elements[n] = adjustElementTo(e,subBlocks[n])
@@ -85,8 +84,7 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
     /** Overloads the above function
      *
      */
-    fun replaceElement(id:String,e: UiElement, stretch: Boolean=false){
-        e.stretch = stretch
+    fun replaceElement(id:String,e: UiElement){
         elements.forEach {
             if(it.id==id){
                 val i = elements.indexOfFirst {it2-> it2.id == id }
@@ -144,7 +142,7 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
 
     fun toBottom(id: String){
         val n = elements.indexOfFirst {it.id==id  }
-        if(n>=0){
+        if(n<0){
             throw Exception("Index Not Found")
         }
         subBlocks.add(0,subBlocks.removeAt(n))
@@ -157,4 +155,3 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
 
 
 }
-

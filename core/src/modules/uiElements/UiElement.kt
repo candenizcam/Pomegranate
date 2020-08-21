@@ -11,7 +11,6 @@ abstract class UiElement(var id: String) {
     }
 
     abstract var block: LcsRect
-    var stretch = false
 
 
     var visible = true
@@ -20,13 +19,12 @@ abstract class UiElement(var id: String) {
     abstract fun update()
     abstract fun relocate(x: LcsVariable, y: LcsVariable)
     abstract fun resize(w: LcsVariable, h: LcsVariable)
+    //abstract fun reblock(r: LcsRect) //this function updates the whole block, hopefully resize and relocate can be replaced with this bad boy
 
     abstract fun draw(batch: SpriteBatch)
 
     protected fun adjustElementTo(e: UiElement, r: LcsRect): UiElement {
-        if(e.stretch){
-            e.resize(r.width,r.height)
-        }
+        e.resize(r.width,r.height)
         e.relocate(r.cX,r.cY)
         return e
     }

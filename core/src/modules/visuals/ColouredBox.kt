@@ -33,13 +33,16 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     /** Changes the size of the block, experimental and honestly, don't do this
      */
     override fun resize(w: lv, h: lv) {
-        width = w
-        height = h
-        val x = s.x
-        val y = s.y
-        s = createSprite()
-        s.x = x
-        s.y = y
+        if(!((w==width)&&(h==height))){
+            width = w
+            height = h
+            val x = s.x
+            val y = s.y
+            s = createSprite()
+            s.x = x
+            s.y = y
+
+        }
     }
 
     /** Changes the colour of the block
@@ -47,6 +50,13 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     override fun recolour(c: Color){
         colour = c
         s.color = c
+    }
+
+    override fun copy(): OmniVisual {
+        ColouredBox(width,height,colour).also {
+            it.relocate(cX,cY)
+            return it
+        }
     }
 
     /** Creates the sprite

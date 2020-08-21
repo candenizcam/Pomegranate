@@ -32,9 +32,11 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
     }
 
     override fun resize(w: lv, h: lv) {
-        width = w
-        height = h
-        font = createFont(font.color)
+        if(!((w==width)&&(h==height))){
+            width = w
+            height = h
+            font = createFont(font.color)
+        }
     }
 
     override fun draw(batch: SpriteBatch) {
@@ -56,6 +58,10 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
     override fun update() {}
     override fun recolour(c: Color) {
         font = createFont(c)
+    }
+
+    override fun copy(): OmniVisual {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     /** Reduces the size of the display string by squeezing it into the defined box

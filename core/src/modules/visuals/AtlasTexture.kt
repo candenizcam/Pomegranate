@@ -26,12 +26,14 @@ open class AtlasTexture(private val path: String, val region: String="", w: lv =
     }
 
     override fun resize(w: lv, h: lv) {
-        width = w
-        height = h
-        sprites.forEach {
-            it.setSize(width.asPixel(),height.asPixel())
+        if(!((w==width)&&(h==height))){
+            width = w
+            height = h
+            sprites.forEach {
+                it.setSize(width.asPixel(),height.asPixel())
+            }
+            relocate(cX,cY)
         }
-        relocate(cX,cY)
     }
 
     override fun draw(batch: SpriteBatch) {
@@ -72,6 +74,19 @@ open class AtlasTexture(private val path: String, val region: String="", w: lv =
     override fun recolour(c: Color) {
         sprites.forEach {
             it.color = c
+        }
+    }
+
+    override fun copy(): OmniVisual {
+        (if(this is StepAtlasAnimation){
+            StepAtlasAnimation(path, region, width, height, step)
+        }else if (this is TimedAtlasAnimation){
+            TimedAtlasAnimation(path, region, width, height, fps)
+        }else{
+            AtlasTexture(path, region,width,height)
+        }).also {
+            it.relocate(cX,cY)
+            return it
         }
     }
 

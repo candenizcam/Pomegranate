@@ -53,14 +53,12 @@ class PinboardLayout(id:String, rect: LcsRect): OmniLayout(id,rect) {
             }
         }
         subBlocks.add(r)
-        e.stretch = stretch
         elements.add(adjustElementTo(e,r))
     }
 
     /** Replaces element with given id
      */
     fun replaceElement(id:String,e: UiElement, r:LcsRect, stretch: Boolean=false){
-        e.stretch = stretch
         elements.forEach {
             if(it.id==id){
                 val i = elements.indexOfFirst {it2-> it2.id == id }

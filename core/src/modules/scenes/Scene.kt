@@ -7,7 +7,7 @@ import modules.uiElements.Layouts.PinboardLayout
 import modules.uiElements.UiElement
 
 
-open class Scene(val id: String, var zOrder: Float, protected var layout: OmniLayout = PinboardLayout(id,GetLcsRect.ofFullScreen())) {
+open class Scene(val id: String, var zOrder: Float, protected val layout: OmniLayout = PinboardLayout(id,GetLcsRect.ofFullScreen())) {
     var visible = true
 
     fun draw(batch: SpriteBatch){
@@ -17,7 +17,7 @@ open class Scene(val id: String, var zOrder: Float, protected var layout: OmniLa
 
     }
 
-    fun update(){
+    open fun update(){
         if(visible){
             layout.touchHandler()
             layout.update()
@@ -28,13 +28,13 @@ open class Scene(val id: String, var zOrder: Float, protected var layout: OmniLa
         return layout
     }
 
-    fun replaceElement(id: String, e: UiElement,stretch: Boolean = false){
+    fun replaceElement(id: String, e: UiElement){
         val l = id.split("&")
         println(l)
 
         layout.getElement(l.subList(0,l.lastIndex).joinToString("&")).also{
             if (it is OmniLayout){
-                it.replaceElement(l.last(),e,stretch)
+                it.replaceElement(l.last(),e)
             }
         }
 
@@ -42,4 +42,3 @@ open class Scene(val id: String, var zOrder: Float, protected var layout: OmniLa
 
 
 }
-

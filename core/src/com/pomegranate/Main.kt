@@ -70,8 +70,8 @@ class Main : ApplicationAdapter() {
         val sl2 = PinboardLayout("middleBoard",GetLcsRect.ofFullScreen()).also{
             it.addPlot("deep",0.1f,0.4f,0.1f,0.4f)
             it.addPlot("surf",0.3f,0.4f,0.3f,0.4f)
-            it.replaceElement("deep",SetButton("button_1",image_4,image_5),true)
-            it.replaceElement("surf",SetButton("button_2",image_6,image_7),true)
+            it.replaceElement("deep",SetButton("button_1",image_4,image_5))
+            it.replaceElement("surf",SetButton("button_2",image_6,image_7))
             it.toTop("button_1")
         }
 
@@ -80,13 +80,13 @@ class Main : ApplicationAdapter() {
             if(it is PinboardLayout){
 
                 it.addPlot("above",0.1f,0.4f,0.1f,0.4f)
-                it.replaceElement("above",SetButton("button_3",image_8,image_9),true)
-                it.addElement(sampleLayout, GetLcsRect.ofFullScreen(),true)
+                it.replaceElement("above",SetButton("button_3",image_8,image_9))
+                it.addElement(sampleLayout, GetLcsRect.ofFullScreen())
             }
         }
-        sc.replaceElement("sampleRow&sampleRow_0",SetButton("button_1",image_1,image_2),true)
-        sc.replaceElement("sampleRow&sampleRow_2",PinupImage("pi1",image_3),true)
-        sc.replaceElement("sampleRow&sampleRow_1",sl2,true)
+        sc.replaceElement("sampleRow&sampleRow_0",SetButton("button_1",image_1,image_2))
+        sc.replaceElement("sampleRow&sampleRow_2",PinupImage("pi1",image_3))
+        sc.replaceElement("sampleRow&sampleRow_1",sl2)
 
     }
 

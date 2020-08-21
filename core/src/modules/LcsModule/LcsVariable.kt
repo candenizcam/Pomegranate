@@ -47,6 +47,14 @@ class LcsVariable(private val v: Float, private val coeff: Float) {
         return LcsVariable(v / other, coeff)
     }
 
+    override operator fun equals(other: Any?): Boolean{
+        return if(other is LcsVariable){
+            other.v==v
+        } else{
+            false
+        }
+    }
+
     fun abs(): LcsVariable {
         return LcsVariable(abs(v),coeff)
     }
