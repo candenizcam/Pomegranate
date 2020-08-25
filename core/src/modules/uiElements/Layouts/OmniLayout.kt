@@ -33,6 +33,12 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
             adjustElements()
         }
 
+    override fun dispose(){
+        elements.forEach {
+            it.dispose()
+        }
+    }
+
 
 
 

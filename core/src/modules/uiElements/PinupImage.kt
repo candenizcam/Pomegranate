@@ -26,6 +26,10 @@ class PinupImage(id:String, private var image: OmniVisual, override var block: L
         }
     }
 
+    override fun dispose() {
+        image.dispose()
+    }
+
     override fun touchHandler(): Boolean {
         return block.contains(GetLcs.ofX(),GetLcs.ofY())
     }

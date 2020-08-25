@@ -90,5 +90,11 @@ open class AtlasTexture(private val path: String, val region: String="", w: lv =
         }
     }
 
+    override fun dispose() {
+        sprites.forEach {
+            it.texture.dispose()
+        }
+    }
+
 
 }

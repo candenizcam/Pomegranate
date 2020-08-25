@@ -29,5 +29,7 @@ abstract class OmniVisual(x:lv= GetLcs.byLcs(0f), y: lv= GetLcs.byLcs(0f), w: lv
 
     abstract fun copy(): OmniVisual
 
+    abstract fun dispose()
+
 
 }

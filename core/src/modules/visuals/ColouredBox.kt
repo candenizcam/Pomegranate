@@ -59,6 +59,10 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
         }
     }
 
+    override fun dispose() {
+        s.texture.dispose()
+    }
+
     /** Creates the sprite
      * also, boy do i like this little bit of code
      */

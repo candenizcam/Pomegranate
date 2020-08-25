@@ -29,4 +29,6 @@ abstract class UiElement(var id: String) {
         return e
     }
 
+    abstract fun dispose()
+
 }

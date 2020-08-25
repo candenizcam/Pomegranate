@@ -49,6 +49,10 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
         }
     }
 
+    override fun dispose() {
+        s.texture.dispose()
+    }
+
 
     private fun createSprite(): Sprite {
         Pixmap(Gdx.files.internal(path)).also {

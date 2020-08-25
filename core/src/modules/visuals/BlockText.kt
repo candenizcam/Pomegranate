@@ -14,7 +14,7 @@ import modules.LcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=-1, var padding: lv=GetLcs.byLcs(0f)): OmniVisual(w, h) {
+class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=1, var padding: lv=GetLcs.byLcs(0f), var keepWords: Boolean= false): OmniVisual(w, h) {
     var initSize = size
     var displayText= text
     var gl = GlyphLayout()
@@ -32,23 +32,31 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
     }
 
     override fun resize(w: lv, h: lv) {
+        /*
+        width = w
+        height = h
+        font = createFont(font.color)
+        */
         if(!((w==width)&&(h==height))){
             width = w
             height = h
             font = createFont(font.color)
         }
+
+
     }
 
     override fun draw(batch: SpriteBatch) {
+
         when (align) {
-            -1 -> {
+            -1 -> { //left
+                font.draw(batch,gl,cX.asPixel()-width.asPixel()/2+padding.asPixel(),cY.asPixel()+gl.height/2)
+            }
+            0 -> { //right
+                font.draw(batch,gl,cX.asPixel()+width.asPixel()/2-gl.width-padding.asPixel(),cY.asPixel()+gl.height/2)
+            }
+            1 -> { //centre
                 font.draw(batch,gl,cX.asPixel()-gl.width/2,cY.asPixel()+gl.height/2)
-            }
-            0 -> {
-                font.draw(batch,gl,cX.asPixel()+gl.width/2,cY.asPixel()+gl.height/2)
-            }
-            1 -> {
-                font.draw(batch,gl,cX.asPixel(),cY.asPixel())
             }
         }
     }
@@ -64,6 +72,10 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun dispose() {
+        font.dispose()
+    }
+
     /** Reduces the size of the display string by squeezing it into the defined box
      */
     private fun reduceToHeight(s: String, f: BitmapFont): String{
@@ -76,7 +88,7 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
             for (j in newText.iterator()){
                 val lastChar = newText.last()
                 newText = newText.dropLast(1)
-                if( (lastChar==' ') || (lastChar==' ')){
+                if( lastChar==' '){
                     break
                 }
             }
@@ -95,7 +107,7 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
         var font : BitmapFont
         var gl : GlyphLayout
         var outPunto = p.size
-        for (i in 3..1000){
+        for (i in 3..102){
             p.size = i
             font = g.generateFont(p)
             gl = GlyphLayout(font, s,font.color,width.asPixel(),align,true)
@@ -103,6 +115,10 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
             if (gl.height + padding.asPixel() > height.asPixel()){
                 break
             }
+            if ((s.split(" ").size==1) && (gl.width+padding.asPixel() > width.asPixel())){
+                break
+            }
+
             outPunto = i
         }
         return outPunto
@@ -115,11 +131,12 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
         parameter.size = initSize
         if (initSize==0){
             parameter.size = 3
-            parameter.size = reduceToPunto(displayText, parameter, ftfg)
+            parameter.size = reduceToPunto(text, parameter, ftfg)
         }
         return ftfg.generateFont(parameter).also {
-            displayText = reduceToHeight(displayText,it)
-            gl = GlyphLayout(it, displayText,it.color,width.asPixel(),align,true)
+            it.color = color
+            displayText = reduceToHeight(text,it)
+            gl = GlyphLayout(it, displayText,it.color,width.asPixel(),-1,true)
 
             ftfg.dispose()
         }

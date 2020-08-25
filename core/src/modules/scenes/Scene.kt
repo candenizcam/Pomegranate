@@ -7,7 +7,7 @@ import modules.uiElements.Layouts.PinboardLayout
 import modules.uiElements.UiElement
 
 
-open class Scene(val id: String, var zOrder: Float, protected val layout: OmniLayout = PinboardLayout(id,GetLcsRect.ofFullScreen())) {
+open class Scene(val id: String, var zOrder: Float, protected open val layout: OmniLayout = PinboardLayout(id,GetLcsRect.ofFullScreen())) {
     var visible = true
 
     fun draw(batch: SpriteBatch){
@@ -38,6 +38,10 @@ open class Scene(val id: String, var zOrder: Float, protected val layout: OmniLa
             }
         }
 
+    }
+
+    fun dispose(){
+        layout.dispose()
     }
 
 

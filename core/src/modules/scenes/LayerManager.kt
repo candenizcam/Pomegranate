@@ -38,4 +38,10 @@ object LayerManager {
     fun draw(batch: SpriteBatch) {
         layers.forEach { if (it.visible) it.draw(batch) }
     }
+
+    fun dispose(){
+        layers.forEach {
+            it.dispose()
+        }
+    }
 }

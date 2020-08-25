@@ -14,4 +14,5 @@ class PlaceholderElement(id: String): UiElement(id) {
     override fun resize(w: LcsVariable, h: LcsVariable) {}
 
     override fun draw(batch: SpriteBatch) {}
+    override fun dispose() {}
 }

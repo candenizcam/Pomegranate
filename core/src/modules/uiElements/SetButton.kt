@@ -133,4 +133,10 @@ class SetButton(id: String): UiElement(id) {
             visualList[drawIndex].draw(batch)
         }
     }
+
+    override fun dispose() {
+        visualList.forEach {
+            it.dispose()
+        }
+    }
 }
