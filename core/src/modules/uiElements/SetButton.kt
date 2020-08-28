@@ -1,13 +1,16 @@
 package modules.uiElements
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.LcsModule.GetLcs
 import modules.LcsModule.GetLcsRect
 import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
 import modules.uiElements.UiElement
+import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
+import modules.visuals.VisualSize
 
 /** Set button executes function clicked when clicked, but is similar to pinup visual otherwise
  * it needs to be loaded with basic size parameters, in the form of block
@@ -15,46 +18,44 @@ import modules.visuals.OmniVisual
  */
 class SetButton(id: String): UiElement(id) {
     override var block: LcsRect = GetLcsRect.getZero()
-        set(value) { //setter helps us to adjust block on every change, this is quite cool we need more of this
-            field = value
-            adjustVisuals()
-        }
 
 
 
     private var drawIndex = 0
     private var visualList =  listOf<OmniVisual>()
     var clicked = {println("$id clicked")}
-    private var fitImage = false
 
     /** This constructor takes a block and it will take visuals later
      */
     constructor(id: String, block: LcsRect): this(id){
-        println("at constructor")
         this.block = block
+        setVisuals(ColouredBox().also{
+            it.visualSize = VisualSize.FIT_ELEMENT
+            it.recolour(Color.WHITE)
+        }, ColouredBox().also{
+            it.visualSize = VisualSize.STATIC
+            it.recolour(Color.DARK_GRAY)
+        })
     }
 
     /** This constructor takes images and it will take the block later
      */
-    constructor(id: String, onVisual: OmniVisual, offVisual: OmniVisual, fitImage: Boolean = true): this(id){
-        this.fitImage = fitImage
-        setVisuals(onVisual,offVisual,fitImage)
+    constructor(id: String, onVisual: OmniVisual, offVisual: OmniVisual): this(id){
+        setVisuals(onVisual,offVisual)
     }
 
     /** This constructor takes all the inputs at start
      */
-    constructor(id:String, block: LcsRect,onVisual: OmniVisual, offVisual: OmniVisual, fitImage: Boolean = true): this(id){
+    constructor(id:String, block: LcsRect,onVisual: OmniVisual, offVisual: OmniVisual): this(id){
         this.block = block
-        this.fitImage = fitImage
-        setVisuals(onVisual, offVisual, fitImage)
+        setVisuals(onVisual, offVisual)
     }
 
     /** Sets visuals after block is initialized
      * on and off visuals are self explanatory
      * fitImage stretches the image to the size of the block
      */
-    fun setVisuals(onVisual: OmniVisual,offVisual: OmniVisual,fitImage: Boolean){
-        this.fitImage = fitImage
+    fun setVisuals(onVisual: OmniVisual,offVisual: OmniVisual){
         visualList = listOf(onVisual,offVisual)
         adjustVisuals()
     }
@@ -64,9 +65,7 @@ class SetButton(id: String): UiElement(id) {
      */
     private fun adjustVisuals(){
         visualList.forEach {
-            if (fitImage){
-                it.resize(block.width,block.height)
-            }
+            it.resize(block.width,block.height)
             it.relocate(block.cX,block.cY)
         }
     }
@@ -121,17 +120,6 @@ class SetButton(id: String): UiElement(id) {
         }
     }
 
-    /*
-    override fun reblock(r: LcsRect) {
-        visualList.forEach {
-            it.resize(r.width,r.height)
-            it.relocate(r.cX,r.cY)
-        }
-        block = r
-    }
-
-     */
-
     /** Called on every draw
      */
     override fun draw(batch: SpriteBatch) {
@@ -144,5 +132,9 @@ class SetButton(id: String): UiElement(id) {
         visualList.forEach {
             it.dispose()
         }
+    }
+
+    override fun getValue(): Int {
+        return drawIndex
     }
 }

@@ -37,6 +37,8 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     override fun fitElement(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
         width = w
         height = h
+        imageWidth = w
+        imageHeight = h
         s.setSize(w.asPixel(),h.asPixel())
         /*
         val x = s.x
@@ -52,6 +54,8 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
         width=w
         height=h
         val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())
+        imageWidth = originalWidth*rat
+        imageHeight = originalHeight*rat
         s.setSize(originalWidth.asPixel()*rat,originalHeight.asPixel()*rat)
     }
     /*
@@ -101,6 +105,8 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
                 it2.color = colour
                 originalHeight = GetLcs.byPixel(it2.height)
                 originalWidth = GetLcs.byPixel(it2.width)
+                imageWidth = originalWidth
+                imageHeight = originalHeight
                 return it2
             }
         }

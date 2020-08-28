@@ -26,6 +26,8 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
     override fun fitElement(w: lv, h: lv) {
         width = w
         height = h
+        imageWidth = w
+        imageHeight = h
         s.setSize(width.asPixel(),height.asPixel())
     }
 
@@ -33,6 +35,8 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
         width=w
         height=h
         val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())
+        imageWidth = originalWidth*rat
+        imageHeight = originalHeight*rat
         s.setSize(originalWidth.asPixel()*rat,originalHeight.asPixel()*rat)
     }
 
@@ -75,12 +79,16 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
                 VisualSize.STATIC,VisualSize.SCALE_ORIGINAL->{
                     width = originalWidth
                     height=originalHeight
+                    imageWidth = originalWidth
+                    imageHeight = originalHeight
                     return Sprite(Texture(it)).apply{
                         it.dispose()
                     }
                 }
                 VisualSize.FIT_ELEMENT->{
                     resizePixmap(it,width,height).also { it2->
+                        imageWidth = width
+                        imageHeight = height
                         return Sprite(Texture(it2)).apply{
                             it.dispose()
                             it2.dispose()
@@ -89,6 +97,8 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
                 }
                 VisualSize.FIT_WITH_RATIO->{
                     val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())
+                    imageWidth = originalWidth*rat
+                    imageHeight = originalHeight*rat
                     resizePixmap(it,originalWidth*rat,originalHeight*rat).also { it2->
                         return Sprite(Texture(it2)).apply{
                             it.dispose()

@@ -55,6 +55,14 @@ class LcsVariable(private val v: Float, private val coeff: Float) {
         }
     }
 
+    fun limitBelow(other: LcsVariable): LcsVariable {
+        return LcsVariable(v.coerceAtLeast(other.v),coeff)
+    }
+
+    fun limitAbove(other: LcsVariable): LcsVariable {
+        return LcsVariable(v.coerceAtMost(other.v),coeff)
+    }
+
     fun abs(): LcsVariable {
         return LcsVariable(abs(v),coeff)
     }

@@ -16,6 +16,8 @@ abstract class OmniVisual(x:lv= GetLcs.byLcs(0f), y: lv= GetLcs.byLcs(0f), w: lv
     var height: lv = h
     var originalWidth: lv = GetLcs.ofZero()
     var originalHeight: lv = GetLcs.ofZero()
+    var imageWidth: lv = GetLcs.ofZero()
+    var imageHeight: lv = GetLcs.ofZero()
 
 
 

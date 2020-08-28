@@ -20,6 +20,7 @@ class PinupImage(id:String, private var image: OmniVisual, override var block: L
         }
     }
 
+
     override fun draw(batch: SpriteBatch) {
         if(visible){
             image.draw(batch)
@@ -45,15 +46,6 @@ class PinupImage(id:String, private var image: OmniVisual, override var block: L
         block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
         image.resize(w,h)
     }
-
-    /*
-    override fun reblock(r: LcsRect) {
-        image.resize(r.width,r.height)
-        image.relocate(r.cX,r.cY)
-        block = r
-    }
-
-     */
 
     fun recolour(c: Color){
         image.recolour(c)

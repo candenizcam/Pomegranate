@@ -34,6 +34,8 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
     override fun fitElement(w: lv, h: lv) {
         width = w
         height = h
+        imageWidth=w
+        imageHeight=h
         font = createFont(font.color)
     }
 

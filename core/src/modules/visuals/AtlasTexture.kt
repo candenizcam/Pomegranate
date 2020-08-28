@@ -39,6 +39,8 @@ open class AtlasTexture(private val path: String, val region: String="", w: lv =
         height=h
         sprites.forEach {
             val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())
+            imageWidth = originalWidth*rat
+            imageHeight = originalHeight*rat
             it.setSize(originalWidth.asPixel()*rat,originalHeight.asPixel()*rat)
         }
         relocate(cX,cY)

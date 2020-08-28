@@ -1,5 +1,7 @@
 package modules.uiElements
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.LcsModule.GetLcs
 import modules.LcsModule.GetLcsRect
@@ -7,21 +9,44 @@ import modules.LcsModule.LcsRect
 import modules.LcsModule.LcsVariable
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
+import modules.visuals.VisualSize
 
 /**
  * horizontal false is vertical
  */
-class Slider(id: String,var resolution: Float=100f,var horizontal: Boolean=true): UiElement(id){
+class Slider(id: String,resolution: IntRange=0..100,var horizontal: Boolean=true): UiElement(id){
+    var valRange = resolution.toList()
+    var resolution = valRange.size
+
     var rail: OmniVisual = ColouredBox()
     var knob: OmniVisual = ColouredBox()
-    var knobPosition=0f
+    var knobPosition=1
+    private var manipulated = false
 
     override var block: LcsRect = GetLcsRect.getZero()
-    constructor(id: String, resolution: Float=100f, block: LcsRect,horizontal: Boolean) : this(id,resolution,horizontal){
+    constructor(id: String, resolution: IntRange=0..100, block: LcsRect,horizontal: Boolean) : this(id,resolution,horizontal){
         this.block = block
+        println("block: ${block.width.asPixel()} ${block.height.asPixel()}")
+        rail = ColouredBox(block.width,block.height).also{
+            it.resize(block)
+            it.visualSize = VisualSize.FIT_ELEMENT
+            it.recolour(Color.DARK_GRAY)
+        }
+        if(horizontal){
+            knob = ColouredBox(block.width/(this.resolution),block.height).also{
+                it.visualSize = VisualSize.FIT_WITH_RATIO
+                it.recolour(Color.WHITE)
+            }
+        }else{
+            knob = ColouredBox(block.width,block.height/(this.resolution)).also{
+                it.visualSize = VisualSize.FIT_WITH_RATIO
+                it.recolour(Color.WHITE)
+            }
+        }
+
     }
 
-    constructor(id: String, resolution: Float=100f, block: LcsRect=GetLcsRect.getZero(),rail: OmniVisual, knob: OmniVisual,horizontal: Boolean) : this(id,resolution,block,horizontal){
+    constructor(id: String, resolution: IntRange=0..100, block: LcsRect=GetLcsRect.getZero(),rail: OmniVisual, knob: OmniVisual,horizontal: Boolean) : this(id,resolution,block,horizontal){
         if(block.width.asLcs()==0f){
             this.block = GetLcsRect.byParameters(rail.originalWidth,rail.height,rail.cX,rail.cY)
         }
@@ -31,31 +56,62 @@ class Slider(id: String,var resolution: Float=100f,var horizontal: Boolean=true)
     }
 
     private fun updateKnobPosition(){
+
         if(horizontal){
-            knob.relocate(block.wStart + block.width/resolution*knobPosition,block.cY)
+            knob.relocate(block.wStart + block.width/resolution*(knobPosition+0.5f),block.cY)
+
+            //knob.relocate(block.cX,block.cY)
         } else{
-            knob.relocate(block.cX,block.hStart + block.height/resolution*knobPosition)
+            //knob.relocate(block.cX,block.cY)
+            //knob.relocate(block.cX+GetLcs.byLcs(0.1f),block.cY+GetLcs.byLcs(0.2f))
+            knob.relocate(block.cX,block.hStart + block.height/resolution*(knobPosition+0.5f))
         }
 
 
     }
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
+        if(block.contains(GetLcs.ofX(),GetLcs.ofY())){
+            if(Gdx.input.justTouched()){
+                manipulated=true
+            }
+            if(!Gdx.input.isTouched){
+                manipulated=false
+            }
+        }else{
+            manipulated=false
+        }
+        if(manipulated){
+
+            if (horizontal){
+                knobPosition = ((GetLcs.ofX()-block.wStart).asLcs()/block.width.asLcs()*resolution).toInt()
+                knob.relocate(GetLcs.ofX().limitAbove(block.wEnd-knob.originalWidth/2).limitBelow(block.wStart+knob.originalWidth/2),block.cY)
+            }else{
+                knobPosition = ((GetLcs.ofY()-block.hStart).asLcs()/block.height.asLcs()*resolution).toInt()
+                knob.relocate(block.cX,GetLcs.ofY().limitAbove(block.hEnd-knob.originalHeight/2).limitBelow(block.hStart+knob.originalHeight/2))
+            }
+        }
+
+
+
         return false
     }
 
     override fun update() {
-        updateKnobPosition()
-
+        if(!manipulated){
+            updateKnobPosition()
+        }
     }
 
     override fun relocate(x: LcsVariable, y: LcsVariable) {
+        block = GetLcsRect.byParameters(block.width,block.height,x,y)
         rail.relocate(x,y)
-        knob.relocate(x,y)
+        //knob.relocate(x,y)
 
     }
 
     override fun resize(w: LcsVariable, h: LcsVariable) {
+        block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
         rail.resize(w,h)
         knob.resize(w,h)
     }
@@ -68,5 +124,9 @@ class Slider(id: String,var resolution: Float=100f,var horizontal: Boolean=true)
     override fun dispose() {
         rail.dispose()
         knob.dispose()
+    }
+
+    override fun getValue(): Int {
+        return valRange[knobPosition]
     }
 }

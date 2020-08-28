@@ -30,5 +30,6 @@ abstract class UiElement(var id: String) {
     }
 
     abstract fun dispose()
+    open fun getValue(): Int {return 0}
 
 }
