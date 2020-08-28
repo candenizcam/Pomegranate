@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import modules.LcsModule.LcsRect
 
-class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour: Color = Color(1f,1f,1f,1f)): OmniVisual(w=w,h=h) {
+class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour: Color = Color(1f,1f,1f,1f), visualSize: VisualSize= VisualSize.STATIC): OmniVisual(w=w,h=h,visualSize=visualSize) {
     private var s: Sprite = createSprite() //creates a block with the relevant colour
 
 
@@ -30,6 +31,30 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     override fun changeActiveSprite(ns: Int) {}
     override fun update() {}
 
+
+
+
+    override fun fitElement(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+        width = w
+        height = h
+        s.setSize(w.asPixel(),h.asPixel())
+        /*
+        val x = s.x
+        val y = s.y
+        s = createSprite()
+        s.x = x
+        s.y = y
+
+         */
+    }
+
+    override fun fitWithRatio(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+        width=w
+        height=h
+        val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())
+        s.setSize(originalWidth.asPixel()*rat,originalHeight.asPixel()*rat)
+    }
+    /*
     /** Changes the size of the block, experimental and honestly, don't do this
      */
     override fun resize(w: lv, h: lv) {
@@ -44,6 +69,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
 
         }
     }
+     */
 
     /** Changes the colour of the block
      */
@@ -53,7 +79,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     }
 
     override fun copy(): OmniVisual {
-        ColouredBox(width,height,colour).also {
+        ColouredBox(width,height,colour,visualSize).also {
             it.relocate(cX,cY)
             return it
         }
@@ -73,6 +99,8 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
             Sprite(Texture(it)).also { it2->
                 it.dispose()
                 it2.color = colour
+                originalHeight = GetLcs.byPixel(it2.height)
+                originalWidth = GetLcs.byPixel(it2.width)
                 return it2
             }
         }

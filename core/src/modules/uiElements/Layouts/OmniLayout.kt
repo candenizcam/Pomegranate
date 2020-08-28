@@ -127,13 +127,16 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
 
     /** Handles touch for all hierarchies
      */
-    override fun touchHandler(): Boolean {
+    override fun touchHandler(mayTouch: Boolean): Boolean {
+        var b = mayTouch.not()
         subBlocks.reversed().forEachIndexed {index,it->
             if(it.contains(GetLcs.ofX(),GetLcs.ofY())){
-                if (elements.reversed()[index].touchHandler()) return true
+                if (elements.reversed()[index].touchHandler(b.not())) b= true
+            } else{
+                elements.reversed()[index].touchHandler(false)
             }
         }
-        return false
+        return b
 
     }
 

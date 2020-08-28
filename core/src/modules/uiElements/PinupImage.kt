@@ -30,8 +30,8 @@ class PinupImage(id:String, private var image: OmniVisual, override var block: L
         image.dispose()
     }
 
-    override fun touchHandler(): Boolean {
-        return block.contains(GetLcs.ofX(),GetLcs.ofY())
+    override fun touchHandler(mayTouch: Boolean): Boolean {
+        return block.contains(GetLcs.ofX(),GetLcs.ofY())&&mayTouch
     }
 
     override fun update() {image.update()}

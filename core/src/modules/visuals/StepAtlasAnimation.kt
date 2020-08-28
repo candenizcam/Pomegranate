@@ -6,7 +6,7 @@ import modules.LcsModule.LcsVariable as lv
 /** Makes animation change frame based on horizontal movement (w)
  *
  */
-class StepAtlasAnimation(path: String, region: String="", width: lv = GetLcs.byPixel(1f), height: lv = GetLcs.byPixel(1f), val step: lv) : AtlasTexture(path,region,width,height) {
+class StepAtlasAnimation(path: String, region: String="", width: lv = GetLcs.byPixel(1f), height: lv = GetLcs.byPixel(1f), val step: lv,visualSize: VisualSize= VisualSize.STATIC) : AtlasTexture(path,region,width,height,visualSize) {
     val floatStep = step.asPixel()
 
     var stepAccumulator = 0

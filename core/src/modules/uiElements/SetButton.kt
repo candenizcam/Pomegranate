@@ -74,21 +74,27 @@ class SetButton(id: String): UiElement(id) {
     /** Handles touching
      * hierarchy is handled by the callers in layout
      */
-    override fun touchHandler(): Boolean {
-        val containing = block.contains(GetLcs.ofX(),GetLcs.ofY())
-        if (drawIndex==1){
-            drawIndex = if (Gdx.input.isTouched){
-                if (containing) 1 else 0
-            } else{
-                clicked()
-                0
+    override fun touchHandler(mayTouch: Boolean): Boolean {
+        if(mayTouch){
+            val containing = block.contains(GetLcs.ofX(),GetLcs.ofY())
+            if (drawIndex==1){
+                drawIndex = if (Gdx.input.isTouched){
+                    if (containing) 1 else 0
+                } else{
+                    clicked()
+                    0
+                }
+            } else {
+                if (Gdx.input.justTouched()){
+                    drawIndex = if(containing) 1 else 0
+                }
             }
-        } else {
-            if (Gdx.input.justTouched()){
-                drawIndex = if(containing) 1 else 0
-            }
+            return containing
+        } else{
+            drawIndex=0
+            return false
         }
-        return containing
+
     }
 
 

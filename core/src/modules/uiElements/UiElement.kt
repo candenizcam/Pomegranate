@@ -15,7 +15,7 @@ abstract class UiElement(var id: String) {
 
     var visible = true
 
-    abstract fun touchHandler(): Boolean
+    abstract fun touchHandler(mayTouch: Boolean=true): Boolean
     abstract fun update()
     abstract fun relocate(x: LcsVariable, y: LcsVariable)
     abstract fun resize(w: LcsVariable, h: LcsVariable)

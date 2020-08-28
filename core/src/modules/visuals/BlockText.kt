@@ -14,7 +14,7 @@ import modules.LcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=1, var padding: lv=GetLcs.byLcs(0f), var keepWords: Boolean= false): OmniVisual(w, h) {
+class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=1, var padding: lv=GetLcs.byLcs(0f), var keepWords: Boolean= false,visualSize: VisualSize= VisualSize.STATIC): OmniVisual(w, h,visualSize = visualSize) {
     var initSize = size
     var displayText= text
     var gl = GlyphLayout()
@@ -31,18 +31,13 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
         cY = y
     }
 
-    override fun resize(w: lv, h: lv) {
-        /*
+    override fun fitElement(w: lv, h: lv) {
         width = w
         height = h
         font = createFont(font.color)
-        */
-        if(!((w==width)&&(h==height))){
-            width = w
-            height = h
-            font = createFont(font.color)
-        }
+    }
 
+    override fun fitWithRatio(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
 
     }
 
@@ -69,7 +64,7 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
     }
 
     override fun copy(): OmniVisual {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return BlockText(text,initSize,font.color, width,height,align, padding, keepWords, visualSize)
     }
 
     override fun dispose() {
