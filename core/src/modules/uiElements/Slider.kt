@@ -15,14 +15,14 @@ import modules.visuals.VisualSize
  * horizontal false is vertical
  */
 class Slider(id: String,resolution: IntRange=0..100,var horizontal: Boolean=true): UiElement(id){
-    var valRange = resolution.toList()
-    var resolution = valRange.size
+    private var valRange = resolution.toList()
+    private var resolution = valRange.size
 
-    var rail: OmniVisual = ColouredBox()
-    var knob: OmniVisual = ColouredBox()
-    var knobPosition=1
+    private var rail: OmniVisual = ColouredBox()
+    private var knob: OmniVisual = ColouredBox()
+    private var knobPosition=1
+    var knobPositionChangeFunction = {println("knob function ${valRange[knobPosition]}")}
     private var manipulated = false
-
     override var block: LcsRect = GetLcsRect.getZero()
     constructor(id: String, resolution: IntRange=0..100, block: LcsRect,horizontal: Boolean) : this(id,resolution,horizontal){
         this.block = block
@@ -56,18 +56,11 @@ class Slider(id: String,resolution: IntRange=0..100,var horizontal: Boolean=true
     }
 
     private fun updateKnobPosition(){
-
         if(horizontal){
             knob.relocate(block.wStart + block.width/resolution*(knobPosition+0.5f),block.cY)
-
-            //knob.relocate(block.cX,block.cY)
         } else{
-            //knob.relocate(block.cX,block.cY)
-            //knob.relocate(block.cX+GetLcs.byLcs(0.1f),block.cY+GetLcs.byLcs(0.2f))
             knob.relocate(block.cX,block.hStart + block.height/resolution*(knobPosition+0.5f))
         }
-
-
     }
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
@@ -84,10 +77,19 @@ class Slider(id: String,resolution: IntRange=0..100,var horizontal: Boolean=true
         if(manipulated){
 
             if (horizontal){
-                knobPosition = ((GetLcs.ofX()-block.wStart).asLcs()/block.width.asLcs()*resolution).toInt()
+                val kp = ((GetLcs.ofX()-block.wStart).asLcs()/block.width.asLcs()*resolution).toInt()
+                if(knobPosition!=kp){
+                    knobPositionChangeFunction()
+                    knobPosition = kp
+                }
+
                 knob.relocate(GetLcs.ofX().limitAbove(block.wEnd-knob.originalWidth/2).limitBelow(block.wStart+knob.originalWidth/2),block.cY)
             }else{
-                knobPosition = ((GetLcs.ofY()-block.hStart).asLcs()/block.height.asLcs()*resolution).toInt()
+                val kp = ((GetLcs.ofY()-block.hStart).asLcs()/block.height.asLcs()*resolution).toInt()
+                if(knobPosition!=kp){
+                    knobPositionChangeFunction()
+                    knobPosition = kp
+                }
                 knob.relocate(block.cX,GetLcs.ofY().limitAbove(block.hEnd-knob.originalHeight/2).limitBelow(block.hStart+knob.originalHeight/2))
             }
         }
