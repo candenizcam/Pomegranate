@@ -15,6 +15,9 @@ open class Scene(val id: String, var zOrder: Float, protected open val layout: O
             layout.draw(batch)
         }
 
+
+
+
     }
 
     open fun update(){

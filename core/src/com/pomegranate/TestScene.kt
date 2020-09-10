@@ -8,6 +8,7 @@ import modules.scenes.Scene
 import modules.uiElements.Layouts.ColLayout
 import modules.uiElements.Layouts.OmniLayout
 import modules.uiElements.Layouts.PinboardLayout
+import modules.uiElements.MultiSetButton
 import modules.uiElements.PinupImage
 import modules.uiElements.SetButton
 import modules.uiElements.Slider
@@ -25,7 +26,19 @@ class TestScene: Scene("testScene",0f) {
             it.divideBlocksToBiased(listOf(GetLcs.initialWidth- GetLcs.lcsCoeff, GetLcs.lcsCoeff*2, GetLcs.initialWidth- GetLcs.lcsCoeff))
         }
         layout.addPlot("above",0.1f,0.4f,0.1f,0.4f)
-        layout.replaceElement("above",SetButton("button_3",image_1.copy().also { it.recolour(Color(0f,1f,0f,1f)) },image_1.copy().also { it.recolour(Color(0f,0.5f,0f,1f)) }))
+        //layout.replaceElement("above",SetButton("button_3",image_1.copy().also { it.recolour(Color(1f,1f,0f,1f)) },image_1.copy().also { it.recolour(Color(0f,0.5f,0f,1f)) }))
+        layout.replaceElement("above", MultiSetButton("button_3").also {
+            it.addButton(SetButton("button_red",image_1.copy().also { it.recolour(Color(1f,0f,0f,1f)) },image_1.copy().also { it.recolour(Color(0.5f,0f,0f,1f)) }).also {
+                it.clicked = {println("firered")}
+            })
+            it.addButton(SetButton("button_green",image_1.copy().also { it.recolour(Color(0f,1f,0f,1f)) },image_1.copy().also { it.recolour(Color(0f,0.5f,0f,1f)) }).also {
+                it.clicked = {println("leafgreen")}
+            })
+            it.removeButton("button_green")
+        })
+
+
+
         layout.addElement(sampleLayout, GetLcsRect.ofFullScreen())
 
     }
