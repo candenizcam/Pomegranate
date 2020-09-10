@@ -1,20 +1,17 @@
 package com.pomegranate
 
+
 import com.badlogic.gdx.graphics.Color
 import modules.LcsModule.GetLcs
 import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsVariable
 import modules.scenes.Scene
+import modules.uiElements.*
 import modules.uiElements.Layouts.ColLayout
-import modules.uiElements.Layouts.OmniLayout
 import modules.uiElements.Layouts.PinboardLayout
-import modules.uiElements.MultiSetButton
-import modules.uiElements.PinupImage
-import modules.uiElements.SetButton
-import modules.uiElements.Slider
 import modules.visuals.ColouredBox
 import modules.visuals.TimedAtlasAnimation
 import modules.visuals.VisualSize
+
 
 class TestScene: Scene("testScene",0f) {
     override val layout = PinboardLayout("main",GetLcsRect.ofFullScreen()).also {layout->
@@ -27,9 +24,12 @@ class TestScene: Scene("testScene",0f) {
         }
         layout.addPlot("above",0.1f,0.4f,0.1f,0.4f)
         //layout.replaceElement("above",SetButton("button_3",image_1.copy().also { it.recolour(Color(1f,1f,0f,1f)) },image_1.copy().also { it.recolour(Color(0f,0.5f,0f,1f)) }))
+        /*
         layout.replaceElement("above", MultiSetButton("button_3").also {
             it.addButton(SetButton("button_red",image_1.copy().also { it.recolour(Color(1f,0f,0f,1f)) },image_1.copy().also { it.recolour(Color(0.5f,0f,0f,1f)) }).also {
-                it.clicked = {println("firered")}
+                it.clicked = {
+                    println("firered")
+                }
             })
             it.addButton(SetButton("button_green",image_1.copy().also { it.recolour(Color(0f,1f,0f,1f)) },image_1.copy().also { it.recolour(Color(0f,0.5f,0f,1f)) }).also {
                 it.clicked = {println("leafgreen")}
@@ -37,11 +37,15 @@ class TestScene: Scene("testScene",0f) {
             it.removeButton("button_green")
         })
 
+         */
+        layout.replaceElement("above", TypingBox("tb"))
+
 
 
         layout.addElement(sampleLayout, GetLcsRect.ofFullScreen())
 
     }
+
 
     init{
         val image_1 = ColouredBox().also{

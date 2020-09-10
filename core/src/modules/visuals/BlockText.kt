@@ -14,7 +14,7 @@ import modules.LcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=1, var padding: lv=GetLcs.byLcs(0f), var keepWords: Boolean= false,visualSize: VisualSize= VisualSize.STATIC): OmniVisual(w, h,visualSize = visualSize) {
+class BlockText(private var text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var align: Int=1, var padding: lv=GetLcs.byLcs(0f), var keepWords: Boolean= false,visualSize: VisualSize= VisualSize.STATIC): OmniVisual(w, h,visualSize = visualSize) {
     var initSize = size
     var displayText= text
     var gl = GlyphLayout()
@@ -25,6 +25,16 @@ class BlockText(val text: String, size: Int, colour: Color, w: lv = GetLcs.byLcs
     var font = createFont(colour)
 
 
+
+
+    fun changeText(s: String){
+        text = s
+        font = createFont(font.color)
+    }
+
+    fun getText(): String{
+        return text
+    }
 
     override fun relocate(x: lv, y: lv) {
         cX = x
