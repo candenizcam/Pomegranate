@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour: Color = Color(1f, 1f, 1f, 1f), visualSize: VisualSize = VisualSize.STATIC) : OmniVisual(w = w, h = h, visualSize = visualSize) {
+class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour: Color = Color(1f, 1f, 1f, 1f), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(w = w, h = h, visualSize = visualSize,scaleFactor = scaleFactor) {
     private var s: Sprite = createSprite() //creates a block with the relevant colour
 
 
@@ -48,6 +48,7 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
         s.setSize(originalWidth.asPixel()*rat,originalHeight.asPixel()*rat)
     }
 
+
     /** Changes the colour of the block
      */
     override fun recolour(c: Color) {
@@ -80,6 +81,9 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
                 originalWidth = GetLcs.byPixel(it2.width)
                 imageWidth = originalWidth
                 imageHeight = originalHeight
+                if(visualSize==VisualSize.STATIC){
+                    it2.setSize(originalWidth.asPixel()*scaleFactor,originalHeight.asPixel()*scaleFactor)
+                }
                 return it2
             }
         }
