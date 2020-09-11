@@ -11,6 +11,7 @@ import modules.uiElements.Layouts.OmniLayout
 import modules.uiElements.PinupImage
 import modules.uiElements.Layouts.RowLayout
 import modules.LcsModule.GetLcsRect
+import modules.inputProcessor.BasicListener
 import modules.scenes.LayerManager
 import modules.scenes.Scene
 import modules.uiElements.Layouts.PinboardLayout
@@ -32,6 +33,8 @@ class Main : ApplicationAdapter() {
         GetLcs.lcsInitialize()
         batch = SpriteBatch()
         LayerManager.add(TestScene(),true)
+
+        Gdx.input.inputProcessor = BasicListener()
     }
 
     override fun render() {

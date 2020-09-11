@@ -1,7 +1,6 @@
 package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.scenes.Scene
 
 object LayerManager {
     val layers = mutableListOf<Scene>()
@@ -39,7 +38,7 @@ object LayerManager {
         layers.forEach { if (it.visible) it.draw(batch) }
     }
 
-    fun dispose(){
+    fun dispose() {
         layers.forEach {
             it.dispose()
         }

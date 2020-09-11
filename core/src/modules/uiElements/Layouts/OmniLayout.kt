@@ -10,36 +10,28 @@ import modules.uiElements.UiElement
 import java.lang.Exception
 
 
-abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
+abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
     override var block: LcsRect = rect
         set(value) {
             field = value
             adjustSubBlocks(value)
         }
-    protected var elements =  mutableListOf<UiElement>()
-    protected var subBlocks =  mutableListOf<LcsRect>()
-        set(value){
+    protected var elements = mutableListOf<UiElement>()
+    protected var subBlocks = mutableListOf<LcsRect>()
+        set(value) {
             field = value
             field.forEachIndexed { index, it ->
-                try{
+                try {
                     elements[index]
-                } catch(e: IndexOutOfBoundsException){
+                } catch (e: IndexOutOfBoundsException) {
                     elements.forEach {
-                        if(it.id=="${id}_$index") throw Exception("ID clash at $id")
+                        if (it.id == "${id}_$index") throw Exception("ID clash at $id")
                     }
                     elements.add(PlaceholderElement("${id}_$index"))
                 }
             }
             adjustElements()
         }
-
-    override fun dispose(){
-        elements.forEach {
-            it.dispose()
-        }
-    }
-
-
 
 
 
@@ -67,22 +59,14 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
         block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
     }
 
-    override fun draw(batch: SpriteBatch) {
-        if(visible){
-            elements.forEach {
-                it.draw(batch)
-            }
-        }
-    }
-
     /** Replaces the nth element of the layout this function is the standard way to put an element to the layout
      */
-    fun replaceElement(n: Int, e: UiElement){
-        for (i in elements.indices){
-            if(i==n){
-                elements[n] = adjustElementTo(e,subBlocks[n])
-            } else{
-                if (elements[i].id==e.id) throw Exception("ID clash at $id")
+    fun replaceElement(n: Int, e: UiElement) {
+        for (i in elements.indices) {
+            if (i == n) {
+                elements[n] = adjustElementTo(e, subBlocks[n])
+            } else {
+                if (elements[i].id == e.id) throw Exception("ID clash at $id")
             }
         }
     }
@@ -90,31 +74,30 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
     /** Overloads the above function
      *
      */
-    fun replaceElement(id:String,e: UiElement){
+    fun replaceElement(id: String, e: UiElement) {
         elements.forEach {
-            if(it.id==id){
-                val i = elements.indexOfFirst {it2-> it2.id == id }
-                adjustElementTo(e,subBlocks[i])
+            if (it.id == id) {
+                val i = elements.indexOfFirst { it2 -> it2.id == id }
+                adjustElementTo(e, subBlocks[i])
                 elements[i] = e
                 return
-            } else if(it.id==e.id){
+            } else if (it.id == e.id) {
                 throw Exception("ID clash at $id")
             }
         }
     }
 
 
-
-    fun getElement(id:String): UiElement {
+    fun getElement(id: String): UiElement {
         val l = id.split("&")
         elements.forEach {
-            if (it.id ==l.first()){
-                return if(l.size==1){
+            if (it.id == l.first()) {
+                return if (l.size == 1) {
                     it
-                } else{
-                    if(it is OmniLayout){
-                        it.getElement(l.subList(1,l.lastIndex+1).joinToString("&"))
-                    } else{
+                } else {
+                    if (it is OmniLayout) {
+                        it.getElement(l.subList(1, l.lastIndex + 1).joinToString("&"))
+                    } else {
                         throw Exception("id depth is not matched")
                     }
 
@@ -125,42 +108,57 @@ abstract class OmniLayout(id: String, rect: LcsRect): UiElement(id) {
 
     }
 
-    /** Handles touch for all hierarchies
+    /** This is a decorator function to above spesifically designed to get the block of an element, which can then
+     * be used for initiating the element put in
+     * There may be a way to automate this better
      */
     override fun touchHandler(mayTouch: Boolean): Boolean {
         var b = mayTouch.not()
-        subBlocks.reversed().forEachIndexed {index,it->
-            if(it.contains(GetLcs.ofX(),GetLcs.ofY())){
-                if (elements.reversed()[index].touchHandler(b.not())) b= true
-            } else{
+        subBlocks.reversed().forEachIndexed { index, it ->
+            if (it.contains(GetLcs.ofX(), GetLcs.ofY())) {
+                if (elements.reversed()[index].touchHandler(b.not())) b = true
+            } else {
                 elements.reversed()[index].touchHandler(false)
             }
         }
         return b
-
     }
 
-    fun toTop(id: String){
-        val n = elements.indexOfFirst {it.id==id  }
-        if(n<0){
+
+    fun toTop(id: String) {
+        val n = elements.indexOfFirst { it.id == id }
+        if (n < 0) {
             throw Exception("Index Not Found")
         }
         subBlocks.add(subBlocks.removeAt(n))
         elements.add(elements.removeAt(n))
     }
 
-    fun toBottom(id: String){
-        val n = elements.indexOfFirst {it.id==id  }
-        if(n<0){
+    fun toBottom(id: String) {
+        val n = elements.indexOfFirst { it.id == id }
+        if (n < 0) {
             throw Exception("Index Not Found")
         }
-        subBlocks.add(0,subBlocks.removeAt(n))
-        elements.add(0,elements.removeAt(n))
+        subBlocks.add(0, subBlocks.removeAt(n))
+        elements.add(0, elements.removeAt(n))
 
     }
 
 
 
+    override fun draw(batch: SpriteBatch) {
+        if (visible) {
+            elements.forEach {
+                it.draw(batch)
+            }
+        }
+    }
+
+    override fun dispose() {
+        elements.forEach {
+            it.dispose()
+        }
+    }
 
 
 }

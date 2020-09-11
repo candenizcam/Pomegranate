@@ -8,7 +8,7 @@ import kotlin.math.abs
  */
 class LcsVariable(private val v: Float, private val coeff: Float) {
     fun asPixel(): Float {
-        return v*coeff;
+        return v * coeff;
     }
 
     fun asLcs(): Float {
@@ -47,23 +47,23 @@ class LcsVariable(private val v: Float, private val coeff: Float) {
         return LcsVariable(v / other, coeff)
     }
 
-    override operator fun equals(other: Any?): Boolean{
-        return if(other is LcsVariable){
-            other.v==v
-        } else{
+    override operator fun equals(other: Any?): Boolean {
+        return if (other is LcsVariable) {
+            other.v == v
+        } else {
             false
         }
     }
 
     fun limitBelow(other: LcsVariable): LcsVariable {
-        return LcsVariable(v.coerceAtLeast(other.v),coeff)
+        return LcsVariable(v.coerceAtLeast(other.v), coeff)
     }
 
     fun limitAbove(other: LcsVariable): LcsVariable {
-        return LcsVariable(v.coerceAtMost(other.v),coeff)
+        return LcsVariable(v.coerceAtMost(other.v), coeff)
     }
 
     fun abs(): LcsVariable {
-        return LcsVariable(abs(v),coeff)
+        return LcsVariable(abs(v), coeff)
     }
 }

@@ -46,6 +46,8 @@ class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.getZer
         }
     }
 
+
+
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         buttonsList.forEach {
             it.relocate(x,y)
@@ -59,7 +61,8 @@ class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.getZer
     }
 
     override fun draw(batch: SpriteBatch) {
-        buttonsList[activeButton].draw(batch)
+        if(buttonsList.isNotEmpty()){buttonsList[activeButton].draw(batch)}
+
     }
 
     override fun dispose() {

@@ -10,7 +10,7 @@ object GetLcs {
     var initialHeight = 0f // height of the screen on loading
     var lcsCoeff = 0f// a side of a LCS square
 
-    fun lcsInitialize(){
+    fun lcsInitialize() {
         initialWidth = Gdx.graphics.width.toFloat()
         initialHeight = Gdx.graphics.height.toFloat()
         lcsCoeff = initialWidth.coerceAtMost(initialHeight)
@@ -44,15 +44,15 @@ object GetLcs {
      *
      */
     fun ofZero(): LcsVariable {
-        return LcsVariable(0f,lcsCoeff)
+        return LcsVariable(0f, lcsCoeff)
     }
 
     fun ofX(): LcsVariable {
-        return LcsVariable(Gdx.input.x.toFloat()/Gdx.graphics.width*initialWidth/lcsCoeff,lcsCoeff)
+        return LcsVariable(Gdx.input.x.toFloat() / Gdx.graphics.width * initialWidth / lcsCoeff, lcsCoeff)
     }
 
     fun ofY(): LcsVariable {
-        return LcsVariable((1-Gdx.input.y.toFloat()/Gdx.graphics.height)*initialHeight/lcsCoeff,lcsCoeff)
+        return LcsVariable((1 - Gdx.input.y.toFloat() / Gdx.graphics.height) * initialHeight / lcsCoeff, lcsCoeff)
     }
 
 }

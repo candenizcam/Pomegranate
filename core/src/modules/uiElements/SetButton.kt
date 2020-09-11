@@ -16,23 +16,22 @@ import modules.visuals.VisualSize
  * it needs to be loaded with basic size parameters, in the form of block
  * and it needs on and off visuals
  */
-class SetButton(id: String): UiElement(id) {
+class SetButton(id: String) : UiElement(id) {
     override var block: LcsRect = GetLcsRect.getZero()
 
 
-
     private var drawIndex = 0
-    private var visualList =  listOf<OmniVisual>()
-    var clicked = {println("$id clicked")}
+    private var visualList = listOf<OmniVisual>()
+    var clicked = { println("$id clicked") }
 
     /** This constructor takes a block and it will take visuals later
      */
-    constructor(id: String, block: LcsRect): this(id){
+    constructor(id: String, block: LcsRect) : this(id) {
         this.block = block
-        setVisuals(ColouredBox().also{
+        setVisuals(ColouredBox().also {
             it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.WHITE)
-        }, ColouredBox().also{
+        }, ColouredBox().also {
             it.visualSize = VisualSize.STATIC
             it.recolour(Color.DARK_GRAY)
         })
@@ -40,13 +39,13 @@ class SetButton(id: String): UiElement(id) {
 
     /** This constructor takes images and it will take the block later
      */
-    constructor(id: String, onVisual: OmniVisual, offVisual: OmniVisual): this(id){
-        setVisuals(onVisual,offVisual)
+    constructor(id: String, onVisual: OmniVisual, offVisual: OmniVisual) : this(id) {
+        setVisuals(onVisual, offVisual)
     }
 
     /** This constructor takes all the inputs at start
      */
-    constructor(id:String, block: LcsRect,onVisual: OmniVisual, offVisual: OmniVisual): this(id){
+    constructor(id: String, block: LcsRect, onVisual: OmniVisual, offVisual: OmniVisual) : this(id) {
         this.block = block
         setVisuals(onVisual, offVisual)
     }
@@ -55,18 +54,18 @@ class SetButton(id: String): UiElement(id) {
      * on and off visuals are self explanatory
      * fitImage stretches the image to the size of the block
      */
-    fun setVisuals(onVisual: OmniVisual,offVisual: OmniVisual){
-        visualList = listOf(onVisual,offVisual)
+    fun setVisuals(onVisual: OmniVisual, offVisual: OmniVisual) {
+        visualList = listOf(onVisual, offVisual)
         adjustVisuals()
     }
 
     /** helper to setVisual that does the actual execution
      *
      */
-    private fun adjustVisuals(){
+    private fun adjustVisuals() {
         visualList.forEach {
-            it.resize(block.width,block.height)
-            it.relocate(block.cX,block.cY)
+            it.resize(block.width, block.height)
+            it.relocate(block.cX, block.cY)
         }
     }
 
@@ -74,23 +73,23 @@ class SetButton(id: String): UiElement(id) {
      * hierarchy is handled by the callers in layout
      */
     override fun touchHandler(mayTouch: Boolean): Boolean {
-        if(mayTouch){
-            val containing = block.contains(GetLcs.ofX(),GetLcs.ofY())
-            if (drawIndex==1){
-                drawIndex = if (Gdx.input.isTouched){
+        if (mayTouch) {
+            val containing = block.contains(GetLcs.ofX(), GetLcs.ofY())
+            if (drawIndex == 1) {
+                drawIndex = if (Gdx.input.isTouched) {
                     if (containing) 1 else 0
-                } else{
+                } else {
                     clicked()
                     0
                 }
             } else {
-                if (Gdx.input.justTouched()){
-                    drawIndex = if(containing) 1 else 0
+                if (Gdx.input.justTouched()) {
+                    drawIndex = if (containing) 1 else 0
                 }
             }
             return containing
-        } else{
-            drawIndex=0
+        } else {
+            drawIndex = 0
             return false
         }
 
@@ -104,9 +103,9 @@ class SetButton(id: String): UiElement(id) {
     /** Relocates the button to x y
      */
     override fun relocate(x: LcsVariable, y: LcsVariable) {
-        block = GetLcsRect.byParameters(block.width,block.height,x,y)
+        block = GetLcsRect.byParameters(block.width, block.height, x, y)
         visualList.forEach {
-            it.relocate(x,y)
+            it.relocate(x, y)
         }
 
     }
@@ -114,16 +113,16 @@ class SetButton(id: String): UiElement(id) {
     /** Resizes the block by w and h
      */
     override fun resize(w: LcsVariable, h: LcsVariable) {
-        block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
+        block = GetLcsRect.byParameters(w, h, block.cX, block.cY)
         visualList.forEach {
-            it.resize(w,h)
+            it.resize(w, h)
         }
     }
 
     /** Called on every draw
      */
     override fun draw(batch: SpriteBatch) {
-        if (visible){
+        if (visible) {
             visualList[drawIndex].draw(batch)
         }
     }

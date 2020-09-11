@@ -22,7 +22,7 @@ class TestScene: Scene("testScene",0f) {
         val sampleLayout = ColLayout("sampleRow",rect = GetLcsRect.ofFullScreen()).also{
             it.divideBlocksToBiased(listOf(GetLcs.initialWidth- GetLcs.lcsCoeff, GetLcs.lcsCoeff*2, GetLcs.initialWidth- GetLcs.lcsCoeff))
         }
-        layout.addPlot("above",0.1f,0.4f,0.1f,0.4f)
+        layout.addPlot("above",0.2f,0.4f,0.1f,0.4f)
         //layout.replaceElement("above",SetButton("button_3",image_1.copy().also { it.recolour(Color(1f,1f,0f,1f)) },image_1.copy().also { it.recolour(Color(0f,0.5f,0f,1f)) }))
         /*
         layout.replaceElement("above", MultiSetButton("button_3").also {
@@ -38,7 +38,9 @@ class TestScene: Scene("testScene",0f) {
         })
 
          */
-        layout.replaceElement("above", TypingBox("tb"))
+        layout.replaceElement("above", TypingBox("tb","0",charLimit = 30,numOnly = true).also {
+            it.textChangeFun = {}
+        })
 
 
 
