@@ -1,8 +1,8 @@
 package modules.uiElements
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable
 import java.lang.Exception
 
 abstract class UiElement(var id: String) {

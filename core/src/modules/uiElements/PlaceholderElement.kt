@@ -1,8 +1,8 @@
 package modules.uiElements
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsVariable
 
 class PlaceholderElement(id: String) : UiElement(id) {
     override var block = GetLcsRect.getZero()

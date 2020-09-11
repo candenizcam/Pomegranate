@@ -2,12 +2,12 @@ package com.pomegranate
 
 
 import com.badlogic.gdx.graphics.Color
-import modules.LcsModule.GetLcs
-import modules.LcsModule.GetLcsRect
+import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
 import modules.scenes.Scene
 import modules.uiElements.*
-import modules.uiElements.Layouts.ColLayout
-import modules.uiElements.Layouts.PinboardLayout
+import modules.uiElements.layouts.ColLayout
+import modules.uiElements.layouts.PinboardLayout
 import modules.visuals.ColouredBox
 import modules.visuals.TimedAtlasAnimation
 import modules.visuals.VisualSize

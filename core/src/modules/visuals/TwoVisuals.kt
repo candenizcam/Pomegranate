@@ -2,7 +2,7 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.LcsVariable
 
 class TwoVisuals(var front: OmniVisual, var back: OmniVisual, visualSize: VisualSize = VisualSize.STATIC) : OmniVisual(visualSize = visualSize) {
     override fun relocate(x: LcsVariable, y: LcsVariable) {

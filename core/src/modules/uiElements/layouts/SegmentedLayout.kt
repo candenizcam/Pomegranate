@@ -1,6 +1,6 @@
-package modules.uiElements.Layouts
+package modules.uiElements.layouts
 
-import modules.LcsModule.LcsRect
+import modules.lcsModule.LcsRect
 
 abstract class SegmentedLayout(id: String, rect: LcsRect): OmniLayout(id,rect) {
 

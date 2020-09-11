@@ -1,7 +1,7 @@
 package modules.visuals
 
-import modules.LcsModule.GetLcs
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.GetLcs
+import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
@@ -31,23 +31,15 @@ class ColouredBox(w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), var colour
     override fun update() {}
 
 
-    override fun fitElement(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+    override fun fitElement(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
         width = w
         height = h
         imageWidth = w
         imageHeight = h
         s.setSize(w.asPixel(), h.asPixel())
-        /*
-        val x = s.x
-        val y = s.y
-        s = createSprite()
-        s.x = x
-        s.y = y
-
-         */
     }
 
-    override fun fitWithRatio(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+    override fun fitWithRatio(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
         width=w
         height=h
         val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())

@@ -2,7 +2,7 @@ package modules.uiElements.interactableGrid
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import modules.LcsModule.GetLcs
+import modules.lcsModule.GetLcs
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
 import modules.visuals.VisualSize

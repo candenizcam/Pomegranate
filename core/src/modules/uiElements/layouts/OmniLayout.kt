@@ -1,10 +1,10 @@
-package modules.uiElements.Layouts
+package modules.uiElements.layouts
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcs
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable
 import modules.uiElements.PlaceholderElement
 import modules.uiElements.UiElement
 import java.lang.Exception

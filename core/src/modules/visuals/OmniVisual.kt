@@ -1,10 +1,10 @@
 package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
-import modules.LcsModule.GetLcs
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.GetLcs
+import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.LcsRect
+import modules.lcsModule.LcsRect
 
 /** OmniVisual is the base class for visuals
  *

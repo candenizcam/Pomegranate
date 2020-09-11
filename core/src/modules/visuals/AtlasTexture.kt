@@ -1,8 +1,8 @@
 package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
-import modules.LcsModule.GetLcs
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.GetLcs
+import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
@@ -34,7 +34,7 @@ open class AtlasTexture(private val path: String, val region: String = "", w: lv
         relocate(cX, cY)
     }
 
-    override fun fitWithRatio(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+    override fun fitWithRatio(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
         width=w
         height=h
         sprites.forEach {

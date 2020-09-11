@@ -1,9 +1,6 @@
 package modules.inputProcessor
 
-import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputProcessor
-import java.awt.event.KeyEvent
 
 class BasicListener  : InputProcessor {
     override fun mouseMoved(screenX: Int, screenY: Int): Boolean {

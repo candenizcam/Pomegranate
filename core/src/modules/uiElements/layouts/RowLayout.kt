@@ -1,9 +1,7 @@
-package modules.uiElements.Layouts
+package modules.uiElements.layouts
 
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
-import modules.uiElements.PlaceholderElement
-import modules.uiElements.UiElement
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
 
 class RowLayout(id: String, rect: LcsRect) : SegmentedLayout(id, rect) {
 

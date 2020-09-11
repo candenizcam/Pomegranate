@@ -3,10 +3,10 @@ package modules.uiElements
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcs
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
 import modules.visuals.VisualSize

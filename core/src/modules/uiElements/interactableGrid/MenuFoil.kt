@@ -3,16 +3,16 @@ package modules.uiElements.interactableGrid
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcs
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable
 import modules.uiElements.MultiSetButton
 import modules.uiElements.PinupImage
 import modules.uiElements.SetButton
-import modules.uiElements.Layouts.ColLayout
-import modules.uiElements.Layouts.PinboardLayout
-import modules.uiElements.Layouts.RowLayout
+import modules.uiElements.layouts.ColLayout
+import modules.uiElements.layouts.PinboardLayout
+import modules.uiElements.layouts.RowLayout
 import modules.visuals.*
 
 /** This foil contains the menu

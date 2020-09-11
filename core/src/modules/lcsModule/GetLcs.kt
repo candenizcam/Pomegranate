@@ -1,4 +1,4 @@
-package modules.LcsModule
+package modules.lcsModule
 
 import com.badlogic.gdx.Gdx
 

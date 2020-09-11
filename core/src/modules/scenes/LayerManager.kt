@@ -1,7 +1,6 @@
 package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.scenes.Scene
 
 object LayerManager {
     val layers = mutableListOf<Scene>()

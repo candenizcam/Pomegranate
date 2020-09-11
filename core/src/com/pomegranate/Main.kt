@@ -1,22 +1,15 @@
 package com.pomegranate
 
-import modules.LcsModule.GetLcs
+import modules.lcsModule.GetLcs
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.uiElements.Layouts.ColLayout
-import modules.uiElements.Layouts.OmniLayout
+import modules.uiElements.layouts.OmniLayout
 import modules.uiElements.PinupImage
-import modules.uiElements.Layouts.RowLayout
-import modules.LcsModule.GetLcsRect
 import modules.inputProcessor.BasicListener
 import modules.scenes.LayerManager
 import modules.scenes.Scene
-import modules.uiElements.Layouts.PinboardLayout
-import modules.uiElements.SetButton
-import modules.uiElements.Slider
 import modules.visuals.*
 
 

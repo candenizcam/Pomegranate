@@ -1,7 +1,7 @@
 package modules.visuals
 
-import modules.LcsModule.GetLcs
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.GetLcs
+import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.Gdx
 
 class TimedAtlasAnimation(path: String, region: String = "", w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), val fps: Float, visualSize: VisualSize = VisualSize.STATIC) : AtlasTexture(path, region, w, h, visualSize) {

@@ -1,15 +1,14 @@
 package modules.uiElements.interactableGrid
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcs
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable
 import modules.uiElements.UiElement
 import modules.visuals.OmniVisual
 import kotlin.math.ceil

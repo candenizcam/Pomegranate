@@ -1,9 +1,9 @@
 package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcsRect
-import modules.uiElements.Layouts.OmniLayout
-import modules.uiElements.Layouts.PinboardLayout
+import modules.lcsModule.GetLcsRect
+import modules.uiElements.layouts.OmniLayout
+import modules.uiElements.layouts.PinboardLayout
 import modules.uiElements.UiElement
 
 

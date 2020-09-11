@@ -1,7 +1,7 @@
 package modules.visuals
 
-import modules.LcsModule.GetLcs
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.GetLcs
+import modules.lcsModule.LcsVariable as lv
 
 /** Makes animation change frame based on horizontal movement (w)
  *

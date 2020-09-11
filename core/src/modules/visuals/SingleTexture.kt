@@ -1,7 +1,7 @@
 package modules.visuals
 
-import modules.LcsModule.GetLcs
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.GetLcs
+import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
@@ -32,7 +32,7 @@ class SingleTexture(private val path: String, w: lv = GetLcs.byLcs(1f), h: lv = 
         s.setSize(width.asPixel(), height.asPixel())
     }
 
-    override fun fitWithRatio(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+    override fun fitWithRatio(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
         width=w
         height=h
         val rat = (width/originalWidth).asLcs().coerceAtMost((height/originalHeight).asLcs())

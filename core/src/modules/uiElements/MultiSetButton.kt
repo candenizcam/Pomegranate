@@ -1,9 +1,9 @@
 package modules.uiElements
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.LcsModule.GetLcsRect
-import modules.LcsModule.LcsRect
-import modules.LcsModule.LcsVariable
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable
 
 /** This is a collection of set buttons that, in addition to buttons' function, switches the displayed button with every click
  * I really really hope this works cos I don't want to figure out a different way to do this

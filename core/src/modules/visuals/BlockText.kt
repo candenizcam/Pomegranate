@@ -1,13 +1,13 @@
 package modules.visuals
 
-import modules.LcsModule.GetLcs
+import modules.lcsModule.GetLcs
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
-import modules.LcsModule.LcsVariable as lv
+import modules.lcsModule.LcsVariable as lv
 
 /** Creates a textbox with the set text
  * align: -1 left, 0 right, 1 centre
@@ -46,7 +46,7 @@ class BlockText(var text: String, size: Int, colour: Color, var fontPath: String
         font = createFont(font.color)
     }
 
-    override fun fitWithRatio(w: modules.LcsModule.LcsVariable, h: modules.LcsModule.LcsVariable) {
+    override fun fitWithRatio(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
 
     }
 

@@ -1,4 +1,4 @@
-package modules.LcsModule
+package modules.lcsModule
 
 /** This data class allows us to capture a spesific rectangle on the screen and it stores all the relevant data so that we don't need to recalculate every time
  */
@@ -21,6 +21,32 @@ data class LcsRect(val width: LcsVariable, val height: LcsVariable, val cX: LcsV
 
     }
 
+    /** Returns a rectangle relocated to a spesific position
+     */
+    fun relocateTo(x: LcsVariable, y: LcsVariable): LcsRect {
+        return GetLcsRect.byParameters(width,height,x,y)
+    }
+
+    /** Returns a rectangle resized by given LCS variables
+     */
+    fun resizeTo(w: LcsVariable, h: LcsVariable): LcsRect {
+        return GetLcsRect.byParameters(w,h,cX,cY)
+    }
+
+    /** Returns a rectangle multiplied by a single variable
+     */
+    fun resizeTo(multiply: Float): LcsRect {
+        return GetLcsRect.byParameters(width*multiply,height*multiply,cX,cY)
+    }
+
+    /** Returns a rectangle multiplied by width and height coefficients
+     */
+    fun resizeTo(cW: Float, cH: Float): LcsRect {
+        return GetLcsRect.byParameters(width*cW,height*cH,cX,cY)
+    }
+
+    /** Returns true if width and height are zero
+     */
     fun isZero(): Boolean {
         return (width.asLcs() == 0f) && (height.asLcs() == 0f)
     }
