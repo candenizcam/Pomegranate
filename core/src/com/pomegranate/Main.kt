@@ -7,21 +7,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.inputProcessor.BasicListener
 import modules.lcsModule.GetLcs
 import modules.scenes.LayerManager
-import modules.scenes.Scene
-import modules.uiElements.PinupImage
-import modules.uiElements.layouts.OmniLayout
-import modules.visuals.BlockText
-import modules.visuals.OmniVisual
 
 
 class Main : ApplicationAdapter() {
     lateinit var batch: SpriteBatch
-    lateinit var ls: OmniVisual
-    lateinit var box: OmniVisual
-    lateinit var tb: BlockText
-    lateinit var pi: PinupImage
-    lateinit var rl: OmniLayout
-    lateinit var sc: Scene
 
     override fun create() {
 

@@ -7,6 +7,7 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
+import modules.uiElements.FastGenerator
 import modules.uiElements.MultiSetButton
 import modules.uiElements.PinupImage
 import modules.uiElements.SetButton
@@ -24,8 +25,6 @@ class MenuFoil() {
     var rowNo = 5
     var colNo = 5
     private var menuLayout = PinboardLayout("menuFoilBg",GetLcsRect.ofFullScreen()).also {
-        val buttonBg = ColouredBox(colour = Color(0.4f,0.4f,0.4f,1f),visualSize = VisualSize.FIT_ELEMENT)
-        val buttonPressedBg =ColouredBox(colour = Color(0.3f,0.3f,0.3f,1f),visualSize = VisualSize.FIT_ELEMENT)
         it.addElement(PinupImage("bg",ColouredBox(GetLcsRect.byParameters(it.block.width,it.block.height), Color(0f,0f,0f,0.9f)).also { it2->
             it2.visualSize = VisualSize.FIT_ELEMENT
         }),it.block)
@@ -42,8 +41,8 @@ class MenuFoil() {
                 val rowText = BlockText("$rowNo",36,Color.WHITE,"fonts/PTMono-Regular.ttf")
                 rower.replaceElement(6,PinupImage("colNo", rowText))
                 listOf(Triple(4,"<<",{rowNo -= 10}),Triple(5,"<",{rowNo-=1}),Triple(7,">",{rowNo+=1}),Triple(8,">>",{rowNo+=10})).forEach {p->
-                    val bt = BlockText(p.second,36,Color.WHITE,"fonts/PTMono-Regular.ttf")
-                    rower.replaceElement(p.first,SetButton(p.second,TwoVisuals(bt,buttonBg.copy(),visualSize = VisualSize.FIT_ELEMENT),TwoVisuals(bt,buttonPressedBg.copy(),visualSize = VisualSize.FIT_ELEMENT)).also {
+                    val but = FastGenerator.genericSetButton(p.second,p.second,36,Color(0.4f,0.4f,0.4f,1f),Color.WHITE,"fonts/PTMono-Regular.ttf",0.75f)
+                    rower.replaceElement(p.first,but.also {
                         it.clicked = {
                             p.third()
                             rowNo = rowNo.coerceAtLeast(1).coerceAtMost(200)
@@ -52,14 +51,14 @@ class MenuFoil() {
                     })
                 }
             })
-            rowLayout.replaceElement(1,ColLayout("coler",it.block).also {rower->
-                rower.divideBlocksToBiased(listOf(0.1f,0.3f,0.1f,0.1f,0.05f,0.05f,0.1f,0.05f,0.05f,0.1f))
-                rower.replaceElement(1,PinupImage("colerText", BlockText("Col Number:",36,Color.WHITE,"fonts/PTMono-Regular.ttf")))
+            rowLayout.replaceElement(1,ColLayout("coler",it.block).also {coler->
+                coler.divideBlocksToBiased(listOf(0.1f,0.3f,0.1f,0.1f,0.05f,0.05f,0.1f,0.05f,0.05f,0.1f))
+                coler.replaceElement(1,PinupImage("colerText", BlockText("Col Number:",36,Color.WHITE,"fonts/PTMono-Regular.ttf")))
                 val colText = BlockText("$colNo",36,Color.WHITE,"fonts/PTMono-Regular.ttf")
-                rower.replaceElement(6,PinupImage("coNo",colText ))
+                coler.replaceElement(6,PinupImage("coNo",colText ))
                 listOf(Triple(4,"<<",{colNo -= 10}),Triple(5,"<",{colNo-=1}),Triple(7,">",{colNo+=1}),Triple(8,">>",{colNo+=10})).forEach {p->
-                    val bt = BlockText(p.second,36,Color.WHITE,"fonts/PTMono-Regular.ttf")
-                    rower.replaceElement(p.first,SetButton(p.second,TwoVisuals(bt,buttonBg.copy(),visualSize = VisualSize.FIT_ELEMENT),TwoVisuals(bt,buttonPressedBg.copy(),visualSize = VisualSize.FIT_ELEMENT)).also {
+                    val but = FastGenerator.genericSetButton(p.second,p.second,36,Color(0.4f,0.4f,0.4f,1f),Color.WHITE,"fonts/PTMono-Regular.ttf",0.75f)
+                    coler.replaceElement(p.first,but.also {
                         it.clicked = {
                             p.third()
                             colNo = colNo.coerceAtLeast(1).coerceAtMost(200)

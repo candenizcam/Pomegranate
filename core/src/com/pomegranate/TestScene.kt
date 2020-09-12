@@ -14,8 +14,9 @@ import modules.visuals.*
 class TestScene: Scene("testScene",0f) {
     override val layout = PinboardLayout("main", GetLcsRect.ofFullScreen()).also { layout ->
         val tv = TestVisuals()
+        val but = FastGenerator.genericSetButton("hey","text",36, Color.GOLD, Color.WHITE,"fonts/PTMono-Regular.ttf")
 
-        layout.addElement(PinupImage("id",tv.ta),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.9f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+        layout.addElement(but,GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
     }
         /*
         val image_1 = ColouredBox().also{
