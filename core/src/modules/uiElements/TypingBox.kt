@@ -30,7 +30,7 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
     var textChangeFun = {}
 
 
-    private var bg: OmniVisual = ColouredBox(block.width,block.height, Color.WHITE).also {
+    private var bg: OmniVisual = ColouredBox(GetLcsRect.byParameters(block.width,block.height), Color.WHITE).also {
         it.visualSize = VisualSize.FIT_ELEMENT
     }
     private var invalid = bg.copy().also {

@@ -10,7 +10,7 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
 
-class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.getZero()) : UiElement("Cursor") {
+class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()) : UiElement("Cursor") {
     override lateinit var block: LcsRect
 
 
@@ -20,8 +20,8 @@ class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.getZero(
     init {
 
         if (block.isZero()) {
-            println("image size ${image.width.asPixel()} ${image.height.asPixel()}")
-            this.block = GetLcsRect.byParameters(image.width, image.height, GetLcs.ofX(), GetLcs.ofY())
+            println("image size ${image.block.width.asPixel()} ${image.block.height.asPixel()}")
+            this.block = GetLcsRect.byParameters(image.block.width, image.block.height, GetLcs.ofX(), GetLcs.ofY())
         } else {
             this.block = GetLcsRect.byParameters(block.width, block.height, GetLcs.ofX(), GetLcs.ofY())
             image.resize(block.width, block.height)

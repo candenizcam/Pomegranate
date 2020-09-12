@@ -26,7 +26,7 @@ class MenuFoil() {
     private var menuLayout = PinboardLayout("menuFoilBg",GetLcsRect.ofFullScreen()).also {
         val buttonBg = ColouredBox(colour = Color(0.4f,0.4f,0.4f,1f),visualSize = VisualSize.FIT_ELEMENT)
         val buttonPressedBg =ColouredBox(colour = Color(0.3f,0.3f,0.3f,1f),visualSize = VisualSize.FIT_ELEMENT)
-        it.addElement(PinupImage("bg",ColouredBox(it.block.width,it.block.height, Color(0f,0f,0f,0.9f)).also {it2->
+        it.addElement(PinupImage("bg",ColouredBox(GetLcsRect.byParameters(it.block.width,it.block.height), Color(0f,0f,0f,0.9f)).also { it2->
             it2.visualSize = VisualSize.FIT_ELEMENT
         }),it.block)
         it.addElement(RowLayout("rows",it.block).also {rowLayout->
@@ -119,7 +119,7 @@ class MenuFoil() {
     private fun generateEraser(f: ()->Unit): SetButton {
         val eraseOV = TwoVisuals(
                 BlockText("Eraser",36, Color.WHITE,"fonts/PTMono-Regular.ttf"),
-                ColouredBox(GetLcs.byPixel(100f),GetLcs.byPixel(100f),Color.CORAL).also { it.visualSize = VisualSize.FIT_ELEMENT }
+                ColouredBox(GetLcsRect.byParameters(GetLcs.byPixel(100f),GetLcs.byPixel(100f)),Color.CORAL).also { it.visualSize = VisualSize.FIT_ELEMENT }
         )
         eraseOV.visualSize = VisualSize.FIT_ELEMENT
         return SetButton("eraser",eraseOV.copy(),eraseOV.copy().also { it2->

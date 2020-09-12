@@ -8,13 +8,16 @@ import modules.scenes.Scene
 import modules.uiElements.*
 import modules.uiElements.layouts.ColLayout
 import modules.uiElements.layouts.PinboardLayout
-import modules.visuals.ColouredBox
-import modules.visuals.TimedAtlasAnimation
-import modules.visuals.VisualSize
+import modules.visuals.*
 
 
 class TestScene: Scene("testScene",0f) {
-    override val layout = PinboardLayout("main",GetLcsRect.ofFullScreen()).also {layout->
+    override val layout = PinboardLayout("main", GetLcsRect.ofFullScreen()).also { layout ->
+        val tv = TestVisuals()
+
+        layout.addElement(PinupImage("id",tv.ta),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.9f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+    }
+        /*
         val image_1 = ColouredBox().also{
             it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.CYAN)
@@ -38,9 +41,12 @@ class TestScene: Scene("testScene",0f) {
         })
 
          */
+        /*
         layout.replaceElement("above", TypingBox("tb","0",charLimit = 30,numOnly = true).also {
             it.textChangeFun = {}
         })
+
+         */
 
 
 
@@ -63,15 +69,19 @@ class TestScene: Scene("testScene",0f) {
 
             //it.toTop("button_1")
         }
-        val image_2 = TimedAtlasAnimation("placeholderAtlas/cats.atlas","still",fps=2f).also{
-            it.visualSize = VisualSize.FIT_WITH_RATIO
+        val image_2 = TimedAtlasAnimation("placeholderAtlas/cats.atlas","still",fps=2f,visualSize = VisualSize.FIT_ELEMENT).also{
+            //it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.CYAN)
         }
-        replaceElement("sampleRow&sampleRow_0", Slider("button_5",5..10,GetLcsRect.byParameters(GetLcs.byPixel(GetLcs.initialWidth- GetLcs.lcsCoeff)/2, GetLcs.byLcs(1f),GetLcs.ofZero(),GetLcs.ofZero()),horizontal =false))
-        replaceElement("sampleRow&sampleRow_2", PinupImage("pi1",image_2))
-        replaceElement("sampleRow&sampleRow_1",sl2)
+        replaceElement("sampleRow&sampleRow_0", PinupImage("c1",ColouredBox(colour = Color.BROWN,visualSize = VisualSize.FIT_ELEMENT)))
+        //replaceElement("sampleRow&sampleRow_0", Slider("button_5",5..10,GetLcsRect.byParameters(GetLcs.byPixel(GetLcs.initialWidth- GetLcs.lcsCoeff)/2, GetLcs.byLcs(1f),GetLcs.ofZero(),GetLcs.ofZero()),horizontal =false))
+        //replaceElement("sampleRow&sampleRow_2", PinupImage("pi1",image_2))
+        //replaceElement("sampleRow&sampleRow_1",sl2)
 
     }
+
+         */
+
 
 
 }

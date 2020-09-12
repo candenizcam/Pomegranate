@@ -30,7 +30,7 @@ object GetLcsRect {
 
     /** creates a 0 0 0 0 rectangle
      */
-    fun getZero(): LcsRect {
+    fun ofZero(): LcsRect {
         val l = GetLcs.ofZero()
         return LcsRect(l, l, l, l, l, l, l, l)
     }

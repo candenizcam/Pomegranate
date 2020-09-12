@@ -8,7 +8,7 @@ import modules.lcsModule.LcsVariable
 /** This is a collection of set buttons that, in addition to buttons' function, switches the displayed button with every click
  * I really really hope this works cos I don't want to figure out a different way to do this
  */
-class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.getZero()): UiElement(id) {
+class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.ofZero()): UiElement(id) {
     var buttonsList = mutableListOf<SetButton>()
     var activeButton = 0
 

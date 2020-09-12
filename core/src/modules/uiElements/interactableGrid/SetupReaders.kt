@@ -3,6 +3,7 @@ package modules.uiElements.interactableGrid
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
 import modules.visuals.VisualSize
@@ -44,7 +45,7 @@ object SetupReaders {
                     colour = Color(it3[0].toFloat()/255,it3[1].toFloat()/255,it3[2].toFloat()/255,it3[3].toFloat()/255)
                 }
             }
-            returning.add(Pair(type, ColouredBox(GetLcs.byPixel(100f), GetLcs.byPixel(100f), colour).also {it.visualSize = VisualSize.FIT_ELEMENT}))
+            returning.add(Pair(type, ColouredBox(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)), colour).also {it.visualSize = VisualSize.FIT_ELEMENT}))
 
         }
         return returning

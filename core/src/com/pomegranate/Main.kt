@@ -1,16 +1,17 @@
 package com.pomegranate
 
-import modules.lcsModule.GetLcs
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.uiElements.layouts.OmniLayout
-import modules.uiElements.PinupImage
 import modules.inputProcessor.BasicListener
+import modules.lcsModule.GetLcs
 import modules.scenes.LayerManager
 import modules.scenes.Scene
-import modules.visuals.*
+import modules.uiElements.PinupImage
+import modules.uiElements.layouts.OmniLayout
+import modules.visuals.BlockText
+import modules.visuals.OmniVisual
 
 
 class Main : ApplicationAdapter() {
@@ -23,8 +24,9 @@ class Main : ApplicationAdapter() {
     lateinit var sc: Scene
 
     override fun create() {
-        GetLcs.lcsInitialize()
+
         batch = SpriteBatch()
+        GetLcs.lcsInitialize()
         LayerManager.add(TestScene(),true)
 
         Gdx.input.inputProcessor = BasicListener()

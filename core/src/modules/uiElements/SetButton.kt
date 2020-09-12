@@ -16,7 +16,7 @@ import modules.visuals.VisualSize
  * and it needs on and off visuals
  */
 class SetButton(id: String) : UiElement(id) {
-    override var block: LcsRect = GetLcsRect.getZero()
+    override var block: LcsRect = GetLcsRect.ofZero()
 
 
     private var drawIndex = 0

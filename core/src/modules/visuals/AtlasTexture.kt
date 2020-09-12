@@ -2,51 +2,17 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import modules.lcsModule.GetLcs
-import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
 
-open class AtlasTexture(private val path: String, val region: String = "", w: lv = GetLcs.byLcs(1f), h: lv = GetLcs.byLcs(1f), visualSize: VisualSize = VisualSize.STATIC) : OmniVisual(w = w, h = h, visualSize = visualSize) {
-    init {
-        width = w
-        height = h
-    }
-    var sprites = createSprites()
-    var activeFrame = 0
+open class AtlasTexture(private val path: String, val region: String = "", var fitAll: Boolean=false, block: LcsRect = GetLcsRect.ofCentreSquare(), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize,scaleFactor = scaleFactor) {
+    private var ratioToFirst = mutableListOf<Pair<Float,Float>>()
+    protected var sprites = createSprites()
+    protected var activeFrame = 0
 
-
-    override fun relocate(x: lv, y: lv) {
-        cX = x
-        cY = y
-        sprites.forEach {
-            it.x = x.asPixel() - it.width / 2
-            it.y = y.asPixel() - it.height / 2
-        }
-    }
-
-    override fun fitElement(w: lv, h: lv) {
-        width = w
-        height = h
-        sprites.forEach {
-            it.setSize(width.asPixel(), height.asPixel())
-        }
-        relocate(cX, cY)
-    }
-
-    override fun fitWithRatio(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
-        width=w
-        height=h
-        sprites.forEach {
-            val rat = (width / originalWidth).asLcs().coerceAtMost((height / originalHeight).asLcs())
-            imageWidth = originalWidth * rat
-            imageHeight = originalHeight * rat
-            it.setSize(originalWidth.asPixel() * rat, originalHeight.asPixel() * rat)
-        }
-        relocate(cX, cY)
-
-
-    }
 
     override fun draw(batch: SpriteBatch) {
         sprites[activeFrame].draw(batch)
@@ -60,57 +26,20 @@ open class AtlasTexture(private val path: String, val region: String = "", w: lv
 
 
     private fun createSprites(): List<Sprite> {
-        var xOrgSize = 0f
-        var yOrgSize = 0f
-
+        val msl = mutableListOf<Sprite>()
         mutableListOf<Sprite>().also {
-            TextureAtlas(path).also { it2 ->
-                if (region == "") {
-                    it2.createSprites().also { it3 ->
-                        it3.forEach { it4 ->
-                            xOrgSize = it4.width.coerceAtLeast(xOrgSize)
-                            yOrgSize = it4.height.coerceAtLeast(yOrgSize)
-                            when (visualSize) {
-                                VisualSize.STATIC, VisualSize.SCALE_ORIGINAL -> {
-                                    width = GetLcs.byPixel(xOrgSize);height = GetLcs.byPixel(yOrgSize)
-                                }
-                                VisualSize.FIT_ELEMENT -> {
-                                    it4.setSize(width.asPixel(), height.asPixel())
-                                }
-                                VisualSize.FIT_WITH_RATIO -> {
-                                    val rat = (width / it4.width).asLcs().coerceAtMost((height / it4.height).asLcs())
-                                    it4.setSize(it4.width * rat, it4.height * rat)
-                                }
-                            }
-                            //it4.setSize(width.asPixel(),height.asPixel())
-                            it.add(it4)
-                        }
+            TextureAtlas(path).also {textureAtlas ->
+                var firstSize =  GetLcsRect.ofCentreSquare()
+                (if(region=="") textureAtlas.createSprites() else textureAtlas.createSprites(region)).forEachIndexed{index, sprite->
+                    if(index==0){
+                        firstSize = GetLcsRect.byParameters(GetLcs.byPixel(sprite.width),GetLcs.byPixel(sprite.height))
+                        originalBlock = firstSize
                     }
-                } else {
-                    it2.createSprites(region).also { it3 ->
-                        it3.forEach { it4 ->
-                            xOrgSize = it4.width.coerceAtLeast(xOrgSize)
-                            yOrgSize = it4.height.coerceAtLeast(yOrgSize)
-                            when (visualSize) {
-                                VisualSize.STATIC, VisualSize.SCALE_ORIGINAL -> {
-                                    width = GetLcs.byPixel(xOrgSize);height = GetLcs.byPixel(yOrgSize)
-                                }
-                                VisualSize.FIT_ELEMENT -> {
-                                    it4.setSize(width.asPixel(), height.asPixel())
-                                }
-                                VisualSize.FIT_WITH_RATIO -> {
-                                    val rat = (width / it4.width).asLcs().coerceAtMost((height / it4.height).asLcs())
-                                    it4.setSize(it4.width * rat, it4.height * rat)
-                                }
-                            }
-                            it.add(it4)
-                        }
-                    }
+                    ratioToFirst.add(Pair(sprite.width/firstSize.width.asPixel(),sprite.height/firstSize.height.asPixel()))
+                    msl.add(sprite)
                 }
             }
-            originalHeight = GetLcs.byPixel(yOrgSize)
-            originalWidth = GetLcs.byPixel(xOrgSize)
-            return it.toList()
+            return msl.toList()
         }
     }
 
@@ -121,21 +50,37 @@ open class AtlasTexture(private val path: String, val region: String = "", w: lv
     }
 
     override fun copy(): OmniVisual {
-        (if (this is StepAtlasAnimation) {
-            StepAtlasAnimation(path, region, width, height, step, visualSize)
-        } else if (this is TimedAtlasAnimation) {
-            TimedAtlasAnimation(path, region, width, height, fps, visualSize)
-        } else {
-            AtlasTexture(path, region, width, height, visualSize)
-        }).also {
-            it.relocate(cX, cY)
-            return it
+        return when (this) {
+            is StepAtlasAnimation -> {
+                StepAtlasAnimation(path, region, fitAll, block, step, visualSize,scaleFactor)
+            }
+            is TimedAtlasAnimation -> {
+                TimedAtlasAnimation(path, region, fitAll, block, fps, visualSize,scaleFactor)
+            }
+            else -> {
+                AtlasTexture(path, region, fitAll, block, visualSize,scaleFactor)
+            }
         }
     }
 
     override fun dispose() {
         sprites.forEach {
             it.texture.dispose()
+        }
+    }
+
+    override fun updateVisual() {
+        val changeSize = (sprites[0].width!=imageBlock.width.asPixel())||(sprites[0].height!=imageBlock.height.asPixel())
+        sprites.forEachIndexed() {index, it ->
+            if(changeSize){
+                if(fitAll){
+                    it.setSize(imageBlock.width.asPixel(),imageBlock.height.asPixel())
+                } else{
+                    it.setSize(imageBlock.width.asPixel()*ratioToFirst[index].first,imageBlock.height.asPixel()*ratioToFirst[index].second)
+                }
+            }
+            it.x = imageBlock.cX.asPixel() - it.width / 2
+            it.y = imageBlock.cY.asPixel() - it.height / 2
         }
     }
 
