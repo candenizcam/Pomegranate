@@ -16,7 +16,7 @@ import modules.lcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(var text: String, size: Int, colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.STATIC) : OmniVisual(block, visualSize = visualSize) {
+class BlockText(var text: String, size: Int, colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.FIT_ELEMENT) : OmniVisual(block, visualSize = visualSize) {
     var initSize = size
     var displayText = text
     var gl = GlyphLayout()
