@@ -61,6 +61,11 @@ class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()
 
         return false
     }
+    
+    fun recolour(c: Color){
+        image.recolour(c)
+    }
+
 
     override fun update() {
 
