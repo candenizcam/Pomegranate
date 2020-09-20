@@ -20,7 +20,7 @@ object GetLcsRect {
      * width and height are width and height
      * cX and cY are centre x & y
      */
-    fun byParameters(w: LcsVariable, h: LcsVariable, cX: LcsVariable = GetLcs.ofZero(), cY: LcsVariable=GetLcs.ofZero()): LcsRect {
+    fun byParameters(w: LcsVariable, h: LcsVariable, cX: LcsVariable = GetLcs.ofZero(), cY: LcsVariable = GetLcs.ofZero()): LcsRect {
         val wStart = cX - (w / 2f)
         val wEnd = cX + (w / 2f)
         val hStart = cY - (h / 2f)

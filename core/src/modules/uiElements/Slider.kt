@@ -119,9 +119,9 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
         knob.resize(w, h)
     }
 
-    override fun draw(batch: SpriteBatch) {
-        rail.draw(batch)
-        knob.draw(batch)
+    override fun draw(batch: SpriteBatch, alpha: Float) {
+        rail.draw(batch,alpha)
+        knob.draw(batch,alpha)
     }
 
     override fun dispose() {

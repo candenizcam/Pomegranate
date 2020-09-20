@@ -1,12 +1,12 @@
 package modules.visuals
 
-import modules.lcsModule.GetLcs
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable as lv
@@ -40,7 +40,7 @@ class BlockText(var text: String, size: Int, colour: Color, var fontPath: String
 
 
 
-    override fun draw(batch: SpriteBatch) {
+    override fun draw(batch: SpriteBatch, alpha: Float) {
         when (align) {
             -1 -> { //left
                 font.draw(batch, gl, imageBlock.cX.asPixel() - imageBlock.width.asPixel() / 2 + padding.asPixel(), imageBlock.cY.asPixel() + gl.height / 2)

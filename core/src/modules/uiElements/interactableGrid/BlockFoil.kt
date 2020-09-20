@@ -8,7 +8,7 @@ import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
 import kotlin.math.abs
 
-class BlockFoil() {
+class BlockFoil(val igd: InteractableGridData) {
     var blockVisualTypes= mutableListOf<Pair<String, OmniVisual>>() //this is the list of brushes
     var tempGridColours = mutableListOf<GridBlock>()
     var gridColours = mutableListOf<GridBlock>() //color row col
@@ -16,27 +16,27 @@ class BlockFoil() {
     var brushType = "red" //this is the brush type used with block painting
     var initialDrawCoords = Pair(0,0)
 
-    fun drawBlocks(batch: SpriteBatch,colAsX: (Int)->LcsVariable, rowAsY: (Int)->LcsVariable){
+    fun drawBlocks(batch: SpriteBatch,alpha: Float=1f){
         if(brushType!="eraser"){
             gridColours.forEach {
                 blockVisualTypes.first { it2-> it2.first==it.type }.apply {
-                    second.relocate(colAsX(it.col),rowAsY(it.row))
-                    second.draw(batch)
+                    second.relocate(igd.colAsX(it.col),igd.rowAsY(it.row))
+                    second.draw(batch,alpha)
                 }
 
             }
             tempGridColours.forEach{
                 blockVisualTypes.first { it2-> it2.first==it.type }.apply {
-                    second.relocate(colAsX(it.col),rowAsY(it.row))
-                    second.draw(batch)
+                    second.relocate(igd.colAsX(it.col),igd.rowAsY(it.row))
+                    second.draw(batch,alpha)
                 }
             }
         }else{
             gridColours.forEach {
-                if(tempGridColours.filter { it2-> it.row==it2.row && it.col==it2.col }.isEmpty()){
+                if(tempGridColours.none { it2 -> it.row == it2.row && it.col == it2.col }){
                     blockVisualTypes.first { it2-> it2.first==it.type }.apply {
-                        second.relocate(colAsX(it.col),rowAsY(it.row))
-                        second.draw(batch)
+                        second.relocate(igd.colAsX(it.col),igd.rowAsY(it.row))
+                        second.draw(batch,alpha)
                     }
                 }
             }
@@ -44,14 +44,14 @@ class BlockFoil() {
 
     }
 
-    fun touchHandlerForBlocks(block: LcsRect,row: Int,col: Int,xAsCol: (LcsVariable)->Int, yAsRow: (LcsVariable)->Int,changeFoil: (Foils)->Unit ): Boolean {
+    fun touchHandlerForBlocks(): Boolean {
         if(Gdx.input.isButtonJustPressed(1)){
             drawer=false
             tempGridColours.clear()
-            changeFoil(Foils.MENU)
+            // igd.menuOpen = true
 
         } else if(Gdx.input.isButtonPressed(0)){
-            if(Gdx.input.justTouched() && block.contains(GetLcs.ofX(), GetLcs.ofY())){
+            if(Gdx.input.justTouched() && igd.gridBlock.contains(GetLcs.ofX(), GetLcs.ofY())){
                 drawer = true
             }
             if(!Gdx.input.isTouched){
@@ -59,8 +59,8 @@ class BlockFoil() {
                 drawer=false
             }
             if(drawer) {
-                val r = yAsRow(GetLcs.ofY()).coerceAtLeast(0).coerceAtMost(row-1)
-                val c = xAsCol(GetLcs.ofX()).coerceAtLeast(0).coerceAtMost(col-1)
+                val r = igd.yAsRow(GetLcs.ofY()).coerceAtLeast(0).coerceAtMost(igd.row-1)
+                val c = igd.xAsCol(GetLcs.ofX()).coerceAtLeast(0).coerceAtMost(igd.col-1)
                 if (Gdx.input.justTouched()) {
                     initialDrawCoords = Pair(r, c)
                 }
@@ -89,16 +89,20 @@ class BlockFoil() {
                     gridColours = gridColours.filterNot { it2-> it.row==it2.row && it.col==it2.col }.toMutableList()
                 }
             }
-
+            tempGridColours.clear()
             drawer=false
         }
-        return block.contains(GetLcs.ofX(), GetLcs.ofY())
+        return igd.gridBlock.contains(GetLcs.ofX(), GetLcs.ofY())
+    }
+
+
+    fun menuOpened(){
+        drawer = false
     }
 
     fun resizeBlockVisuals(w: LcsVariable,h: LcsVariable){
         blockVisualTypes.forEach {
             it.second.resize(w,h)
         }
-
     }
 }

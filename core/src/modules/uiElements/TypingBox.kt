@@ -4,15 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
+import modules.inputProcessor.InputHandler
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
-import modules.inputProcessor.InputHandler
 import modules.visuals.BlockText
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
 import modules.visuals.VisualSize
-import java.lang.Exception
 
 class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect.ofFullScreen(),var charLimit: Int = 0, var numOnly: Boolean = false): UiElement(id) {
     override var block = block
@@ -42,7 +41,7 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
 
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
-        val contains = block.contains(GetLcs.ofX(),GetLcs.ofY())
+        val contains = block.contains(GetLcs.ofX(), GetLcs.ofY())
         if(Gdx.input.justTouched()){ //pressed somewhere else
             selected=false
         }
@@ -96,11 +95,11 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
         block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
     }
 
-    override fun draw(batch: SpriteBatch) {
-        bg.draw(batch)
-        bt.draw(batch)
+    override fun draw(batch: SpriteBatch, alpha: Float) {
+        bg.draw(batch,alpha)
+        bt.draw(batch,alpha)
         if(invalidEntry>0){
-            invalid.draw(batch)
+            invalid.draw(batch,alpha)
             invalidEntry -= 1
         }
     }

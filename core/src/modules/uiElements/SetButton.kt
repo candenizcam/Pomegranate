@@ -20,7 +20,8 @@ class SetButton(id: String) : UiElement(id) {
 
 
     private var drawIndex = 0
-    private var visualList = listOf<OmniVisual>()
+    var visualList = listOf<OmniVisual>()
+        private set
     var clicked = { println("$id clicked") }
 
     /** This constructor takes a block and it will take visuals later
@@ -57,6 +58,8 @@ class SetButton(id: String) : UiElement(id) {
         visualList = listOf(onVisual, offVisual)
         adjustVisuals()
     }
+
+
 
     /** helper to setVisual that does the actual execution
      *
@@ -120,9 +123,9 @@ class SetButton(id: String) : UiElement(id) {
 
     /** Called on every draw
      */
-    override fun draw(batch: SpriteBatch) {
+    override fun draw(batch: SpriteBatch, alpha: Float) {
         if (visible) {
-            visualList[drawIndex].draw(batch)
+            visualList[drawIndex].draw(batch,alpha)
         }
     }
 

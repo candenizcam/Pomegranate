@@ -1,10 +1,10 @@
 package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
-import modules.lcsModule.GetLcs
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 
@@ -14,8 +14,8 @@ open class AtlasTexture(private val path: String, val region: String = "", var f
     protected var activeFrame = 0
 
 
-    override fun draw(batch: SpriteBatch) {
-        sprites[activeFrame].draw(batch)
+    override fun draw(batch: SpriteBatch, alpha: Float) {
+        sprites[activeFrame].draw(batch,alpha)
     }
 
     override fun changeActiveSprite(ns: Int) {
@@ -32,7 +32,7 @@ open class AtlasTexture(private val path: String, val region: String = "", var f
                 var firstSize =  GetLcsRect.ofCentreSquare()
                 (if(region=="") textureAtlas.createSprites() else textureAtlas.createSprites(region)).forEachIndexed{index, sprite->
                     if(index==0){
-                        firstSize = GetLcsRect.byParameters(GetLcs.byPixel(sprite.width),GetLcs.byPixel(sprite.height))
+                        firstSize = GetLcsRect.byParameters(GetLcs.byPixel(sprite.width), GetLcs.byPixel(sprite.height))
                         originalBlock = firstSize
                     }
                     ratioToFirst.add(Pair(sprite.width/firstSize.width.asPixel(),sprite.height/firstSize.height.asPixel()))

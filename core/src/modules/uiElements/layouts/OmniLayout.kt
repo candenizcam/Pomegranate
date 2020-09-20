@@ -7,7 +7,6 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.uiElements.PlaceholderElement
 import modules.uiElements.UiElement
-import java.lang.Exception
 
 
 abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
@@ -42,8 +41,10 @@ abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
 
 
     override fun update() {
-        elements.forEach {
-            it.update()
+        if(visible){
+            elements.forEach {
+                it.update()
+            }
         }
     }
 
@@ -105,7 +106,6 @@ abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
             }
         }
         throw Exception("id not found")
-
     }
 
     /** This is a decorator function to above spesifically designed to get the block of an element, which can then
@@ -113,15 +113,19 @@ abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
      * There may be a way to automate this better
      */
     override fun touchHandler(mayTouch: Boolean): Boolean {
-        var b = mayTouch.not()
-        subBlocks.reversed().forEachIndexed { index, it ->
-            if (it.contains(GetLcs.ofX(), GetLcs.ofY())) {
-                if (elements.reversed()[index].touchHandler(b.not())) b = true
-            } else {
-                elements.reversed()[index].touchHandler(false)
+        return if(visible){
+            var b = mayTouch.not()
+            subBlocks.reversed().forEachIndexed { index, it ->
+                if (it.contains(GetLcs.ofX(), GetLcs.ofY())) {
+                    if (elements.reversed()[index].touchHandler(b.not())) b = true
+                } else {
+                    elements.reversed()[index].touchHandler(false)
+                }
             }
+            b
+        } else{
+            false
         }
-        return b
     }
 
 
@@ -146,10 +150,10 @@ abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
 
 
 
-    override fun draw(batch: SpriteBatch) {
+    override fun draw(batch: SpriteBatch,alpha: Float) {
         if (visible) {
             elements.forEach {
-                it.draw(batch)
+                it.draw(batch,alpha)
             }
         }
     }

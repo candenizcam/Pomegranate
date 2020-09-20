@@ -60,8 +60,8 @@ class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.ofZero
         }
     }
 
-    override fun draw(batch: SpriteBatch) {
-        if(buttonsList.isNotEmpty()){buttonsList[activeButton].draw(batch)}
+    override fun draw(batch: SpriteBatch, alpha: Float) {
+        if(buttonsList.isNotEmpty()){buttonsList[activeButton].draw(batch,alpha)}
 
     }
 

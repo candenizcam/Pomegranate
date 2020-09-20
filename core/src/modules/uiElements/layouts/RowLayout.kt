@@ -3,7 +3,7 @@ package modules.uiElements.layouts
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 
-class RowLayout(id: String, rect: LcsRect) : SegmentedLayout(id, rect) {
+open class RowLayout(id: String, rect: LcsRect) : SegmentedLayout(id, rect) {
 
 
     /** Makes a biased partition of rows based on a bias array

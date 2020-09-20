@@ -1,23 +1,22 @@
 package modules.visuals
 
-import modules.lcsModule.GetLcs
-import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 
-class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f),GetLcs.byLcs(1f)), var colour: Color = Color(1f, 1f, 1f, 1f), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize,scaleFactor = scaleFactor) {
+class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), GetLcs.byLcs(1f)), var colour: Color = Color(1f, 1f, 1f, 1f), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize, scaleFactor = scaleFactor) {
     private var s: Sprite = createSprite() //creates a block with the relevant colour
 
 
     /** Draws the batch
      */
-    override fun draw(batch: SpriteBatch) {
-        s.draw(batch)
+    override fun draw(batch: SpriteBatch, alpha: Float) {
+        s.draw(batch,alpha)
     }
 
     override fun changeActiveSprite(ns: Int) {}
@@ -60,7 +59,7 @@ class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f),GetL
             Sprite(Texture(it)).also { it2 ->
                 it.dispose()
                 it2.color = colour
-                originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it2.width),GetLcs.byPixel(it2.height))
+                originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it2.width), GetLcs.byPixel(it2.height))
                 imageBlock = originalBlock.copy()
                 if(visualSize==VisualSize.STATIC){
                     it2.setSize(originalBlock.width.asPixel()*scaleFactor,originalBlock.height.asPixel()*scaleFactor)

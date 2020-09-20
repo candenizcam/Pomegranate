@@ -21,9 +21,9 @@ class PinupImage(id: String, private var image: OmniVisual, override var block: 
     }
 
 
-    override fun draw(batch: SpriteBatch) {
+    override fun draw(batch: SpriteBatch, alpha: Float) {
         if (visible) {
-            image.draw(batch)
+            image.draw(batch,alpha)
         }
     }
 

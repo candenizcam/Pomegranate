@@ -1,7 +1,5 @@
 package modules.visuals
 
-import modules.lcsModule.GetLcs
-import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.Gdx
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect

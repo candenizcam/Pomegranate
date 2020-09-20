@@ -21,7 +21,7 @@ abstract class UiElement(var id: String) {
     abstract fun resize(w: LcsVariable, h: LcsVariable)
     //abstract fun reblock(r: LcsRect) //this function updates the whole block, hopefully resize and relocate can be replaced with this bad boy
 
-    abstract fun draw(batch: SpriteBatch)
+    abstract fun draw(batch: SpriteBatch, alpha: Float=1f)
 
     protected fun adjustElementTo(e: UiElement, r: LcsRect): UiElement {
         e.resize(r.width, r.height)

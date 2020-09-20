@@ -62,7 +62,7 @@ abstract class OmniVisual(block: LcsRect = GetLcsRect.ofZero(), visualSize: Visu
         block = b
     }
 
-    abstract fun draw(batch: SpriteBatch)
+    abstract fun draw(batch: SpriteBatch, alpha: Float = 1f)
 
     abstract fun changeActiveSprite(ns: Int)
 
