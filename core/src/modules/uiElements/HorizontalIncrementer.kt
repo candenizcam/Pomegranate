@@ -1,11 +1,8 @@
-package com.pungo.engine.modules.uiElements
+package modules.uiElements
 
 import com.badlogic.gdx.graphics.Color
 import modules.lcsModule.GetLcsRect
-import modules.uiElements.FastGenerator
-import modules.uiElements.PinupImage
 import modules.uiElements.layouts.ColLayout
-import modules.uiElements.layouts.RowLayout
 import modules.visuals.BlockText
 
 /** As the name suggest this is an incrementer device, applied horizontally

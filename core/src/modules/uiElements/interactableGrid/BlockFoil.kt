@@ -3,7 +3,6 @@ package modules.uiElements.interactableGrid
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
-import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
 import kotlin.math.abs
@@ -103,6 +102,12 @@ class BlockFoil(val igd: InteractableGridData) {
     fun resizeBlockVisuals(w: LcsVariable,h: LcsVariable){
         blockVisualTypes.forEach {
             it.second.resize(w,h)
+        }
+    }
+
+    fun dispose(){
+        blockVisualTypes.forEach {
+            it.second.dispose()
         }
     }
 }

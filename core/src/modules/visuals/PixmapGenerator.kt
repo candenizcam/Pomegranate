@@ -17,14 +17,16 @@ object PixmapGenerator {
         Pixmap(b.width.asPixel().toInt() + 1, b.height.asPixel().toInt() + 1, Pixmap.Format.RGBA8888).also {
             it.setColor(1f,1f,1f,1f)
             it.fill()
-            return CustomPixmap(it,c,visualSize,scaleFactor)
+            return CustomPixmap(it,c,visualSize,scaleFactor).also { it2->
+                it2.reBlock(b)
+            }
         }
     }
 
 
     /** Creates a grid with col and row
      */
-    fun grid(col: Int, row: Int, b: LcsRect=GetLcsRect.ofFullScreen(), c: Color = Color.WHITE,visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
+    fun grid(row: Int, col: Int, b: LcsRect=GetLcsRect.ofFullScreen(), c: Color = Color.WHITE,visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
         val w = ceil(b.width.asPixel()).toInt()
         val h = ceil(b.height.asPixel()).toInt()
         Pixmap(w,h, Pixmap.Format.RGBA8888).also {
@@ -38,7 +40,9 @@ object PixmapGenerator {
                 val yVal = h*(i.toFloat()/row)
                 it.fillRectangle(0, ceil(yVal).toInt()-1,w,3)
             }
-            return CustomPixmap(it,c,visualSize,scaleFactor)
+            return CustomPixmap(it,c,visualSize,scaleFactor).also { it2->
+                it2.reBlock(b)
+            }
         }
     }
 
@@ -46,7 +50,9 @@ object PixmapGenerator {
         Pixmap(101, 101, Pixmap.Format.RGBA8888).also {
             it.setColor(1f,1f,1f,1f)
             it.fillCircle(50,50,50)
-            return CustomPixmap(it,c,visualSize,scaleFactor)
+            return CustomPixmap(it,c,visualSize,scaleFactor).also { it2->
+                it2.reBlock(b)
+            }
         }
     }
 }

@@ -13,6 +13,7 @@ class CustomPixmap(val pxMap: Pixmap,c: Color,visualSize: VisualSize=VisualSize.
         it.color = c
         originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it.width), GetLcs.byPixel(it.height))
         imageBlock = originalBlock.copy()
+        block = originalBlock.copy()
         if(visualSize==VisualSize.STATIC){
             it.setSize(originalBlock.width.asPixel()*scaleFactor,originalBlock.height.asPixel()*scaleFactor)
         }

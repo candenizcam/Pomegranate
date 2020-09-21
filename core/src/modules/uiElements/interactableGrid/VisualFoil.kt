@@ -1,11 +1,10 @@
-package com.pungo.engine.modules.uiElements.interactableGrid
+package modules.uiElements.interactableGrid
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
-import modules.uiElements.interactableGrid.InteractableGridData
 import modules.visuals.*
 import java.io.File
 import kotlin.math.roundToInt
@@ -154,6 +153,12 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
                 second.draw(batch,alpha)
             }
 
+        }
+    }
+
+    fun dispose(){
+        visualTypeList.forEach {
+            it.second.dispose()
         }
     }
 

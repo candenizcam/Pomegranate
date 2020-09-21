@@ -1,4 +1,4 @@
-package com.pungo.engine.modules.uiElements.interactableGrid
+package modules.uiElements.interactableGrid
 
 /** Visual data class has a number of variables
  * type is the type of visual, stored inside

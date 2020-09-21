@@ -3,7 +3,7 @@ package modules.uiElements.interactableGrid
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.engine.modules.uiElements.interactableGrid.ImageSelectedLayout
+import modules.uiElements.interactableGrid.ImageSelectedLayout
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
@@ -22,7 +22,7 @@ import modules.visuals.VisualSize
  * there is not much, after that
  */
 class MenuFoil(val igd: InteractableGridData) {
-    val blockMenuLayout =  BlockMenuLayout(5,5,igd)
+    val blockMenuLayout =  BlockMenuLayout(6,6,igd)
 
 
     private var menuLayout = PinboardLayout("menuFoilBg",GetLcsRect.ofFullScreen()).also {
@@ -120,6 +120,12 @@ class MenuFoil(val igd: InteractableGridData) {
         }
         menuLayout.touchHandler(mayTouch)
         return block.contains(GetLcs.ofX(),GetLcs.ofY())
+    }
+
+    fun dispose(){
+        blockMenuLayout.dispose()
+        igd.frontSelectedMenu.dispose()
+        igd.backSelectedMenu.dispose()
     }
 
 

@@ -1,6 +1,6 @@
 package modules.uiElements.interactableGrid
 
-import com.pungo.engine.modules.uiElements.interactableGrid.ImageSelectedLayout
+import modules.uiElements.interactableGrid.ImageSelectedLayout
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsVariable

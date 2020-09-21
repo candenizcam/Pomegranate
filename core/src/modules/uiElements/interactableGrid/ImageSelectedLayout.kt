@@ -1,7 +1,7 @@
-package com.pungo.engine.modules.uiElements.interactableGrid
+package modules.uiElements.interactableGrid
 
 import com.badlogic.gdx.graphics.Color
-import com.pungo.engine.modules.uiElements.HorizontalIncrementer
+import modules.uiElements.HorizontalIncrementer
 import modules.lcsModule.GetLcsRect
 import modules.uiElements.FastGenerator
 import modules.uiElements.PinupImage
