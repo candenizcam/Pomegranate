@@ -66,4 +66,8 @@ class LcsVariable(private val v: Float, private val coeff: Float) {
     fun abs(): LcsVariable {
         return LcsVariable(abs(v), coeff)
     }
+
+    fun divideToFloat(other: LcsVariable): Float{
+        return v/other.v
+    }
 }

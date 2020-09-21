@@ -15,8 +15,13 @@ class TestScene: Scene("testScene",0f) {
     override val layout = PinboardLayout("main", GetLcsRect.ofFullScreen()).also { layout ->
         val tv = TestVisuals()
         val but = FastGenerator.genericSetButton("hey","text",36, Color.GOLD, Color.WHITE,"fonts/PTMono-Regular.ttf")
+        //val sc = PixmapGenerator.singleColour(c=Color.FOREST)
+        val sc = PixmapGenerator.circle(visualSize = VisualSize.FIT_WITH_RATIO)
 
-        layout.addElement(but,GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+        //layout.addElement(but,GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+        layout.addElement(PinupImage("id",sc),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+        layout.addElement(PinupImage("id2",sc.copy()),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.1f),GetLcs.ofHeight(0.1f)))
+        sc.recolour(Color.CORAL)
     }
         /*
         val image_1 = ColouredBox().also{

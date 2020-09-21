@@ -32,5 +32,6 @@ class Main : ApplicationAdapter() {
 
     override fun dispose() {
         batch.dispose()
+        LayerManager.dispose()
     }
 }
