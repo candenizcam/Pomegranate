@@ -11,7 +11,8 @@ import kotlin.math.roundToInt
 
 class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedLayout, var visualSelector: (Boolean)->Unit) {
     var visualDataList= mutableListOf<VisualData>()
-    
+    var dragLocation = Pair(0.1f,0.1f)
+
 
     var visualTypeList= mutableListOf<Pair<String,OmniVisual>>()
     private var selectFrame = ColouredBox(colour = Color(0f,0.6f,0f,0.5f),visualSize = VisualSize.FIT_ELEMENT)
@@ -107,6 +108,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
                         selectedVisual = visualDataList.size-1-index
 
 
+
                         return true
                     }
                 }
@@ -118,14 +120,17 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
                     return false
                 }else{
                     carrying = true
+                    val a = ((GetLcs.ofX()-thisBlock.wStart)/thisBlock.width).asLcs()
+                    val b = ((GetLcs.ofY()-thisBlock.hStart)/thisBlock.height).asLcs()
+                    dragLocation = Pair(a,b)
                     return true
                 }
             }
         }
         if(Gdx.input.isTouched){
             if(carrying){
-                val relativeX = ((GetLcs.ofX()-igd.gridBlock.wStart)/(igd.gridBlock.width)).asLcs()
-                val relativeY = ((GetLcs.ofY()-igd.gridBlock.hStart)/(igd.gridBlock.height)).asLcs()
+                val relativeX = ((GetLcs.ofX()-igd.gridBlock.wStart)/(igd.gridBlock.width)).asLcs()-dragLocation.first+0.5f
+                val relativeY = ((GetLcs.ofY()-igd.gridBlock.hStart)/(igd.gridBlock.height)).asLcs()-dragLocation.second+0.5f
                 val  l = igd.pxRatio.split("x").map{it.toFloat() }
                 visualDataList[selectedVisual].posX = (relativeX*l[0]).roundToInt()/l[0]
                 visualDataList[selectedVisual].posY = (relativeY*l[1]).roundToInt()/l[1]
