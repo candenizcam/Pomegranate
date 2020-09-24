@@ -32,7 +32,7 @@ abstract class SegmentedLayout(id: String, rect: LcsRect): OmniLayout(id,rect) {
 
     override fun adjustElements() {
         for (i in elements.indices) {
-            elements[i] = adjustElementTo(elements[i], subBlocks[i])
+            adjustElementTo(elements[i], subBlocks[i])
         }
     }
 

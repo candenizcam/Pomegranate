@@ -66,8 +66,8 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
     fun addVisualByType(selectedFile: File) {
         val name = selectedFile.name
         val visual = when(selectedFile.extension){
-            "png","jpg" -> SingleTexture(selectedFile.absolutePath,visualSize = VisualSize.FIT_ELEMENT)
-            "atlas"-> AtlasTexture(selectedFile.absolutePath,visualSize = VisualSize.FIT_ELEMENT)
+            "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath),visualSize = VisualSize.FIT_ELEMENT)
+            "atlas"-> AtlasTexture(Gdx.files.internal(selectedFile.absolutePath),visualSize = VisualSize.FIT_ELEMENT)
             else->{
                 return
             }

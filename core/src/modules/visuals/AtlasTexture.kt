@@ -1,5 +1,6 @@
 package modules.visuals
 
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -8,7 +9,7 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 
-open class AtlasTexture(private val path: String, val region: String = "", var fitAll: Boolean=false, block: LcsRect = GetLcsRect.ofCentreSquare(), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize,scaleFactor = scaleFactor) {
+open class AtlasTexture(private val path: FileHandle, val region: String = "", var fitAll: Boolean=false, block: LcsRect = GetLcsRect.ofCentreSquare(), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize,scaleFactor = scaleFactor) {
     private var ratioToFirst = mutableListOf<Pair<Float,Float>>()
     protected var sprites = createSprites()
     protected var activeFrame = 0

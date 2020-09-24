@@ -1,6 +1,7 @@
 package modules.visuals
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
@@ -9,8 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
+import java.io.File
 
-class SingleTexture(private val path: String, block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), GetLcs.byLcs(1f)), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize, scaleFactor = scaleFactor) {
+class SingleTexture(private val path: FileHandle, block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), GetLcs.byLcs(1f)), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize, scaleFactor = scaleFactor) {
     private var s: Sprite = createSprite().also {
         this.block = this.block
     }
@@ -45,7 +47,7 @@ class SingleTexture(private val path: String, block: LcsRect = GetLcsRect.byPara
     }
 
     private fun createSprite(): Sprite {
-        Pixmap(Gdx.files.internal(path)).also {
+        Pixmap(path).also {
             originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it.width.toFloat()), GetLcs.byPixel(it.height.toFloat()))
             return Sprite(Texture(it)).apply {
                 it.dispose()

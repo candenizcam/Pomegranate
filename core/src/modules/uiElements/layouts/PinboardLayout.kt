@@ -52,7 +52,8 @@ class PinboardLayout(id:String, rect: LcsRect): OmniLayout(id,rect) {
             }
         }
         subBlocks.add(r)
-        elements.add(adjustElementTo(e, r))
+        adjustElementTo(e, r)
+        elements.add(e)
     }
 
     /** Replaces element with given id
@@ -88,7 +89,7 @@ class PinboardLayout(id:String, rect: LcsRect): OmniLayout(id,rect) {
 
     override fun adjustElements() {
         subBlocks.forEachIndexed { index, it2 ->
-            elements[index] = adjustElementTo(elements[index], it2)
+            adjustElementTo(elements[index], it2)
         }
     }
 }

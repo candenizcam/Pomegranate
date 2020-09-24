@@ -1,10 +1,11 @@
 package modules.visuals
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.files.FileHandle
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 
-class TimedAtlasAnimation(path: String, region: String = "", fitAll: Boolean=false, block: LcsRect= GetLcsRect.ofCentreSquare(), val fps: Float, visualSize: VisualSize = VisualSize.STATIC, scaleRatio: Float=1f) : AtlasTexture(path, region, fitAll, block, visualSize,scaleRatio) {
+class TimedAtlasAnimation(path: FileHandle, region: String = "", fitAll: Boolean=false, block: LcsRect= GetLcsRect.ofCentreSquare(), val fps: Float, visualSize: VisualSize = VisualSize.STATIC, scaleRatio: Float=1f) : AtlasTexture(path, region, fitAll, block, visualSize,scaleRatio) {
     var timeAccumulator = 0f
 
     override fun update() {

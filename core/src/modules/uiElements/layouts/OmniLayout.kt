@@ -65,7 +65,8 @@ abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
     fun replaceElement(n: Int, e: UiElement) {
         for (i in elements.indices) {
             if (i == n) {
-                elements[n] = adjustElementTo(e, subBlocks[n])
+                adjustElementTo(e, subBlocks[n])
+                elements[n] = e
             } else {
                 if (elements[i].id == e.id) throw Exception("ID clash at $id")
             }
@@ -90,6 +91,10 @@ abstract class OmniLayout(id: String, rect: LcsRect) : UiElement(id) {
 
 
     fun getElement(id: String): UiElement {
+        elements.forEach {
+            println("id: ${it.id}")
+        }
+
         val l = id.split("&")
         elements.forEach {
             if (it.id == l.first()) {

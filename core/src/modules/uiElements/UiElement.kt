@@ -23,10 +23,9 @@ abstract class UiElement(var id: String) {
 
     abstract fun draw(batch: SpriteBatch, alpha: Float=1f)
 
-    protected fun adjustElementTo(e: UiElement, r: LcsRect): UiElement {
+    protected fun adjustElementTo(e: UiElement, r: LcsRect) {
         e.resize(r.width, r.height)
         e.relocate(r.cX, r.cY)
-        return e
     }
 
     abstract fun dispose()
