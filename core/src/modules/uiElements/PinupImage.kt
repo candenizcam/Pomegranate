@@ -10,7 +10,7 @@ import modules.visuals.OmniVisual
 
 /** Used to display a single OmniVisual
  */
-class PinupImage(id: String, private var image: OmniVisual, override var block: LcsRect = GetLcsRect.ofZero(), fitImage: Boolean = true) : UiElement(id) {
+class PinupImage(id: String, var image: OmniVisual, override var block: LcsRect = GetLcsRect.ofZero(), fitImage: Boolean = true) : UiElement(id) {
     init {
         if (fitImage) {
             block = GetLcsRect.byParameters(image.block.width, image.block.height, GetLcs.ofZero(), GetLcs.ofZero())

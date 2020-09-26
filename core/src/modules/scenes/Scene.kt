@@ -44,5 +44,19 @@ open class Scene(val id: String, var zOrder: Float, protected open val layout: O
         layout.dispose()
     }
 
+    open fun mouseMoved(screenX: Int, screenY: Int) {
 
+    }
+
+    open fun keyTyped(character: Char) {
+
+    }
+
+    open fun keyUp(keycode: Int) {
+
+    }
+
+    open fun keyDown(keycode: Int) {
+
+    }
 }

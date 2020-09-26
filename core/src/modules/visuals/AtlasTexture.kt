@@ -71,13 +71,13 @@ open class AtlasTexture(private val path: FileHandle, val region: String = "", v
     }
 
     override fun updateVisual() {
-        val changeSize = (sprites[0].width != imageBlock.width.asPixel()) || (sprites[0].height != imageBlock.height.asPixel())
-        sprites.forEachIndexed() { index, it ->
-            if (changeSize) {
-                if (fitAll) {
-                    it.setSize(imageBlock.width.asPixel(), imageBlock.height.asPixel())
-                } else {
-                    it.setSize(imageBlock.width.asPixel() * ratioToFirst[index].first, imageBlock.height.asPixel() * ratioToFirst[index].second)
+        val changeSize = (sprites[0].width!=imageBlock.width.asPixel())||(sprites[0].height!=imageBlock.height.asPixel())
+        sprites.forEachIndexed() {index, it ->
+            if(changeSize){
+                if(fitAll){
+                    it.setSize(imageBlock.width.asPixel(),imageBlock.height.asPixel())
+                } else{
+                    it.setSize(imageBlock.width.asPixel()*ratioToFirst[index].first,imageBlock.height.asPixel()*ratioToFirst[index].second)
                 }
             }
             it.x = imageBlock.cX.asPixel() - it.width / 2

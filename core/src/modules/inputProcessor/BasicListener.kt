@@ -1,31 +1,27 @@
 package modules.inputProcessor
 
 import com.badlogic.gdx.InputProcessor
+import modules.scenes.LayerManager
 
 class BasicListener  : InputProcessor {
     override fun mouseMoved(screenX: Int, screenY: Int): Boolean {
-        //LayerManager.layers.last().mouseMoved(screenX, screenY)
+        LayerManager.layers.last().mouseMoved(screenX, screenY)
         return true
     }
 
     override fun keyTyped(character: Char): Boolean {
-        //LayerManager.layers.last().keyTyped(character)
-
-
-
+        LayerManager.layers.last().keyTyped(character)
         InputHandler.typeCache += character
         return true
     }
 
-
-
     override fun keyUp(keycode: Int): Boolean {
-        //LayerManager.layers.last().keyUp(keycode)
+        LayerManager.layers.last().keyUp(keycode)
         return true
     }
 
     override fun keyDown(keycode: Int): Boolean {
-        //LayerManager.layers.last().keyDown(keycode)
+        LayerManager.layers.last().keyDown(keycode)
         return true
     }
 
@@ -47,7 +43,4 @@ class BasicListener  : InputProcessor {
         //LayerManager.layers.last().touchDown(screenX, screenY)
         return true
     }
-
-
-
 }

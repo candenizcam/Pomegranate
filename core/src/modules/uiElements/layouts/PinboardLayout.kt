@@ -5,7 +5,7 @@ import modules.lcsModule.LcsRect
 import modules.uiElements.PlaceholderElement
 import modules.uiElements.UiElement
 
-class PinboardLayout(id:String, rect: LcsRect): OmniLayout(id,rect) {
+open class PinboardLayout(id:String, rect: LcsRect): OmniLayout(id,rect) {
     override var block: LcsRect = rect
         set(value) {
             adjustSubBlocks(value)
