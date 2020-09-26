@@ -1,10 +1,11 @@
 package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
-import modules.lcsModule.LcsVariable as lv
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.pungo.engine.modules.visuals.OVL
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
+import modules.lcsModule.LcsVariable as lv
 
 /** OmniVisual is the base class for visuals
  * block is where the visual should be, but depending on scale factor and visual size, it may not
@@ -27,7 +28,7 @@ abstract class OmniVisual(block: LcsRect = GetLcsRect.ofZero(), visualSize: Visu
             field = value
         }
     var visualSize = visualSize
-        set(value){
+        set(value) {
             field = value
             imageBlock = updateImageBlock()
         }
@@ -37,11 +38,16 @@ abstract class OmniVisual(block: LcsRect = GetLcsRect.ofZero(), visualSize: Visu
             imageBlock = updateImageBlock()
         }
 
+    init {
+
+        OVL.allVisuals.add(this)
+    }
+
 
     /** This is the relocate function that can be called from outside
      */
-    fun relocate(x: lv, y: lv){
-        block = block.relocateTo(x,y)
+    fun relocate(x: lv, y: lv) {
+        block = block.relocateTo(x, y)
     }
 
     /** This is the resize function that can be called from outside

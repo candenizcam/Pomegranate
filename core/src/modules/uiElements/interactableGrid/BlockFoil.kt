@@ -22,7 +22,6 @@ class BlockFoil(val igd: InteractableGridData) {
                     second.relocate(igd.colAsX(it.col),igd.rowAsY(it.row))
                     second.draw(batch,alpha)
                 }
-
             }
             tempGridColours.forEach{
                 blockVisualTypes.first { it2-> it2.first==it.type }.apply {

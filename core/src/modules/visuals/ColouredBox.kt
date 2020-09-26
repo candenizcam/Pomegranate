@@ -24,7 +24,7 @@ class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), Get
     override fun update() {}
 
     override fun updateVisual() {
-        if((s?.width!=imageBlock.width.asPixel())||(s?.height!=imageBlock.height.asPixel())){
+        if ((s?.width != imageBlock.width.asPixel()) || (s?.height != imageBlock.height.asPixel())) {
             s?.setSize(imageBlock.width.asPixel(), imageBlock.height.asPixel())
         }
         s?.x = imageBlock.cX.asPixel() - s?.width / 2
@@ -53,7 +53,7 @@ class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), Get
      * also, boy do i like this little bit of code
      */
     private fun createSprite(): Sprite {
-        Pixmap(block.width.asPixel().toInt() + 1, block.height.asPixel().toInt() + 1, Pixmap.Format.RGBA8888).also {
+        Pixmap(11, 11, Pixmap.Format.RGBA8888).also {
             it.setColor(1f, 1f, 1f, 1f)
             it.fill()
             Sprite(Texture(it)).also { it2 ->
@@ -61,8 +61,8 @@ class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), Get
                 it2.color = colour
                 originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it2.width), GetLcs.byPixel(it2.height))
                 imageBlock = originalBlock.copy()
-                if(visualSize==VisualSize.STATIC){
-                    it2.setSize(originalBlock.width.asPixel()*scaleFactor,originalBlock.height.asPixel()*scaleFactor)
+                if (visualSize == VisualSize.STATIC) {
+                    it2.setSize(originalBlock.width.asPixel() * scaleFactor, originalBlock.height.asPixel() * scaleFactor)
                 }
                 return it2
             }

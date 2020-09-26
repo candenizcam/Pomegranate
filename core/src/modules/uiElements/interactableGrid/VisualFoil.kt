@@ -64,7 +64,9 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         }
     }
 
-    fun addVisualByType(selectedFile: File) {
+    //fun addVisualByType(selectedFile: File,)
+
+    fun addVisualByType(selectedFile: File,posX: Float=0.5f,posY: Float=0.5f,z:Int=1, width: Float=1f,height: Float=1f) {
         val name = selectedFile.name
         val visual = when(selectedFile.extension){
             "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath),visualSize = VisualSize.FIT_ELEMENT)
@@ -76,7 +78,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         if(visualTypeList.none { it.first==name }){
             visualTypeList.add(Pair(name,visual))
         }
-        visualDataList.add(VisualData(name,0.5f,0.5f,1,1f,1f))
+        visualDataList.add(VisualData(name,selectedFile.path,posX,posY,z,width,height))
         updateVisualTypes()
     }
 
@@ -102,10 +104,10 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
     fun touchHandler(mayTouch: Boolean): Boolean {
         if(Gdx.input.justTouched()){
             if(selectedVisual == -1){
-                visualDataList.reversed().forEachIndexed() {index,it->
-                    val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width*it.width,igd.gridBlock.height*it.height,igd.gridBlock.wStart + igd.gridBlock.width*it.posX,igd.gridBlock.hStart + igd.gridBlock.height*it.posY)
-                    if(thisBlock.contains(GetLcs.ofX(),GetLcs.ofY())){
-                        selectedVisual = visualDataList.size-1-index
+                visualDataList.reversed().forEachIndexed() { index, it ->
+                    val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width * it.width, igd.gridBlock.height * it.height, igd.gridBlock.wStart + igd.gridBlock.width * it.posX, igd.gridBlock.hStart + igd.gridBlock.height * it.posY)
+                    if (thisBlock.contains(GetLcs.ofX(), GetLcs.ofY())) {
+                        selectedVisual = visualDataList.size - 1 - index
 
 
 
@@ -147,15 +149,15 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         carrying = false
     }
 
-    fun draw(batch: SpriteBatch, alpha: Float){
-        visualDataList.forEachIndexed() {index, it ->
-            visualTypeList.first { it2-> it2.first==it.type }.apply {
-                second.relocate(igd.gridBlock.wStart + igd.gridBlock.width*it.posX,igd.gridBlock.hStart + igd.gridBlock.height*it.posY)
-                if(selectedVisual==index){
+    fun draw(batch: SpriteBatch, alpha: Float) {
+        visualDataList.forEachIndexed() { index, it ->
+            visualTypeList.first { it2 -> it2.first == it.type }.apply {
+                second.relocate(igd.gridBlock.wStart + igd.gridBlock.width * it.posX, igd.gridBlock.hStart + igd.gridBlock.height * it.posY)
+                if (selectedVisual == index) {
                     selectFrame.reBlock(second.imageBlock.resizeTo(1.05f))
-                    selectFrame.draw(batch,alpha)
+                    selectFrame.draw(batch, alpha)
                 }
-                second.draw(batch,alpha)
+                second.draw(batch, alpha)
             }
 
         }

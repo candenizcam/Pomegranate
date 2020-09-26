@@ -3,7 +3,6 @@ package modules.uiElements
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
-import java.lang.Exception
 
 abstract class UiElement(var id: String) {
     init {

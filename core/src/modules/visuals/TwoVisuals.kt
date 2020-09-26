@@ -2,7 +2,6 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.lcsModule.LcsVariable
 
 class TwoVisuals(var front: OmniVisual, var back: OmniVisual, visualSize: VisualSize = VisualSize.STATIC) : OmniVisual(visualSize = visualSize) {
     override fun draw(batch: SpriteBatch, alpha: Float) {

@@ -1,6 +1,7 @@
 package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.pungo.engine.modules.visuals.FontGenerator
 
 object LayerManager {
     val layers = mutableListOf<Scene>()
@@ -42,5 +43,6 @@ object LayerManager {
         layers.forEach {
             it.dispose()
         }
+        FontGenerator.dispose()
     }
 }

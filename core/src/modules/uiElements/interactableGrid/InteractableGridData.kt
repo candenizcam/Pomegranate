@@ -8,14 +8,9 @@ import kotlin.math.floor
 
 
 data class InteractableGridData(var row: Int, var col: Int, var menuOpen: Boolean=false, var foil : Foils, var pxRatio: String= "1920x1080") {
-
-
     var gridBlock = GetLcsRect.ofZero()
-    var pxRatioList = listOf("640x480", "800x600", "960x720", "1024x576", "1024x768", "1152x648", "1280x720", "1280x800", "1280x960", "1366x768", "1400x1050", "1440x900", "1440x1080", "1600x900", "1600x1200", "1680x1050", "1856x1392", "1920x1080", "1920x1200", "1920x1440", "2048x1536", "2560x1440", "2560x1600", "3840x2160")
     var frontVisualSelected: Boolean= false
     var backVisualSelected: Boolean= false
-    val frontSelectedMenu = ImageSelectedLayout("frontSelected")
-    val backSelectedMenu = ImageSelectedLayout("backSelected")
 
 
     fun getPxPair(): Pair<Int, Int> {

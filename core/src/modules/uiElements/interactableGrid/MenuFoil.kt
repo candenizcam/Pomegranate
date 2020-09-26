@@ -22,7 +22,11 @@ import modules.visuals.VisualSize
  * there is not much, after that
  */
 class MenuFoil(val igd: InteractableGridData) {
-    val blockMenuLayout =  BlockMenuLayout(6,6,igd)
+    val blockMenuLayout =  BlockMenuLayout("blockMenuLayout")
+    val tilesMenuLayout = BlockMenuLayout("tilesMenuLayout")
+    val generalMenuLayout = GeneralMenuLayout(6,6,igd)
+    val frontMenuLayout = ImageSelectedLayout("frontSelected")
+    val backMenuLayout = ImageSelectedLayout("backSelected")
 
 
     private var menuLayout = PinboardLayout("menuFoilBg",GetLcsRect.ofFullScreen()).also {
@@ -34,47 +38,90 @@ class MenuFoil(val igd: InteractableGridData) {
 
         },it.block)
 
-        blockMenuLayout.visible = true
-        igd.frontSelectedMenu.visible = false
+        blockMenuLayout.visible = false
+        generalMenuLayout.visible=true
+        frontMenuLayout.visible = false
+        backMenuLayout.visible=false
+        tilesMenuLayout.visible = false
+
         (it.getElement("bgRows") as RowLayout).replaceElement(0,ColLayout("tabs",it.block).also {
-            it.divideBlocksToBiased(listOf(1f,1f,1f))
-            val blocksButton = FastGenerator.genericSetButton("toBlock","Blocks",36,Color(0f,0f,0f,0f),Color.WHITE,"fonts/PTMono-Regular.ttf")
+            it.divideBlocksToBiased(listOf(1f,1f,1f,1f,1f))
+            val generalButton = FastGenerator.genericSetButton("toGeneral","General",36,Color(0f,0f,0f,0f),Color.WHITE,"fonts/PTMono-Regular.ttf")
+            val blocksButton = FastGenerator.genericSetButton("toBlock","Blocks",36,Color(0f,0f,0f,0f),Color(0.5f,0.5f,0.5f,0.5f),"fonts/PTMono-Regular.ttf")
             val frontButton = FastGenerator.genericSetButton("toFront","Front Visuals",36,Color(0f,0f,0f,0f),Color(0.5f,0.5f,0.5f,0.5f),"fonts/PTMono-Regular.ttf")
             val backButton  = FastGenerator.genericSetButton("toBack","Back Visuals",36,Color(0f,0f,0f,0f),Color(0.5f,0.5f,0.5f,0.5f),"fonts/PTMono-Regular.ttf")
+            val tilesButton  = FastGenerator.genericSetButton("toTiles","Tiles",36,Color(0f,0f,0f,0f),Color(0.5f,0.5f,0.5f,0.5f),"fonts/PTMono-Regular.ttf")
+
             blocksButton.clicked = {
                 (blocksButton.visualList[0] as TwoVisuals).front.recolour(Color.WHITE)
                 (frontButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
                 (backButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
-                igd.foil = Foils.BLOCKS
-                blockMenuLayout.visible = true
+                (tilesButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (generalButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                changeActiveFoil(Foils.BLOCKS)
             }
             frontButton.clicked = {
                 (blocksButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
                 (frontButton.visualList[0] as TwoVisuals).front.recolour(Color.WHITE)
                 (backButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
-                igd.foil = Foils.FRONT
-                blockMenuLayout.visible = false
-
+                (tilesButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (generalButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                changeActiveFoil(Foils.FRONT)
             }
             backButton.clicked = {
                 (blocksButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
                 (frontButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
                 (backButton.visualList[0] as TwoVisuals).front.recolour(Color.WHITE)
-                igd.foil = Foils.BACK
-                blockMenuLayout.visible = false
+                (tilesButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (generalButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                changeActiveFoil(Foils.BACK)
             }
-            it.replaceElement(0,blocksButton)
-            it.replaceElement(1,frontButton)
-            it.replaceElement(2,backButton)
+            tilesButton.clicked = {
+                (blocksButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (frontButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (backButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (tilesButton.visualList[0] as TwoVisuals).front.recolour(Color.WHITE)
+                (generalButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                changeActiveFoil(Foils.TILES)
+            }
+            generalButton.clicked = {
+                (blocksButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (frontButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (backButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (tilesButton.visualList[0] as TwoVisuals).front.recolour(Color(0.5f,0.5f,0.5f,0.5f))
+                (generalButton.visualList[0] as TwoVisuals).front.recolour(Color.WHITE)
+                changeActiveFoil(Foils.GENERAL)
+            }
+            it.replaceElement(0,generalButton)
+            it.replaceElement(1,blocksButton)
+            it.replaceElement(2,tilesButton)
+            it.replaceElement(3,frontButton)
+            it.replaceElement(4,backButton)
 
         })
+
+
         //(it.getElement("bgRows") as RowLayout).replaceElement(1,blockMenuLayout)
+
         (it.getElement("bgRows") as RowLayout).replaceElement(1,PinboardLayout("others",GetLcsRect.ofCentreSquare()).also {
             it.addElement(blockMenuLayout,it.block)
-            it.addElement(igd.frontSelectedMenu,it.block)
+            it.addElement(tilesMenuLayout,it.block)
+            it.addElement(frontMenuLayout,it.block)
+            it.addElement(backMenuLayout,it.block)
+            it.addElement(generalMenuLayout,it.block)
         })
+
+
     }
 
+    fun changeActiveFoil(f: Foils){
+        igd.foil = f
+        generalMenuLayout.visible = f==Foils.GENERAL
+        blockMenuLayout.visible = f==Foils.BLOCKS
+        tilesMenuLayout.visible = f==Foils.TILES
+        frontMenuLayout.visible = f==Foils.FRONT
+        backMenuLayout.visible = f==Foils.BACK
+    }
 
 
     fun relocate(x: LcsVariable, y: LcsVariable){
@@ -94,6 +141,7 @@ class MenuFoil(val igd: InteractableGridData) {
     }
 
     fun update(){
+        /*
         igd.frontSelectedMenu.visible = if(igd.foil == Foils.FRONT){
             igd.frontVisualSelected
         } else{
@@ -104,6 +152,8 @@ class MenuFoil(val igd: InteractableGridData) {
         }else{
             false
         }
+
+         */
     }
 
     fun menuOpened(){
@@ -124,8 +174,10 @@ class MenuFoil(val igd: InteractableGridData) {
 
     fun dispose(){
         blockMenuLayout.dispose()
-        igd.frontSelectedMenu.dispose()
-        igd.backSelectedMenu.dispose()
+        frontMenuLayout.dispose()
+        backMenuLayout.dispose()
+        generalMenuLayout.dispose()
+        tilesMenuLayout.dispose()
     }
 
 

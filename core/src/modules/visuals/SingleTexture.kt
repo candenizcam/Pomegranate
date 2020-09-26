@@ -1,6 +1,5 @@
 package modules.visuals
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
@@ -10,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
-import java.io.File
 
 class SingleTexture(private val path: FileHandle, block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), GetLcs.byLcs(1f)), visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(block, visualSize = visualSize, scaleFactor = scaleFactor) {
     private var s: Sprite = createSprite().also {
@@ -39,7 +37,7 @@ class SingleTexture(private val path: FileHandle, block: LcsRect = GetLcsRect.by
     }
 
     override fun updateVisual() {
-        if((s?.width!=imageBlock.width.asPixel())||(s?.height!=imageBlock.height.asPixel())){
+        if ((s?.width != imageBlock.width.asPixel()) || (s?.height != imageBlock.height.asPixel())) {
             s?.setSize(imageBlock.width.asPixel(), imageBlock.height.asPixel())
         }
         s?.x = imageBlock.cX.asPixel() - s?.width / 2

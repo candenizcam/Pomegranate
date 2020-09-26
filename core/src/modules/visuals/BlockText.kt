@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
+import com.pungo.engine.modules.visuals.FontGenerator
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
@@ -16,31 +17,33 @@ import modules.lcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(var text: String, size: Int, colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.FIT_ELEMENT) : OmniVisual(block, visualSize = visualSize) {
+class BlockText(var text: String, size: Int, var colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.FIT_ELEMENT) : OmniVisual(block, visualSize = visualSize) {
     var initSize = size
     var displayText = text
     var gl = GlyphLayout()
-    var font = createFont(colour)
     private var imageBlockOnCreation = imageBlock.copy()
+    init {
+        originalBlock = block.copy()
+        imageBlock = originalBlock.copy()
+
+        FontGenerator.createFont(fontPath,initSize,text)
+        updateVisual()
+    }
 
     fun changeText(s: String){
+
         if(s!=text){
             text = s
-            font = createFont(font.color)
+            updateVisual()
         }
     }
 
-    /*
-    override fun relocate() {
-        imageBlock = imageBlock.relocateTo(block.cX,block.cY)
-
-    }
-
-     */
 
 
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
+        val font = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
+
         when (align) {
             -1 -> { //left
                 font.draw(batch, gl, imageBlock.cX.asPixel() - imageBlock.width.asPixel() / 2 + padding.asPixel(), imageBlock.cY.asPixel() + gl.height / 2)
@@ -52,38 +55,32 @@ class BlockText(var text: String, size: Int, colour: Color, var fontPath: String
                 font.draw(batch, gl, imageBlock.cX.asPixel() - gl.width / 2, imageBlock.cY.asPixel() + gl.height / 2)
             }
         }
+
+
     }
 
     override fun changeActiveSprite(ns: Int) {}
 
     override fun update() {}
     override fun recolour(c: Color) {
-        font = createFont(c)
+        colour = c
+        val f  = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
+        gl = GlyphLayout(f, displayText, colour, imageBlock.width.asPixel(), -1, true)
     }
 
     override fun copy(): OmniVisual {
-        return BlockText(text, initSize, font.color, fontPath, block, align, padding, keepWords, visualSize)
+        return BlockText(text, initSize, colour, fontPath, block, align, padding, keepWords, visualSize)
     }
 
     override fun dispose() {
-        try{
-            font.dispose()
-        } catch (e: Exception){
-            println("font dispose error occured")
-        }
-
     }
 
-    override fun updateVisual() {
-        if((imageBlockOnCreation.width.asPixel()!=imageBlock.width.asPixel())||(imageBlockOnCreation.height.asPixel()!=imageBlock.height.asPixel())){
-            font = createFont(font.color)
-        }
-    }
 
     /** Reduces the size of the display string by squeezing it into the defined box
      */
     private fun reduceToHeight(s: String, f: BitmapFont): String {
         var newText = s
+
         var gl = GlyphLayout(f, newText, f.color, imageBlock.width.asPixel(), align, true)
         for (i in newText.split(" ").indices) {
             if (gl.height + padding.asPixel() < imageBlock.height.asPixel()) {
@@ -104,46 +101,14 @@ class BlockText(var text: String, size: Int, colour: Color, var fontPath: String
         return newText
     }
 
-    /** Finds a reduced punto number that fits the text to the box
-     *
-     */
-    private fun reduceToPunto(s: String, p: FreeTypeFontGenerator.FreeTypeFontParameter, g: FreeTypeFontGenerator): Int {
-        var font: BitmapFont
-        var gl: GlyphLayout
-        var outPunto = p.size
-        for (i in 3..102) {
-            p.size = i
-            font = g.generateFont(p)
-            gl = GlyphLayout(font, s, font.color, imageBlock.width.asPixel(), align, true)
-
-            if (gl.height + padding.asPixel() > imageBlock.height.asPixel()) {
-                break
-            }
-            if ((s.split(" ").size == 1) && (gl.width + padding.asPixel() > imageBlock.width.asPixel())) {
-                break
-            }
-
-            outPunto = i
-        }
-        return outPunto
-    }
-
-    private fun createFont(color: Color): BitmapFont {
-        val ftfg = FreeTypeFontGenerator(Gdx.files.internal(fontPath))
-        val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
-        parameter.color = color
-        parameter.size = initSize
-        imageBlockOnCreation = imageBlock.copy()
-        if (initSize == 0) {
-            parameter.size = 3
-            parameter.size = reduceToPunto(text, parameter, ftfg)
-        }
-        return ftfg.generateFont(parameter).also {
-            it.color = color
-            displayText = reduceToHeight(text, it)
-            gl = GlyphLayout(it, displayText, it.color, imageBlock.width.asPixel(), -1, true)
-
-            ftfg.dispose()
+    override fun updateVisual() {
+        if((imageBlockOnCreation.width.asPixel()!=imageBlock.width.asPixel())||(imageBlockOnCreation.height.asPixel()!=imageBlock.height.asPixel())) {
+            val f  = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
+            displayText = reduceToHeight(text,f)
+            gl = GlyphLayout(f, displayText, colour, imageBlock.width.asPixel(), -1, true)
         }
     }
+
+
+
 }

@@ -2,9 +2,9 @@ package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcsRect
+import modules.uiElements.UiElement
 import modules.uiElements.layouts.OmniLayout
 import modules.uiElements.layouts.PinboardLayout
-import modules.uiElements.UiElement
 
 
 open class Scene(val id: String, var zOrder: Float, protected open val layout: OmniLayout = PinboardLayout(id,GetLcsRect.ofFullScreen())) {

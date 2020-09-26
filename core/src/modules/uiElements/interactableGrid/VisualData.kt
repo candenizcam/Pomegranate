@@ -5,5 +5,5 @@ package modules.uiElements.interactableGrid
  * posX & posY are floats that are coefficients to the gridBlock describing centres
  * width & height are similar, but for width & height
  */
-data class VisualData(val type: String, var posX: Float, var posY: Float, var z: Int, var width: Float, var height: Float) {
+data class VisualData(val type: String, val path: String, var posX: Float, var posY: Float, var z: Int, var width: Float, var height: Float) {
 }

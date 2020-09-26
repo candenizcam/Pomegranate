@@ -48,7 +48,7 @@ class CustomPixmap(val pxMap: Pixmap,c: Color,visualSize: VisualSize=VisualSize.
     }
 
     override fun updateVisual() {
-        if((s?.width!=imageBlock.width.asPixel())||(s?.height!=imageBlock.height.asPixel())){
+        if ((s?.width != imageBlock.width.asPixel()) || (s?.height != imageBlock.height.asPixel())) {
             s?.setSize(imageBlock.width.asPixel(), imageBlock.height.asPixel())
         }
         s?.x = imageBlock.cX.asPixel() - s?.width / 2

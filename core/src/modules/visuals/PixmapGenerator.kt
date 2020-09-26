@@ -2,9 +2,6 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
-import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import kotlin.math.ceil
@@ -14,10 +11,10 @@ import kotlin.math.ceil
  */
 object PixmapGenerator {
     fun singleColour(b: LcsRect=GetLcsRect.ofFullScreen(), c: Color =Color.WHITE,visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
-        Pixmap(b.width.asPixel().toInt() + 1, b.height.asPixel().toInt() + 1, Pixmap.Format.RGBA8888).also {
-            it.setColor(1f,1f,1f,1f)
+        Pixmap(11, 11, Pixmap.Format.RGBA8888).also {
+            it.setColor(1f, 1f, 1f, 1f)
             it.fill()
-            return CustomPixmap(it,c,visualSize,scaleFactor).also { it2->
+            return CustomPixmap(it, c, visualSize, scaleFactor).also { it2 ->
                 it2.reBlock(b)
             }
         }

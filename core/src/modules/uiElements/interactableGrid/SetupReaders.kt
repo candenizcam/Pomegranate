@@ -18,11 +18,11 @@ object SetupReaders {
 
         var returning = mutableListOf<Pair<String, OmniVisual>>() //this is the list of brushes
         var l = lines
-        if(l[0]=="colours:{"){
+        if (l[0] == "colours:{") {
             val colourLines: List<String>
-            l.indexOfFirst { it=="}" }.also {
-                colourLines = l.subList(1,it)
-                l = l.subList(it+1,lines.lastIndex+1)
+            l.indexOfFirst { it == "}" }.also {
+                colourLines = l.subList(1, it)
+                l = l.subList(it + 1, lines.lastIndex + 1)
             }
             returning.addAll(colourLinesReader(colourLines))
         }
