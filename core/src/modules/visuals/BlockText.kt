@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.engine.modules.visuals.FontGenerator
+import com.modules.visuals.FontGenerator
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
@@ -37,11 +37,16 @@ class BlockText(var text: String, size: Int, var colour: Color, var fontPath: St
         }
     }
 
+    override fun setFlip(x: Boolean, y: Boolean) {
+        //TODO flipping for text
+    }
+
 
 
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         val font = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
+
 
         when (align) {
             -1 -> { //left

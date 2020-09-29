@@ -10,6 +10,7 @@ abstract class PhysicsItem(var id: String) {
     abstract var pid: PhysicsItemData
     abstract var vX: Float
     abstract var vY: Float
+    var collidable = true
     var lasered = false
     open var elasticityFactor = 1f
     var flying = false

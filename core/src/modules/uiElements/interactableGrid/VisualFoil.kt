@@ -78,7 +78,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         if(visualTypeList.none { it.first==name }){
             visualTypeList.add(Pair(name,visual))
         }
-        visualDataList.add(VisualData(name,selectedFile.path,posX,posY,z,width,height))
+        visualDataList.add(VisualData(name,selectedFile.path,posX,posY,z,width,height,visual.originalBlock.width.asPixel().toInt(),visual.originalBlock.height.asPixel().toInt()))
         updateVisualTypes()
     }
 
@@ -87,6 +87,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         visualTypeList.forEach {
             val w = igd.gridBlock.width*(it.second.originalBlock.width.asPixel()/pxPair.first.toFloat())
             val h = igd.gridBlock.height*(it.second.originalBlock.height.asPixel()/pxPair.second.toFloat())
+
             it.second.resize(w,h)
         }
     }
@@ -105,7 +106,12 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         if(Gdx.input.justTouched()){
             if(selectedVisual == -1){
                 visualDataList.reversed().forEachIndexed() { index, it ->
-                    val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width * it.width, igd.gridBlock.height * it.height, igd.gridBlock.wStart + igd.gridBlock.width * it.posX, igd.gridBlock.hStart + igd.gridBlock.height * it.posY)
+                    //println("${}")
+                    val relBlock = visualTypeList.first { it2-> it2.first==it.type }.second.imageBlock
+                    val p = igd.getPxPair()
+
+                    val thisBlock = GetLcsRect.byParameters(relBlock.width, relBlock.height, igd.gridBlock.wStart+ igd.gridBlock.width *it.posX, igd.gridBlock.hStart + igd.gridBlock.height *it.posY)
+                    //val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width * relBlock.width, igd.gridBlock.height * relBlock.height, igd.gridBlock.wStart + igd.gridBlock.width * relBlock.cX, igd.gridBlock.hStart + igd.gridBlock.height * relBlock.cY)
                     if (thisBlock.contains(GetLcs.ofX(), GetLcs.ofY())) {
                         selectedVisual = visualDataList.size - 1 - index
 
@@ -116,7 +122,10 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
                 }
             } else{
                 val it = visualDataList[selectedVisual]
-                val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width*it.width,igd.gridBlock.height*it.height,igd.gridBlock.wStart + igd.gridBlock.width*it.posX,igd.gridBlock.hStart + igd.gridBlock.height*it.posY)
+                val relBlock = visualTypeList.first { it2-> it2.first==it.type }.second.imageBlock
+                val thisBlock = GetLcsRect.byParameters(relBlock.width, relBlock.height, igd.gridBlock.wStart+ igd.gridBlock.width *it.posX, igd.gridBlock.hStart + igd.gridBlock.height *it.posY)
+                //val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width*relBlock.width,igd.gridBlock.height*relBlock.height,igd.gridBlock.wStart + igd.gridBlock.width*relBlock.cX,igd.gridBlock.hStart + igd.gridBlock.height*relBlock.cY)
+
                 if(!thisBlock.contains(GetLcs.ofX(),GetLcs.ofY())){
                     selectedVisual = -1
                     return false
@@ -134,10 +143,10 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
                 val relativeX = ((GetLcs.ofX()-igd.gridBlock.wStart)/(igd.gridBlock.width)).asLcs()-dragLocation.first+0.5f
                 val relativeY = ((GetLcs.ofY()-igd.gridBlock.hStart)/(igd.gridBlock.height)).asLcs()-dragLocation.second+0.5f
                 val  l = igd.pxRatio.split("x").map{it.toFloat() }
-                visualDataList[selectedVisual].posX = (relativeX*l[0]).roundToInt()/l[0]
-                visualDataList[selectedVisual].posY = (relativeY*l[1]).roundToInt()/l[1]
-                selectedMenu.rX =(visualDataList[selectedVisual].posX*l[0]).toInt()
-                selectedMenu.rY =(visualDataList[selectedVisual].posY*l[1]).toInt()
+                //visualDataList[selectedVisual].posX = (relativeX*l[0]).roundToInt()/l[0]
+                //visualDataList[selectedVisual].posY = (relativeY*l[1]).roundToInt()/l[1]
+                //selectedMenu.rX =(visualDataList[selectedVisual].posX*l[0]).toInt()
+                //selectedMenu.rY =(visualDataList[selectedVisual].posY*l[1]).toInt()
             }
         }else{
             carrying = false

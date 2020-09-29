@@ -2,7 +2,7 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.engine.modules.visuals.OVL
+import com.modules.visuals.OVL
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable as lv
@@ -79,6 +79,8 @@ abstract class OmniVisual(block: LcsRect = GetLcsRect.ofZero(), visualSize: Visu
     abstract fun copy(): OmniVisual
 
     abstract fun dispose()
+
+    abstract fun setFlip(x: Boolean,y: Boolean)
 
     private fun fitElement(): LcsRect {
         return imageBlock.resizeTo(block.width*scaleFactor,block.height*scaleFactor)

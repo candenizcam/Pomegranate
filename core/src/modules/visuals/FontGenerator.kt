@@ -1,4 +1,4 @@
-package com.pungo.engine.modules.visuals
+package com.modules.visuals
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -64,7 +64,7 @@ object FontGenerator {
 
     fun createFont(fontPath: String, size: Int, text: String){
         if(usedFonts.none {it.first==fontPath && it.second==size  }){
-            usedFonts.add(Triple(fontPath,size,createNewFont(size, fontPath)))
+            usedFonts.add(Triple(fontPath,size, createNewFont(size, fontPath)))
         }
     }
 

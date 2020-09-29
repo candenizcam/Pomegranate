@@ -86,4 +86,11 @@ open class AtlasTexture(private val path: FileHandle, val region: String = "", v
     }
 
 
+    override fun setFlip(x: Boolean, y: Boolean) {
+        sprites.forEach {
+            it.setFlip(x,y)
+        }
+    }
+
+
 }

@@ -1,11 +1,12 @@
 package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.engine.modules.visuals.FontGenerator
-import com.pungo.engine.modules.visuals.OVL
+import com.modules.visuals.FontGenerator
+import com.modules.visuals.OVL
 
 object LayerManager {
     val layers = mutableListOf<Scene>()
+    val scenesToAdd = mutableListOf<Pair<Scene, Boolean>>()
 
     fun add(scene: Scene, visible: Boolean) {
         if (layers.any { it.id == scene.id }) {
@@ -34,6 +35,10 @@ object LayerManager {
     fun update() {
         layers.sortWith(compareBy({ it.visible }, { it.zOrder }))
         layers.forEach { it.update() }
+        scenesToAdd.forEach {
+            add(it.first, it.second)
+        }
+        scenesToAdd.clear()
     }
 
     fun draw(batch: SpriteBatch) {

@@ -24,6 +24,7 @@ class SingleTexture(private val path: FileHandle, block: LcsRect = GetLcsRect.by
 
     override fun recolour(c: Color) {
         s.color = c
+
     }
 
     override fun copy(): OmniVisual {
@@ -34,6 +35,10 @@ class SingleTexture(private val path: FileHandle, block: LcsRect = GetLcsRect.by
 
     override fun dispose() {
         s.texture.dispose()
+    }
+
+    override fun setFlip(x: Boolean, y: Boolean) {
+        s.setFlip(x,y)
     }
 
     override fun updateVisual() {

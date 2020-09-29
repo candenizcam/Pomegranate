@@ -2,7 +2,6 @@ package modules.uiElements.interactableGrid
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.uiElements.interactableGrid.VisualFoil
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
@@ -38,6 +37,7 @@ class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRe
         bf.brushType = "eraser"
         //reader of tile brushes here
         tf.brushType = "eraser"
+        tf.blockVisualTypes = SetupReaders.atlasReader(Gdx.files.local("tiles/tiles.atlas"))
         mf.blockMenuLayout.updateBrusherButton(bf.blockVisualTypes) { s: String-> bf.brushType= s}
         mf.tilesMenuLayout.updateBrusherButton(tf.blockVisualTypes) {s: String->tf.brushType=s}
 
@@ -184,6 +184,7 @@ class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRe
             }
             Foils.TILES->{
                 tf.drawBlocks(batch,1f)
+                bf.drawBlocks(batch,0.1f)
 
             }
 

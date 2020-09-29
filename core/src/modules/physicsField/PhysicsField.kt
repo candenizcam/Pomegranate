@@ -69,8 +69,10 @@ class PhysicsField() {
 
             for (i in items.indices) {
                 for (j in i + 1 until items.size) {
-                    if (items[i].mobility || items[j].mobility) {
-                        val cd = items[i].collisionTimeWith(items[j], t)
+                    val i1 = items[i]
+                    val i2 = items[j]
+                    if(i1.collidable&&i2.collidable&&(i1.mobility||i2.mobility)){
+                        val cd = i1.collisionTimeWith(i2, t)
                         if (cd.hasCollision()) {
                             collisions.add(cd)
                         }

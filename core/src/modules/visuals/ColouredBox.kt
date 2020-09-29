@@ -49,6 +49,10 @@ class ColouredBox(block: LcsRect = GetLcsRect.byParameters(GetLcs.byLcs(1f), Get
         s.texture.dispose()
     }
 
+    override fun setFlip(x: Boolean, y: Boolean) {
+        s.setFlip(x,y)
+    }
+
     /** Creates the sprite
      * also, boy do i like this little bit of code
      */

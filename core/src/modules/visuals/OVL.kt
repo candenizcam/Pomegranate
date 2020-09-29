@@ -1,4 +1,4 @@
-package com.pungo.engine.modules.visuals
+package com.modules.visuals
 
 import modules.visuals.OmniVisual
 import java.lang.Exception

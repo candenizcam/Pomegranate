@@ -5,30 +5,41 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.uiElements.UiElement
 
-class Camera(id: String, block: LcsRect, var subject: UiElement, zoomRect: ZoomRect): UiElement(id) {
+class Camera(id: String, block: LcsRect, subjectList: List<UiElement>, zoomRect: ZoomRect): UiElement(id) {
+    var subjects = subjectList.toMutableList()
     var zoomRect = zoomRect
         set(value){
             field = value
-            subject.resize(block.width/value.width,block.height/value.height)
-            subject.relocate(block.cX + subject.block.width*(0.5f - value.cX),block.cY + subject.block.height*(0.5f - value.cY))
+            subjects.forEach {
+                it.resize(block.width/value.width,block.height/value.height)
+                it.relocate(block.cX + it.block.width*(0.5f - value.cX),block.cY + it.block.height*(0.5f - value.cY))
+            }
         }
 
 
     override var block: LcsRect = block
         set(value) {
             field = value
-            subject.resize(value.width/zoomRect.width,value.height/zoomRect.height)
-            subject.relocate(value.cX + subject.block.width*(0.5f - zoomRect.cX),value.cY + subject.block.height*(0.5f - zoomRect.cY))
+            subjects.forEach {subject->
+                subject.resize(value.width/zoomRect.width,value.height/zoomRect.height)
+                subject.relocate(value.cX + subject.block.width*(0.5f - zoomRect.cX),value.cY + subject.block.height*(0.5f - zoomRect.cY))
+            }
+
         }
 
 
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
-        return subject.touchHandler(mayTouch)
+        subjects.reversed().forEach {
+            if(it.touchHandler(mayTouch)) return true
+        }
+        return false
     }
 
     override fun update() {
-        subject.update()
+        subjects.forEach {
+            it.update()
+        }
     }
 
     override fun relocate(x: LcsVariable, y: LcsVariable) {
@@ -40,10 +51,14 @@ class Camera(id: String, block: LcsRect, var subject: UiElement, zoomRect: ZoomR
     }
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
-        subject.draw(batch,alpha)
+        subjects.forEach {
+            it.draw(batch,alpha)
+        }
     }
 
     override fun dispose() {
-        subject.dispose()
+        subjects.forEach {
+            it.dispose()
+        }
     }
 }

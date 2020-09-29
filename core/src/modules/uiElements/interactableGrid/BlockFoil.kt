@@ -81,7 +81,15 @@ class BlockFoil(val igd: InteractableGridData) {
         }
         else{
             if(brushType!="eraser"){
-                gridColours.addAll(tempGridColours)
+                tempGridColours.forEach {
+                    val cell = gridColours.filter { it2 -> it.row == it2.row && it.col == it2.col }.toMutableList()
+                    if (cell.isEmpty()) {
+                        gridColours.add(it)
+                    } else {
+                        gridColours.remove(cell[0])
+                        gridColours.add(it)
+                    }
+                }
             }else{
                 tempGridColours.forEach {
                     gridColours = gridColours.filterNot { it2-> it.row==it2.row && it.col==it2.col }.toMutableList()

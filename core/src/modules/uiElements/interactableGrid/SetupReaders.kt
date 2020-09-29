@@ -1,9 +1,14 @@
 package modules.uiElements.interactableGrid
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.Sprite
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import modules.visuals.SpriteVisual
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
+import modules.visuals.AtlasTexture
 import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
 import modules.visuals.VisualSize
@@ -49,5 +54,39 @@ object SetupReaders {
 
         }
         return returning
+    }
+
+    fun atlasReader(f: FileHandle): MutableList<Pair<String, OmniVisual>> {
+        /*
+        var msl = mutableListOf<Sprite>()
+        mutableListOf<Sprite>().also {
+
+        }
+
+         */
+        var msl = TextureAtlas(f).createSprites().map{ SpriteVisual(it, GetLcsRect.byParameters(GetLcs.byPixel(it.width),GetLcs.byPixel(it.height)),visualSize = VisualSize.FIT_ELEMENT) }
+        return msl.mapIndexed {index,it -> Pair<String,OmniVisual>("tile_$index",it) }.toMutableList()
+            /*
+            TextureAtlas(f).also { textureAtlas ->
+
+                textureAtlas.createSprites().forEachIndexed { index, sprite ->
+
+                }
+
+                var firstSize =  GetLcsRect.ofCentreSquare()
+                (if(region=="") textureAtlas.createSprites() else textureAtlas.createSprites(region)).forEachIndexed{index, sprite->
+                    if(index==0){
+                        firstSize = GetLcsRect.byParameters(GetLcs.byPixel(sprite.width), GetLcs.byPixel(sprite.height))
+                        originalBlock = firstSize
+                    }
+                    ratioToFirst.add(Pair(sprite.width/firstSize.width.asPixel(),sprite.height/firstSize.height.asPixel()))
+                    msl.add(sprite)
+                }
+            }
+            return msl.toList()
+        }
+
+             */
+
     }
 }

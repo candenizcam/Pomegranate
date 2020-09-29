@@ -101,13 +101,21 @@ class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
     }
 
     fun disperseTools(){
-
         selectablesList.forEachIndexed() { index, it ->
             if (index in activePage * 15 until (activePage + 1) * 15) {
                 val relevantIndex = index - activePage * 15
                 ((getElement("rows") as RowLayout).getElement("row${relevantIndex / 5}") as ColLayout).replaceElement(relevantIndex.rem(5), it)
             }
         }
+    }
+
+    override fun adjustElements() {
+        super.adjustElements()
+        try{
+            disperseTools()
+        }catch (e: Exception){
+        }
+
     }
 }
 

@@ -41,4 +41,9 @@ class TwoVisuals(var front: OmniVisual, var back: OmniVisual, visualSize: Visual
         front.reBlock(block)
         back.reBlock(block)
     }
+
+    override fun setFlip(x: Boolean, y: Boolean) {
+        front.setFlip(x,y)
+        back.setFlip(x,y)
+    }
 }

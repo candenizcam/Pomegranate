@@ -37,9 +37,11 @@ class MusicPlayer(initialVolume: Float = 1.0f) {
     fun changeVolume(vol: Float){
         if(!muted){
             volume = vol
+            bgm.volume = vol
         }
         else{
             volume = 0.0f
+            bgm.volume = 0.0f
         }
     }
 }

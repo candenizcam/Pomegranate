@@ -13,7 +13,7 @@ class ImageSelectedLayout(id: String): RowLayout(id, GetLcsRect.ofFullScreen()) 
     val delButton = FastGenerator.genericSetButton("del","DELETE",36, Color.LIGHT_GRAY,Color.WHITE,"fonts/PTMono-Regular.ttf")
     val copyButton = FastGenerator.genericSetButton("copy","COPY",36, Color.LIGHT_GRAY,Color.WHITE,"fonts/PTMono-Regular.ttf")
 
-    val cXIncrementer= HorizontalIncrementer("colInc","fonts/PTMono-Regular.ttf",Color(0.4f,0.4f,0.4f,1f),36,5,optionsList = (0..10000).toList())
+    val cXIncrementer= HorizontalIncrementer("colInc","fonts/PTMono-Regular.ttf",Color(0.4f,0.4f,0.4f,1f),36,5,largeIncrementer = 100,optionsList = (0..10000).toList())
     var rX = 0
         set(value) {
             field = value

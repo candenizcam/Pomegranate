@@ -33,6 +33,10 @@ class CustomPixmap(val pxMap: Pixmap,c: Color,visualSize: VisualSize=VisualSize.
         s.color = c
     }
 
+    override fun setFlip(x: Boolean, y: Boolean) {
+        s.setFlip(x,y)
+    }
+
     override fun copy(): OmniVisual {
         return CustomPixmap(pxMap,s.color,visualSize,scaleFactor)
     }
