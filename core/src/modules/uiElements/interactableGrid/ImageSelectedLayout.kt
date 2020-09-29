@@ -7,7 +7,7 @@ import modules.uiElements.HorizontalIncrementer
 import modules.uiElements.PinupImage
 import modules.uiElements.layouts.ColLayout
 import modules.uiElements.layouts.RowLayout
-import modules.visuals.BlockText
+import modules.visuals.fromFont.BlockText
 
 class ImageSelectedLayout(id: String): RowLayout(id, GetLcsRect.ofFullScreen()) {
     val delButton = FastGenerator.genericSetButton("del","DELETE",36, Color.LIGHT_GRAY,Color.WHITE,"fonts/PTMono-Regular.ttf")
@@ -51,19 +51,19 @@ class ImageSelectedLayout(id: String): RowLayout(id, GetLcsRect.ofFullScreen()) 
 
         val relocateX = ColLayout("relocateX",GetLcsRect.ofFullScreen()).also{relocateX->
             relocateX.divideBlocksToBiased(listOf(0.1f,0.2f,0.1f,0.5f,0.1f))
-            relocateX.replaceElement(1, PinupImage("rX", BlockText("Reloacate X:",36,Color.WHITE,"fonts/PTMono-Regular.ttf")))
+            relocateX.replaceElement(1, PinupImage("rX", BlockText("Reloacate X:", 36, Color.WHITE, "fonts/PTMono-Regular.ttf")))
             relocateX.replaceElement(3, cXIncrementer)
         }
 
         val relocateY = ColLayout("relocateY",GetLcsRect.ofFullScreen()).also{relocateY->
             relocateY.divideBlocksToBiased(listOf(0.1f,0.2f,0.1f,0.5f,0.1f))
-            relocateY.replaceElement(1, PinupImage("rY", BlockText("Relocate Y:",36,Color.WHITE,"fonts/PTMono-Regular.ttf")))
+            relocateY.replaceElement(1, PinupImage("rY", BlockText("Relocate Y:", 36, Color.WHITE, "fonts/PTMono-Regular.ttf")))
             relocateY.replaceElement(3, cYIncrementer)
         }
 
         val relocateZ = ColLayout("relocateZ",GetLcsRect.ofFullScreen()).also{relocateY->
             relocateY.divideBlocksToBiased(listOf(0.1f,0.2f,0.1f,0.5f,0.1f))
-            relocateY.replaceElement(1, PinupImage("rZ", BlockText("Relocate Z:",36,Color.WHITE,"fonts/PTMono-Regular.ttf")))
+            relocateY.replaceElement(1, PinupImage("rZ", BlockText("Relocate Z:", 36, Color.WHITE, "fonts/PTMono-Regular.ttf")))
             relocateY.replaceElement(3, ColLayout("zGuys",GetLcsRect.ofFullScreen()).also {
                 it.divideBlocksToBiased(listOf(0.05f,0.2f,0.025f,0.2f,0.05f,0.2f,0.025f,0.2f,0.05f))
                 it.replaceElement(1,toTop)

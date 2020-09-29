@@ -8,7 +8,7 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.uiElements.UiElement
 import modules.visuals.OmniVisual
-import modules.visuals.PixmapGenerator
+import modules.visuals.fromPixmap.PixmapGenerator
 
 class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRect.ofFullScreen(), var gridPadding: LcsVariable = GetLcs.ofZero(), var adjustToPxRatio: Boolean = false): UiElement(id) {
     var igd = InteractableGridData(row, col, false,Foils.GENERAL)

@@ -7,8 +7,8 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
-import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
+import modules.visuals.fromPixmap.PixmapGenerator
 import modules.visuals.VisualSize
 
 /** Set button executes function clicked when clicked, but is similar to pinup visual otherwise
@@ -28,10 +28,10 @@ class SetButton(id: String) : UiElement(id) {
      */
     constructor(id: String, block: LcsRect) : this(id) {
         this.block = block
-        setVisuals(ColouredBox().also {
+        setVisuals(PixmapGenerator.singleColour().also {
             it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.WHITE)
-        }, ColouredBox().also {
+        }, PixmapGenerator.singleColour().also {
             it.visualSize = VisualSize.STATIC
             it.recolour(Color.DARK_GRAY)
         })

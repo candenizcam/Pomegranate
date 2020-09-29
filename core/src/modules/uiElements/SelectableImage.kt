@@ -5,10 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
-import modules.uiElements.SetButton
-import modules.uiElements.UiElement
 import modules.visuals.OmniVisual
-import modules.visuals.PixmapGenerator
+import modules.visuals.fromPixmap.PixmapGenerator
 
 class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: LcsRect = GetLcsRect.ofFullScreen()): UiElement(id) {
     override var block: LcsRect = block

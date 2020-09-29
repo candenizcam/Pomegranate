@@ -12,13 +12,13 @@ import modules.lcsModule.LcsVariable as lv
  * visualSize describes fitting preference, static means size is conserved, fit element means fitting the element it is in, fit with ratio, fits to the element while staying in centre and protecting ratio
  * scale factor is a float that is used to multiply the final form after visual size operations are conducted, for static it scales directly, for others it scales the fitted form
  */
-abstract class OmniVisual(block: LcsRect = GetLcsRect.ofZero(), visualSize: VisualSize= VisualSize.STATIC, scaleFactor: Float = 1f) {
-    var block = block
+abstract class OmniVisual(visualSize: VisualSize= VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f) {
+    var block = GetLcsRect.ofZero()
         protected set(value) {
             field = value
             imageBlock = updateImageBlock()
         }
-    var imageBlock = block
+    var imageBlock = GetLcsRect.ofZero()
         protected set(value) {
             field = value
             updateVisual()

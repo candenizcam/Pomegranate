@@ -3,7 +3,7 @@ package modules.uiElements
 import com.badlogic.gdx.graphics.Color
 import modules.lcsModule.GetLcsRect
 import modules.uiElements.layouts.ColLayout
-import modules.visuals.BlockText
+import modules.visuals.fromFont.BlockText
 
 /** As the name suggest this is an incrementer device, applied horizontally
  * it has an incrementer and a large incerementer which allows us to define what large incremental difference means
@@ -15,7 +15,7 @@ class HorizontalIncrementer(id: String, fontPath: String, bgColour: Color, textS
             field =value
             theValue = optionsList[value]
         }
-    var blockText = BlockText("${optionsList[theNumber]}",textSize, textColour,fontPath)
+    var blockText = BlockText("${optionsList[theNumber]}", textSize, textColour, fontPath)
 
     var decButton = FastGenerator.genericSetButton("dec","<",textSize,bgColour =bgColour, textColour = textColour,fontPath = fontPath).also {
         it.clicked = {changeNumber(-1)}

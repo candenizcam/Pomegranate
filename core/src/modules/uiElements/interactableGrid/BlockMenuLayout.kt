@@ -9,6 +9,8 @@ import modules.uiElements.PinupImage
 import modules.uiElements.layouts.ColLayout
 import modules.uiElements.layouts.RowLayout
 import modules.visuals.*
+import modules.visuals.fromFont.BlockText
+import modules.visuals.fromPixmap.PixmapGenerator
 
 class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
 
@@ -20,7 +22,7 @@ class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
         divideBlocksToBiased(listOf(0.05f,0.1f,0.05f,0.7f,0.1f))
         replaceElement(1, ColLayout("brusher",block).also { brusher->
             brusher.divideBlocksToBiased(listOf(0.1f,0.2f,0.1f,0.5f,0.1f))
-            brusher.replaceElement(1, PinupImage("brusherText", BlockText("Brush Selection Page:",36, Color.WHITE,"fonts/PTMono-Regular.ttf")))
+            brusher.replaceElement(1, PinupImage("brusherText", BlockText("Brush Selection Page:", 36, Color.WHITE, "fonts/PTMono-Regular.ttf")))
             brusher.replaceElement(3, getPageIncrementer())
             //brusher.replaceElement(3,brusherButton)
         })
@@ -59,8 +61,8 @@ class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
 
     fun generateEraser(): SelectableImage {
         val eraseOV = TwoVisuals(
-                BlockText("Eraser",36, Color.WHITE,"fonts/PTMono-Regular.ttf"),
-                ColouredBox(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)),Color.CORAL).also { it.visualSize = VisualSize.FIT_ELEMENT }
+                BlockText("Eraser", 36, Color.WHITE, "fonts/PTMono-Regular.ttf"),
+                PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)),Color.CORAL).also { it.visualSize = VisualSize.FIT_ELEMENT }
         )
         eraseOV.visualSize = VisualSize.FIT_ELEMENT
         return SelectableImage("eraser",Color.FOREST,eraseOV)

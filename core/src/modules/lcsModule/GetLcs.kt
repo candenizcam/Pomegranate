@@ -22,6 +22,10 @@ object GetLcs {
         return LcsVariable(n, lcsCoeff)
     }
 
+    fun byPixel(n: Int): LcsVariable{
+        return byPixel(n.toFloat())
+    }
+
     /** Creates a variable using a pixel value
      */
     fun byPixel(n: Float): LcsVariable {

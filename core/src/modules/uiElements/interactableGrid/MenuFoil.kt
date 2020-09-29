@@ -3,7 +3,6 @@ package modules.uiElements.interactableGrid
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.uiElements.interactableGrid.ImageSelectedLayout
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
@@ -13,7 +12,7 @@ import modules.uiElements.PinupImage
 import modules.uiElements.layouts.ColLayout
 import modules.uiElements.layouts.PinboardLayout
 import modules.uiElements.layouts.RowLayout
-import modules.visuals.ColouredBox
+import modules.visuals.fromPixmap.PixmapGenerator
 import modules.visuals.TwoVisuals
 import modules.visuals.VisualSize
 
@@ -30,7 +29,7 @@ class MenuFoil(val igd: InteractableGridData) {
 
 
     private var menuLayout = PinboardLayout("menuFoilBg",GetLcsRect.ofFullScreen()).also {
-        it.addElement(PinupImage("bg",ColouredBox(GetLcsRect.byParameters(it.block.width,it.block.height), Color(0f,0f,0f,0.9f)).also { it2->
+        it.addElement(PinupImage("bg", PixmapGenerator.singleColour(GetLcsRect.byParameters(it.block.width,it.block.height), Color(0f,0f,0f,0.9f)).also { it2->
             it2.visualSize = VisualSize.FIT_ELEMENT
         }),it.block)
         it.addElement(RowLayout("bgRows",it.block).also { it2->

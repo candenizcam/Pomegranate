@@ -1,43 +1,60 @@
 package com.pomegranate
 
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.pungo.modules.visuals.Tile
+import com.pungo.modules.visuals.TileRenderer
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.scenes.Scene
 import modules.uiElements.*
-import modules.uiElements.layouts.ColLayout
 import modules.uiElements.layouts.PinboardLayout
 import modules.visuals.*
+import modules.visuals.fromPath.SingleTexture
+import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.fromTiles.TileMapOpener
 
 
 class TestScene: Scene("testScene",0f) {
     val sc = PixmapGenerator.circle(visualSize = VisualSize.FIT_WITH_RATIO).also {
-        println("relocating")
-        println("block -> ${it.block.cX.asPixel()}  ${it.block.cY.asPixel()} ${it.block.width.asPixel()} ${it.block.height.asPixel()}")
-        println("${it.imageBlock.cX.asPixel()}  ${it.imageBlock.cY.asPixel()} ${it.imageBlock.width.asPixel()} ${it.imageBlock.height.asPixel()}")
+        //println("relocating")
+        //println("block -> ${it.block.cX.asPixel()}  ${it.block.cY.asPixel()} ${it.block.width.asPixel()} ${it.block.height.asPixel()}")
+        //println("${it.imageBlock.cX.asPixel()}  ${it.imageBlock.cY.asPixel()} ${it.imageBlock.width.asPixel()} ${it.imageBlock.height.asPixel()}")
         it.reBlock(GetLcsRect.byParameters(GetLcs.byLcs(0.5f),GetLcs.byLcs(0.6f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.5f)))
-        println("block -> ${it.block.cX.asPixel()}  ${it.block.cY.asPixel()} ${it.block.width.asPixel()} ${it.block.height.asPixel()}")
-        println("${it.imageBlock.cX.asPixel()}  ${it.imageBlock.cY.asPixel()} ${it.imageBlock.width.asPixel()} ${it.imageBlock.height.asPixel()}")
+        //println("block -> ${it.block.cX.asPixel()}  ${it.block.cY.asPixel()} ${it.block.width.asPixel()} ${it.block.height.asPixel()}")
+        //println("${it.imageBlock.cX.asPixel()}  ${it.imageBlock.cY.asPixel()} ${it.imageBlock.width.asPixel()} ${it.imageBlock.height.asPixel()}")
         //it.resize(GetLcs.byPixel(200f),GetLcs.byPixel(200f))
+        it.color = Color.PINK
     }
     override val layout = PinboardLayout("main", GetLcsRect.ofFullScreen()).also { layout ->
         val tv = TestVisuals()
-        val but = FastGenerator.genericSetButton("hey","text",36, Color.GOLD, Color.WHITE,"fonts/PTMono-Regular.ttf")
+        //val but = FastGenerator.genericSetButton("hey","text",36, Color.GOLD, Color.WHITE,"fonts/PTMono-Regular.ttf")
         //val sc = PixmapGenerator.singleColour(c=Color.FOREST)
 
 
         //layout.addElement(but,GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
-        //layout.addElement(PinupImage("id",sc),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+        layout.addElement(PinupImage("id",tv.ta),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.6f)))
+        layout.addElement(PinupImage("id2",tv.ta2),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.8f),GetLcs.ofHeight(0.6f)))
+        layout.addElement(PinupImage("id3",tv.ta3),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.2f),GetLcs.ofHeight(0.6f)))
         //layout.addElement(PinupImage("id2",sc.copy()),GetLcsRect.byParameters(GetLcs.ofWidth(0.5f),GetLcs.byLcs(0.4f),GetLcs.ofWidth(0.1f),GetLcs.ofHeight(0.1f)))
-        //sc.recolour(Color.CORAL)
+
+        val name = "test"
+        val tr = TileMapOpener.openTileRenderer( Gdx.files.internal("maps/$name/tiles.assets"),Gdx.files.internal("tiles/tiles.atlas"),"")
+
+        layout.addPlot("centre", GetLcsRect.ofFullScreen())
+        //layout.replaceElement("centre", PinupImage("tr", SingleTexture(Gdx.files.local("badlogic.jpg"),colour = Color.WHITE,visualSize = VisualSize.FIT_ELEMENT)))
+        //layout.replaceElement("centre", PinupImage("tr",SpriteVisual(Sprite(Texture(Gdx.files.local("badlogic.jpg"))),visualSize = VisualSize.FIT_ELEMENT)))
+        layout.replaceElement("centre", PinupImage("tr",tr))
     }
 
 
     override fun draw(batch: SpriteBatch){
         super.draw(batch)
-        sc.draw(batch)
+        //sc.draw(batch)
     }
         /*
         val image_1 = ColouredBox().also{

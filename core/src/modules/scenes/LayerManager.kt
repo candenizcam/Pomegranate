@@ -3,6 +3,8 @@ package modules.scenes
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.modules.visuals.FontGenerator
 import com.modules.visuals.OVL
+import modules.visuals.fromPath.TextureCache
+import modules.visuals.fromTiles.TileMapOpener
 
 object LayerManager {
     val layers = mutableListOf<Scene>()
@@ -51,5 +53,7 @@ object LayerManager {
         }
         FontGenerator.dispose()
         OVL.dispose()
+        TextureCache.dispose()
+        TileMapOpener.dispose()
     }
 }

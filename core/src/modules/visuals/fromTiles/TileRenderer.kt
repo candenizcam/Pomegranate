@@ -10,7 +10,7 @@ import modules.visuals.OmniVisual
 import modules.visuals.VisualSize
 import kotlin.math.asinh
 
-class TileRenderer(var rowNo: Int, var colNo: Int, block: LcsRect = GetLcsRect.ofFullScreen(), visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float=1f): OmniVisual(block,visualSize = visualSize,scaleFactor = scaleFactor) {
+class TileRenderer(var rowNo: Int, var colNo: Int, block: LcsRect = GetLcsRect.ofFullScreen(), visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float=1f): OmniVisual(visualSize = visualSize,scaleFactor = scaleFactor) {
     var typesList = mutableListOf<Pair<String,OmniVisual>>()
     var mapData = mutableListOf<Tile>()
 

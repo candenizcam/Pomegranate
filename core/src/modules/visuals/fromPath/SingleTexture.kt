@@ -1,5 +1,6 @@
-package  modules.visuals
+package modules.visuals.fromPath
 
+import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
@@ -10,12 +11,13 @@ import modules.lcsModule.LcsRect
 import modules.visuals.OmniVisual
 import modules.visuals.VisualSize
 
-class SpriteVisual (sprite: Sprite, colour: Color=Color.WHITE,  visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(visualSize = visualSize, scaleFactor = scaleFactor) {
-    private var sprite: Sprite = sprite.also {
-        it.color = colour
-        originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it.width),GetLcs.byPixel(it.height))
+class SingleTexture(private val path: FileHandle,colour: Color = Color.WHITE, visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f): OmniVisual(visualSize,scaleFactor) {
+    private var sprite=Sprite(TextureCache.openTexture(path)).also{sprite->
+        originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(sprite.width),GetLcs.byPixel(sprite.height))
         this.block = originalBlock.copy()
     }
+
+
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         batch.draw(sprite,imageBlock.wStart.asPixel(),imageBlock.hStart.asPixel(),imageBlock.width.asPixel(),imageBlock.height.asPixel())
@@ -29,8 +31,9 @@ class SpriteVisual (sprite: Sprite, colour: Color=Color.WHITE,  visualSize: Visu
     }
 
     override fun copy(): OmniVisual {
-        return SpriteVisual(sprite, sprite.color, visualSize, scaleFactor).also {
+        SingleTexture(path, sprite.color, visualSize, scaleFactor).also {
             it.reBlock(block)
+            return it
         }
     }
 
@@ -43,5 +46,4 @@ class SpriteVisual (sprite: Sprite, colour: Color=Color.WHITE,  visualSize: Visu
 
     override fun updateVisual() {
     }
-
 }

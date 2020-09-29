@@ -6,8 +6,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.visuals.*
+import modules.visuals.fromPath.SingleTexture
+import modules.visuals.fromPath.AtlasTexture
+import modules.visuals.fromPixmap.PixmapGenerator
 import java.io.File
-import kotlin.math.roundToInt
 
 class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedLayout, var visualSelector: (Boolean)->Unit) {
     var visualDataList= mutableListOf<VisualData>()
@@ -15,7 +17,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
 
 
     var visualTypeList= mutableListOf<Pair<String,OmniVisual>>()
-    private var selectFrame = ColouredBox(colour = Color(0f,0.6f,0f,0.5f),visualSize = VisualSize.FIT_ELEMENT)
+    private var selectFrame = PixmapGenerator.singleColour(c = Color(0f,0.6f,0f,0.5f),visualSize = VisualSize.FIT_ELEMENT)
     private var selectedVisual = -1
     set(value){
         field = value
@@ -69,8 +71,8 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
     fun addVisualByType(selectedFile: File,posX: Float=0.5f,posY: Float=0.5f,z:Int=1, width: Float=1f,height: Float=1f) {
         val name = selectedFile.name
         val visual = when(selectedFile.extension){
-            "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath),visualSize = VisualSize.FIT_ELEMENT)
-            "atlas"-> AtlasTexture(Gdx.files.internal(selectedFile.absolutePath),visualSize = VisualSize.FIT_ELEMENT)
+            "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath), visualSize = VisualSize.FIT_ELEMENT)
+            "atlas"-> AtlasTexture(Gdx.files.internal(selectedFile.absolutePath), visualSize = VisualSize.FIT_ELEMENT)
             else->{
                 return
             }

@@ -1,16 +1,18 @@
-package modules.visuals
+package modules.visuals.fromPixmap
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
+import com.badlogic.gdx.graphics.Texture
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
+import modules.visuals.VisualSize
 import kotlin.math.ceil
 
 /** Used to create custom pixmaps which are returned as CustomPixmap visual elements
  *
  */
 object PixmapGenerator {
-    fun singleColour(b: LcsRect=GetLcsRect.ofFullScreen(), c: Color =Color.WHITE,visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
+    fun singleColour(b: LcsRect=GetLcsRect.ofFullScreen(), c: Color =Color.WHITE, visualSize: VisualSize = VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
         Pixmap(11, 11, Pixmap.Format.RGBA8888).also {
             it.setColor(1f, 1f, 1f, 1f)
             it.fill()
@@ -23,7 +25,7 @@ object PixmapGenerator {
 
     /** Creates a grid with col and row
      */
-    fun grid(row: Int, col: Int, b: LcsRect=GetLcsRect.ofFullScreen(), c: Color = Color.WHITE,visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
+    fun grid(row: Int, col: Int, b: LcsRect=GetLcsRect.ofFullScreen(), c: Color = Color.WHITE, visualSize: VisualSize = VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
         val w = ceil(b.width.asPixel()).toInt()
         val h = ceil(b.height.asPixel()).toInt()
         Pixmap(w,h, Pixmap.Format.RGBA8888).also {
@@ -37,17 +39,17 @@ object PixmapGenerator {
                 val yVal = h*(i.toFloat()/row)
                 it.fillRectangle(0, ceil(yVal).toInt()-1,w,3)
             }
-            return CustomPixmap(it,c,visualSize,scaleFactor).also { it2->
+            return CustomPixmap(it, c, visualSize, scaleFactor).also { it2->
                 it2.reBlock(b)
             }
         }
     }
 
-    fun circle(b: LcsRect=GetLcsRect.ofCentreSquare(), c: Color = Color.WHITE,visualSize: VisualSize=VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
+    fun circle(b: LcsRect=GetLcsRect.ofCentreSquare(), c: Color = Color.WHITE, visualSize: VisualSize = VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): CustomPixmap {
         Pixmap(101, 101, Pixmap.Format.RGBA8888).also {
             it.setColor(1f,1f,1f,1f)
             it.fillCircle(50,50,50)
-            return CustomPixmap(it,c,visualSize,scaleFactor).also { it2->
+            return CustomPixmap(it, c, visualSize, scaleFactor).also { it2->
                 it2.reBlock(b)
             }
         }

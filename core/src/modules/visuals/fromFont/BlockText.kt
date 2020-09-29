@@ -1,6 +1,5 @@
-package modules.visuals
+package modules.visuals.fromFont
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
@@ -9,6 +8,8 @@ import com.modules.visuals.FontGenerator
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
+import modules.visuals.OmniVisual
+import modules.visuals.VisualSize
 import modules.lcsModule.LcsVariable as lv
 
 /** Creates a textbox with the set text
@@ -16,14 +17,14 @@ import modules.lcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(var text: String, size: Int, var colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.FIT_ELEMENT) : OmniVisual(block, visualSize = visualSize) {
+class BlockText(var text: String, size: Int, var colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.FIT_ELEMENT) : OmniVisual(visualSize = visualSize) {
     var initSize = size
     var displayText = text
     var gl = GlyphLayout()
     private var imageBlockOnCreation = imageBlock.copy()
     init {
         originalBlock = block.copy()
-        imageBlock = originalBlock.copy()
+        this.block = originalBlock.copy()
 
         FontGenerator.createFont(fontPath,initSize,text)
         updateVisual()

@@ -7,8 +7,8 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
-import modules.visuals.ColouredBox
 import modules.visuals.OmniVisual
+import modules.visuals.fromPixmap.PixmapGenerator
 import modules.visuals.VisualSize
 
 /**
@@ -18,8 +18,8 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     private var valRange = resolution.toList()
     private var resolution = valRange.size
 
-    private var rail: OmniVisual = ColouredBox()
-    private var knob: OmniVisual = ColouredBox()
+    private var rail: OmniVisual = PixmapGenerator.singleColour()
+    private var knob: OmniVisual = PixmapGenerator.singleColour()
     private var knobPosition = 1
     var knobPositionChangeFunction = { println("knob function ${valRange[knobPosition]}") }
     private var manipulated = false
@@ -28,18 +28,18 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     constructor(id: String, resolution: IntRange = 0..100, block: LcsRect, horizontal: Boolean) : this(id, resolution, horizontal) {
         this.block = block
         println("block: ${block.width.asPixel()} ${block.height.asPixel()}")
-        rail = ColouredBox(GetLcsRect.byParameters(block.width, block.height)).also {
+        rail = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height)).also {
             it.resize(block)
             it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.DARK_GRAY)
         }
         if (horizontal) {
-            knob = ColouredBox(GetLcsRect.byParameters(block.width / (this.resolution), block.height)).also {
+            knob = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width / (this.resolution), block.height)).also {
                 it.visualSize = VisualSize.FIT_WITH_RATIO
                 it.recolour(Color.WHITE)
             }
         } else {
-            knob = ColouredBox(GetLcsRect.byParameters(block.width, block.height / (this.resolution))).also {
+            knob = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height / (this.resolution))).also {
                 it.visualSize = VisualSize.FIT_WITH_RATIO
                 it.recolour(Color.WHITE)
             }
