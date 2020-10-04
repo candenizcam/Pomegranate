@@ -8,11 +8,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.pungo.modules.visuals.Tile
 import com.pungo.modules.visuals.TileRenderer
+import modules.basic.geometry.Rectangle
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.scenes.Scene
 import modules.uiElements.*
 import modules.uiElements.layouts.PinboardLayout
+import modules.uiPlots.Plot
 import modules.visuals.*
 import modules.visuals.fromPath.SingleTexture
 import modules.visuals.fromPixmap.PixmapGenerator
@@ -21,15 +23,24 @@ import modules.visuals.fromTiles.TileMapOpener
 
 class TestScene: Scene("testScene",0f) {
     val sc = PixmapGenerator.circle(visualSize = VisualSize.FIT_WITH_RATIO).also {
-        //println("relocating")
-        //println("block -> ${it.block.cX.asPixel()}  ${it.block.cY.asPixel()} ${it.block.width.asPixel()} ${it.block.height.asPixel()}")
-        //println("${it.imageBlock.cX.asPixel()}  ${it.imageBlock.cY.asPixel()} ${it.imageBlock.width.asPixel()} ${it.imageBlock.height.asPixel()}")
         it.reBlock(GetLcsRect.byParameters(GetLcs.byLcs(0.5f),GetLcs.byLcs(0.6f),GetLcs.ofWidth(0.5f),GetLcs.ofHeight(0.5f)))
-        //println("block -> ${it.block.cX.asPixel()}  ${it.block.cY.asPixel()} ${it.block.width.asPixel()} ${it.block.height.asPixel()}")
-        //println("${it.imageBlock.cX.asPixel()}  ${it.imageBlock.cY.asPixel()} ${it.imageBlock.width.asPixel()} ${it.imageBlock.height.asPixel()}")
-        //it.resize(GetLcs.byPixel(200f),GetLcs.byPixel(200f))
         it.color = Color.PINK
     }
+
+    init{
+        val tv = TestVisuals()
+        mainDistrict.addToPlots( Plot("id1",Rectangle(0.25f,0.75f,0.4f,0.8f),10,element = PinupImage("id1",tv.ta)))
+        mainDistrict.addToPlots( Plot("id2",Rectangle(0.65f,1.05f,0.4f,0.8f),10,element = PinupImage("id2",tv.ta2)))
+        mainDistrict.addToPlots( Plot("id3",Rectangle(-0.05f,0.45f,0.4f,0.8f), element = PinupImage("id3",tv.ta3)))
+
+        val name = "test"
+        val tr = TileMapOpener.openTileRenderer( Gdx.files.internal("maps/$name/tiles.assets"),Gdx.files.internal("tiles/tiles.atlas"),"")
+        mainDistrict.addToPlots(Plot("centre"))
+        mainDistrict.findPlot("centre").element = PinupImage("tr",tr)
+
+    }
+
+    /*
     override val layout = PinboardLayout("main", GetLcsRect.ofFullScreen()).also { layout ->
         val tv = TestVisuals()
         //val but = FastGenerator.genericSetButton("hey","text",36, Color.GOLD, Color.WHITE,"fonts/PTMono-Regular.ttf")
@@ -50,6 +61,8 @@ class TestScene: Scene("testScene",0f) {
         //layout.replaceElement("centre", PinupImage("tr",SpriteVisual(Sprite(Texture(Gdx.files.local("badlogic.jpg"))),visualSize = VisualSize.FIT_ELEMENT)))
         layout.replaceElement("centre", PinupImage("tr",tr))
     }
+
+     */
 
 
     override fun draw(batch: SpriteBatch){

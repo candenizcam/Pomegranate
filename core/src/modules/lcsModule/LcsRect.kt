@@ -1,5 +1,8 @@
 package modules.lcsModule
 
+import modules.basic.geometry.Point
+import modules.basic.geometry.Rectangle
+
 /** This data class allows us to capture a spesific rectangle on the screen and it stores all the relevant data so that we don't need to recalculate every time
  */
 data class LcsRect(val width: LcsVariable, val height: LcsVariable, val cX: LcsVariable, val cY: LcsVariable,
@@ -51,4 +54,43 @@ data class LcsRect(val width: LcsVariable, val height: LcsVariable, val cX: LcsV
     fun isZero(): Boolean {
         return (width.asLcs() == 0f) && (height.asLcs() == 0f)
     }
+
+
+    fun getWidthRatio(w: LcsVariable): Float {
+        return ((w-wStart)/width).asLcs()
+    }
+
+    fun getHeightRatio(h: LcsVariable): Float {
+        return ((h-hStart)/height).asLcs()
+    }
+
+    fun getXFromRatio(w: Float): LcsVariable {
+        return wStart + width*w
+    }
+
+    fun getYFromRatio(h: Float): LcsVariable {
+        return hStart + height*h
+    }
+
+    fun getPointFromRatio(w: Float, h:Float): Pair<LcsVariable, LcsVariable> {
+        return Pair(getXFromRatio(w),getYFromRatio(h))
+    }
+
+    fun getRatiosFromPoint(w: LcsVariable,h:LcsVariable): Pair<Float, Float> {
+        return Pair(getWidthRatio(w),getHeightRatio(h))
+    }
+
+    fun getGeoRect(other: LcsRect):Rectangle{
+        //return Rectangle(Point((other.wStart-wStart).ratio(width),(other.hStart-hStart).ratio(height)))
+        return Rectangle((other.wStart-wStart).ratio(width),(other.wEnd-wStart).ratio(width),(other.hStart-hStart).ratio(height),(other.hEnd-hStart).ratio(height))
+    }
+
+    fun getLcsRectFromGeo(other: Rectangle): LcsRect{
+        return GetLcsRect.byBorders(wStart + width*other.left,wStart + width*other.right,hStart + height*other.bottom, hStart + height*other.top)
+    }
+
+
+
+
+
 }

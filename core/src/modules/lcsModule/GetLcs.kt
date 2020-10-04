@@ -1,6 +1,7 @@
 package modules.lcsModule
 
 import com.badlogic.gdx.Gdx
+import modules.basic.geometry.Rectangle
 
 /** GetLcs object is used to create LcsVariables
  * It must be initialized in the create() function of the Main class before use
@@ -58,5 +59,6 @@ object GetLcs {
     fun ofY(): LcsVariable {
         return LcsVariable((1 - Gdx.input.y.toFloat() / Gdx.graphics.height) * initialHeight / lcsCoeff, lcsCoeff)
     }
+
 
 }

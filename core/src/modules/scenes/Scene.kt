@@ -5,43 +5,35 @@ import modules.lcsModule.GetLcsRect
 import modules.uiElements.UiElement
 import modules.uiElements.layouts.OmniLayout
 import modules.uiElements.layouts.PinboardLayout
+import modules.uiPlots.District
 
-
-open class Scene(val id: String, var zOrder: Float, protected open val layout: OmniLayout = PinboardLayout(id,GetLcsRect.ofFullScreen())) {
+/** Scenes are used to arrange and use districts
+ *
+ */
+open class Scene(val id: String, var zOrder: Float) {
     var visible = true
+    var mainDistrict = District("${id}_district")
+        private set
 
     open fun draw(batch: SpriteBatch){
         if(visible){
-            layout.draw(batch)
+            mainDistrict.draw(batch)
         }
 
     }
 
     open fun update(){
         if(visible){
-            layout.touchHandler()
-            layout.update()
-        }
-    }
-
-    fun getMainLayout(): OmniLayout {
-        return layout
-    }
-
-    fun replaceElement(id: String, e: UiElement){
-        val l = id.split("&")
-        println(l)
-
-        layout.getElement(l.subList(0,l.lastIndex).joinToString("&")).also{
-            if (it is OmniLayout){
-                it.replaceElement(l.last(),e)
+            mainDistrict.update()
+            mainDistrict.plots.forEach {
+                it.element?.touchHandler(true)
             }
         }
-
     }
 
+
     open fun dispose(){
-        layout.dispose()
+        mainDistrict.dispose()
     }
 
     open fun mouseMoved(screenX: Int, screenY: Int) {

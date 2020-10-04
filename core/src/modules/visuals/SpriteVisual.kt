@@ -18,6 +18,7 @@ class SpriteVisual (sprite: Sprite, colour: Color=Color.WHITE,  visualSize: Visu
     }
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
+        
         batch.draw(sprite,imageBlock.wStart.asPixel(),imageBlock.hStart.asPixel(),imageBlock.width.asPixel(),imageBlock.height.asPixel())
     }
 

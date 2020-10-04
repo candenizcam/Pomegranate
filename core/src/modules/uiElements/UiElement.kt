@@ -32,4 +32,10 @@ abstract class UiElement(var id: String) {
         return 0
     }
 
+    fun reBlock(b: LcsRect){
+        block = b
+        resize(b.width,b.height)
+        relocate(b.cX,b.cY)
+    }
+
 }

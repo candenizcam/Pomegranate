@@ -1,5 +1,7 @@
 package modules.lcsModule
 
+import modules.basic.geometry.Rectangle
+
 /** This is the getter for the data class, lcs rect
  *
  */
@@ -42,4 +44,6 @@ object GetLcsRect {
     fun ofCentreSquare(): LcsRect {
         return byParameters(GetLcs.byLcs(1f), GetLcs.byLcs(1f), GetLcs.ofWidth(0.5f), GetLcs.ofHeight(0.5f))
     }
+
+
 }
