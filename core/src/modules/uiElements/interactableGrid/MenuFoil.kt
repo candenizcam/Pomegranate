@@ -14,7 +14,6 @@ import modules.uiElements.layouts.PinboardLayout
 import modules.uiElements.layouts.RowLayout
 import modules.visuals.fromPixmap.PixmapGenerator
 import modules.visuals.TwoVisuals
-import modules.visuals.VisualSize
 
 /** This foil contains the menu
  * upon declaring the layout next few lines are defining the buttons etc. which, makes me feel like this should be smoother somehow
@@ -29,9 +28,7 @@ class MenuFoil(val igd: InteractableGridData) {
 
 
     private var menuLayout = PinboardLayout("menuFoilBg",GetLcsRect.ofFullScreen()).also {
-        it.addElement(PinupImage("bg", PixmapGenerator.singleColour(GetLcsRect.byParameters(it.block.width,it.block.height), Color(0f,0f,0f,0.9f)).also { it2->
-            it2.visualSize = VisualSize.FIT_ELEMENT
-        }),it.block)
+        it.addElement(PinupImage("bg", PixmapGenerator.singleColour(GetLcsRect.byParameters(it.block.width,it.block.height), Color(0f,0f,0f,0.9f))),it.block)
         it.addElement(RowLayout("bgRows",it.block).also { it2->
             it2.divideBlocksToBiased(listOf(1f,5f))
 

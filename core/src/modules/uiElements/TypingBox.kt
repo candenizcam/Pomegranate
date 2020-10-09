@@ -11,7 +11,6 @@ import modules.lcsModule.LcsVariable
 import modules.visuals.fromFont.BlockText
 import modules.visuals.OmniVisual
 import modules.visuals.fromPixmap.PixmapGenerator
-import modules.visuals.VisualSize
 
 class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect.ofFullScreen(),var charLimit: Int = 0, var numOnly: Boolean = false): UiElement(id) {
     override var block = block
@@ -29,15 +28,13 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
     var textChangeFun = {}
 
 
-    private var bg: OmniVisual = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width,block.height), Color.WHITE).also {
-        it.visualSize = VisualSize.FIT_ELEMENT
-    }
+    private var bg: OmniVisual = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width,block.height), Color.WHITE)
     private var invalid = bg.copy().also {
         it.recolour(Color.DARK_GRAY)
     }
     var invalidEntry = 0
 
-    private var bt =  BlockText(initialText, 16, Color.BLACK, align = -1, padding = GetLcs.byPixel(5f), fontPath = "fonts/PTMono-Regular.ttf").also { it.visualSize=VisualSize.FIT_ELEMENT }
+    private var bt =  BlockText(initialText, 16, Color.BLACK, align = -1, padding = GetLcs.byPixel(5f), fontPath = "fonts/PTMono-Regular.ttf")
 
 
     override fun touchHandler(mayTouch: Boolean): Boolean {

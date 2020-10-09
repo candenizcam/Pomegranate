@@ -62,9 +62,8 @@ class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
     fun generateEraser(): SelectableImage {
         val eraseOV = TwoVisuals(
                 BlockText("Eraser", 36, Color.WHITE, "fonts/PTMono-Regular.ttf"),
-                PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)),Color.CORAL).also { it.visualSize = VisualSize.FIT_ELEMENT }
+                PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)),Color.CORAL)
         )
-        eraseOV.visualSize = VisualSize.FIT_ELEMENT
         return SelectableImage("eraser",Color.FOREST,eraseOV)
     }
 

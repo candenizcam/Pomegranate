@@ -9,7 +9,8 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.visuals.OmniVisual
-import modules.visuals.VisualSize
+import modules.visuals.ScalingType
+import modules.visuals.VisualSizeData
 import modules.lcsModule.LcsVariable as lv
 
 /** Creates a textbox with the set text
@@ -17,24 +18,29 @@ import modules.lcsModule.LcsVariable as lv
  * height currently is not applied as a vertical limit, it may be in the future.
  * padding: an extra distance to top and bottom by pixel
  */
-class BlockText(var text: String, size: Int, var colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, visualSize: VisualSize = VisualSize.FIT_ELEMENT) : OmniVisual(visualSize = visualSize) {
+class BlockText(var text: String, size: Int, var colour: Color, var fontPath: String, block: LcsRect = GetLcsRect.ofCentreSquare(), var align: Int = 1, var padding: lv = GetLcs.byLcs(0f), var keepWords: Boolean = false, scalingType: ScalingType = ScalingType.FIT_ELEMENT) : OmniVisual() {
     var initSize = size
     var displayText = text
     var gl = GlyphLayout()
-    private var imageBlockOnCreation = imageBlock.copy()
+    var visualSizeData = VisualSizeData(block, scalingType = scalingType)
+    init{
+        //visualSizeData.updateImageBlock(block)
+    }
+    private var imageBlockOnCreation = visualSizeData.imageBlock
     init {
-        originalBlock = block.copy()
-        this.block = originalBlock.copy()
+        visualSizeData = visualSizeData.copy(originalRect = this.block.copy())
 
         FontGenerator.createFont(fontPath,initSize,text)
-        updateVisual()
+        visualSizeData.updateImageBlock(block)
+        //updateVisual()
     }
 
     fun changeText(s: String){
 
         if(s!=text){
             text = s
-            updateVisual()
+            visualSizeData.updateImageBlock(block)
+            //updateVisual()
         }
     }
 
@@ -47,8 +53,8 @@ class BlockText(var text: String, size: Int, var colour: Color, var fontPath: St
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         val font = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
-
-
+        visualSizeData.updateImageBlock(block)
+        val imageBlock = visualSizeData.imageBlock
         when (align) {
             -1 -> { //left
                 font.draw(batch, gl, imageBlock.cX.asPixel() - imageBlock.width.asPixel() / 2 + padding.asPixel(), imageBlock.cY.asPixel() + gl.height / 2)
@@ -70,11 +76,11 @@ class BlockText(var text: String, size: Int, var colour: Color, var fontPath: St
     override fun recolour(c: Color) {
         colour = c
         val f  = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
-        gl = GlyphLayout(f, displayText, colour, imageBlock.width.asPixel(), -1, true)
+        gl = GlyphLayout(f, displayText, colour, visualSizeData.imageBlock.width.asPixel(), -1, true)
     }
 
     override fun copy(): OmniVisual {
-        return BlockText(text, initSize, colour, fontPath, block, align, padding, keepWords, visualSize)
+        return BlockText(text, initSize, colour, fontPath, block, align, padding, keepWords, visualSizeData.scalingType)
     }
 
     override fun dispose() {
@@ -85,6 +91,8 @@ class BlockText(var text: String, size: Int, var colour: Color, var fontPath: St
      */
     private fun reduceToHeight(s: String, f: BitmapFont): String {
         var newText = s
+        visualSizeData.updateImageBlock(block)
+        val imageBlock = visualSizeData.imageBlock
 
         var gl = GlyphLayout(f, newText, f.color, imageBlock.width.asPixel(), align, true)
         for (i in newText.split(" ").indices) {
@@ -106,6 +114,7 @@ class BlockText(var text: String, size: Int, var colour: Color, var fontPath: St
         return newText
     }
 
+    /*
     override fun updateVisual() {
         if((imageBlockOnCreation.width.asPixel()!=imageBlock.width.asPixel())||(imageBlockOnCreation.height.asPixel()!=imageBlock.height.asPixel())) {
             val f  = FontGenerator.usedFonts.first { it.first==fontPath&& it.second==initSize }.third
@@ -113,6 +122,8 @@ class BlockText(var text: String, size: Int, var colour: Color, var fontPath: St
             gl = GlyphLayout(f, displayText, colour, imageBlock.width.asPixel(), -1, true)
         }
     }
+
+     */
 
 
 

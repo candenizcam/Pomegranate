@@ -3,7 +3,7 @@ package modules.visuals
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 
-class TwoVisuals(var front: OmniVisual, var back: OmniVisual, visualSize: VisualSize = VisualSize.STATIC) : OmniVisual(visualSize = visualSize) {
+class TwoVisuals(var front: OmniVisual, var back: OmniVisual, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f) : OmniVisual() {
     override fun draw(batch: SpriteBatch, alpha: Float) {
         back.draw(batch,alpha)
         front.draw(batch,alpha)
@@ -29,7 +29,7 @@ class TwoVisuals(var front: OmniVisual, var back: OmniVisual, visualSize: Visual
     }
 
     override fun copy(): OmniVisual {
-        return TwoVisuals(front.copy(), back.copy(), visualSize)
+        return TwoVisuals(front.copy(), back.copy())
     }
 
     override fun dispose() {
@@ -37,10 +37,13 @@ class TwoVisuals(var front: OmniVisual, var back: OmniVisual, visualSize: Visual
         back.dispose()
     }
 
+    /*
     override fun updateVisual() {
         front.reBlock(block)
         back.reBlock(block)
     }
+
+     */
 
     override fun setFlip(x: Boolean, y: Boolean) {
         front.setFlip(x,y)

@@ -14,7 +14,7 @@ class Rectangle: ConvexPolygon {
         bottom = bottomLeft.y
         right = topRight.x
         left = bottomLeft.x
-        width = left-right
+        width = right-left
         height= top-bottom
     }
 
@@ -36,6 +36,21 @@ class Rectangle: ConvexPolygon {
         return Rectangle(l,r,b,t)
     }
 
+    /** This function takes itself as unit rectangle and input as ratios for it, and returns the adjusted rectangle
+     * ex: this = (left: 0,bottom: 0,right: 2,top: 1), other = (0.25,0.25,0.75,0.75) ->  (0.5,0.25,1.5,0.75)
+     */
+    fun getSubRectangle(other: Rectangle): Rectangle {
+        val l = left + width*other.left
+        val r = left + width*other.right
+        val b = bottom + height*other.bottom
+        val t = bottom + height*other.top
+        return Rectangle(l,r,b,t)
+
+    }
+
+    fun dataString(): String {
+        return "left: $left right: $right bottom: $bottom top: $top"
+    }
 
 
 

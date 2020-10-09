@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.visuals.*
+import modules.visuals.fromPath.SingleTexture
 import modules.visuals.fromPixmap.PixmapGenerator
 
 object SetupReaders {
@@ -46,7 +47,7 @@ object SetupReaders {
                     colour = Color(it3[0].toFloat()/255,it3[1].toFloat()/255,it3[2].toFloat()/255,it3[3].toFloat()/255)
                 }
             }
-            returning.add(Pair(type, PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)), colour).also {it.visualSize = VisualSize.FIT_ELEMENT}))
+            returning.add(Pair(type, PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)), colour)))
 
         }
         return returning
@@ -60,7 +61,7 @@ object SetupReaders {
         }
 
          */
-        var msl = TextureAtlas(f).createSprites().map{ SpriteVisual(it, visualSize = VisualSize.FIT_ELEMENT) }
+        var msl = TextureAtlas(f).createSprites().map{ SingleTexture(SubTexture(it), scalingType = ScalingType.FIT_ELEMENT) }
         return msl.mapIndexed {index,it -> Pair<String,OmniVisual>("tile_$index",it) }.toMutableList()
             /*
             TextureAtlas(f).also { textureAtlas ->

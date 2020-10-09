@@ -7,14 +7,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.visuals.OmniVisual
-import modules.visuals.VisualSize
+import modules.visuals.ScalingType
+import modules.visuals.SubTexture
 
-class CustomPixmap(val pxMap: Pixmap, var color: Color = Color.WHITE, visualSize: VisualSize = VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f): OmniVisual(visualSize = visualSize,scaleFactor = scaleFactor) {
-    private var texture= Texture(pxMap).also {
-        originalBlock = GetLcsRect.byParameters(GetLcs.byPixel(it.width),GetLcs.byPixel(it.height))
-        imageBlock = originalBlock.copy()
-        block = originalBlock.copy()
-
+class CustomPixmap(val pxMap: Pixmap, var color: Color = Color.WHITE, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f): OmniVisual() {
+    private var subTexture= SubTexture(Texture(pxMap)).also {
+        block = GetLcsRect.byParameters(GetLcs.byPixel(it.width),GetLcs.byPixel(it.height))
+        //visualSizeData = visualSizeData.copy(originalRect = block)
 
     }
     private var flip = Pair(false,false)
@@ -23,8 +22,13 @@ class CustomPixmap(val pxMap: Pixmap, var color: Color = Color.WHITE, visualSize
     /** Draws the batch
      */
     override fun draw(batch: SpriteBatch, alpha: Float) {
-        batch.color = color
-        batch.draw(texture,imageBlock.wStart.asPixel(),imageBlock.hStart.asPixel(),imageBlock.width.asPixel(),imageBlock.height.asPixel(),0,0,originalBlock.width.asPixel().toInt(),originalBlock.height.asPixel().toInt(),flip.first,flip.second)
+        subTexture.visualSizeData.updateImageBlock(block)
+        subTexture.draw(batch,alpha)
+        //batch.color = color
+        //val imageBlock = visualSizeData.imageBlock
+        //val originalBlock = visualSizeData.originalRect
+        //batch.draw(subTexture,imageBlock.wStart.asPixel(),imageBlock.hStart.asPixel(),imageBlock.width.asPixel(),imageBlock.height.asPixel(),0,0,originalBlock.width.asPixel().toInt(),originalBlock.height.asPixel().toInt(),flip.first,flip.second)
+        //batch.color = Color.WHITE
     }
 
     override fun changeActiveSprite(ns: Int) {}
@@ -32,6 +36,7 @@ class CustomPixmap(val pxMap: Pixmap, var color: Color = Color.WHITE, visualSize
     override fun update() {}
 
     override fun recolour(c: Color) {
+        subTexture.color = color
         color = c
     }
 
@@ -40,17 +45,15 @@ class CustomPixmap(val pxMap: Pixmap, var color: Color = Color.WHITE, visualSize
     }
 
     override fun copy(): OmniVisual {
-        return CustomPixmap(pxMap, color, visualSize, scaleFactor)
+        return CustomPixmap(pxMap, color, subTexture.visualSizeData.scalingType, subTexture.visualSizeData.scaleFactor)
     }
 
     override fun dispose() {
-        texture.dispose()
+        subTexture.texture.dispose()
         try{
             pxMap.dispose()
         }catch (e: Exception){
 
         }
     }
-
-    override fun updateVisual() {}
 }

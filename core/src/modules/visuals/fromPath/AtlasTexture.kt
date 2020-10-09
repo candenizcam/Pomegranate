@@ -9,20 +9,23 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.visuals.OmniVisual
-import modules.visuals.VisualSize
+import modules.visuals.ScalingType
 
-open class AtlasTexture(private val path: FileHandle, val region: String = "", var colour: Color = Color.WHITE, var fitAll: Boolean=false, visualSize: VisualSize = VisualSize.STATIC, scaleFactor: Float = 1f) : OmniVisual(visualSize = visualSize,scaleFactor = scaleFactor) {
-    private var ratioToFirst = mutableListOf<Pair<Float,Float>>()
+open class AtlasTexture(private val path: FileHandle, val region: String = "", var colour: Color = Color.WHITE, var fitAll: Boolean = false, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f) : OmniVisual() {
+    private var ratioToFirst = mutableListOf<Pair<Float, Float>>()
     protected var textures = createTextures()
     protected var activeFrame = 0
     private lateinit var atlas: TextureAtlas
-    var flip = Pair(false,false)
+    var flip = Pair(false, false)
 
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         batch.color = colour
-        val relBlock = imageBlock.resizeTo(ratioToFirst[activeFrame].first,ratioToFirst[activeFrame].second)
-        batch.draw(textures[activeFrame],relBlock.wStart.asPixel(),relBlock.hStart.asPixel(),relBlock.width.asPixel(),relBlock.height.asPixel())
+        //visualSizeData.updateImageBlock(block)
+        //val relBlock = visualSizeData.imageBlock.resizeTo(ratioToFirst[activeFrame].first, ratioToFirst[activeFrame].second)
+        val sprite = textures[activeFrame]
+        // println("u: ${sprite.u} v: ${sprite.v} u1: ${sprite.u2} u2: ${sprite.v2}")
+        //batch.draw(textures[activeFrame], relBlock.wStart.asPixel(), relBlock.hStart.asPixel(), relBlock.width.asPixel(), relBlock.height.asPixel())
         batch.color = Color.WHITE
     }
 
@@ -40,13 +43,13 @@ open class AtlasTexture(private val path: FileHandle, val region: String = "", v
 
         mutableListOf<Sprite>().also {
             atlas = TextureCache.openAtlasTexture(path).also { textureAtlas ->
-                var firstSize =  GetLcsRect.ofCentreSquare()
-                (if(region=="") textureAtlas.regions else textureAtlas.findRegions(region)).forEachIndexed{index, region->
-                    if(index==0){
+                var firstSize = GetLcsRect.ofCentreSquare()
+                (if (region == "") textureAtlas.regions else textureAtlas.findRegions(region)).forEachIndexed { index, region ->
+                    if (index == 0) {
                         firstSize = GetLcsRect.byParameters(GetLcs.byPixel(region.originalWidth), GetLcs.byPixel(region.originalHeight))
-                        originalBlock = firstSize
+                        //visualSizeData = visualSizeData.copy(originalRect = firstSize)
                     }
-                    ratioToFirst.add(Pair(region.originalWidth/firstSize.width.asPixel(),region.originalHeight/firstSize.height.asPixel()))
+                    ratioToFirst.add(Pair(region.originalWidth / firstSize.width.asPixel(), region.originalHeight / firstSize.height.asPixel()))
                     msl.add(region)
                 }
             }
@@ -61,17 +64,17 @@ open class AtlasTexture(private val path: FileHandle, val region: String = "", v
     override fun copy(): OmniVisual {
         return when (this) {
             is StepAtlasAnimation -> {
-                StepAtlasAnimation(path, region, colour, fitAll, step, visualSize, scaleFactor).also {
+                StepAtlasAnimation(path, region, colour, fitAll, step).also {
                     it.reBlock(block)
                 }
             }
             is TimedAtlasAnimation -> {
-                TimedAtlasAnimation(path, region, colour, fitAll, fps, visualSize, scaleFactor).also {
+                TimedAtlasAnimation(path, region, colour, fitAll, fps).also {
                     it.reBlock(block)
                 }
             }
             else -> {
-                AtlasTexture(path, region, colour, fitAll, visualSize, scaleFactor).also {
+                AtlasTexture(path, region, colour, fitAll).also {
                     it.reBlock(block)
                 }
             }
@@ -84,12 +87,8 @@ open class AtlasTexture(private val path: FileHandle, val region: String = "", v
 
     }
 
-    override fun updateVisual() {
-    }
-
-
     override fun setFlip(x: Boolean, y: Boolean) {
-        flip = Pair(x,y)
+        flip = Pair(x, y)
 
     }
 

@@ -3,10 +3,9 @@ package modules.visuals.fromPath
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
-import modules.visuals.VisualSize
-import modules.visuals.fromPath.AtlasTexture
+import modules.visuals.ScalingType
 
-class TimedAtlasAnimation(path: FileHandle, region: String = "", colour: Color = Color.WHITE, fitAll: Boolean=false, val fps: Float, visualSize: VisualSize = VisualSize.STATIC, scaleRatio: Float=1f) : AtlasTexture(path, region, colour, fitAll, visualSize,scaleRatio) {
+class TimedAtlasAnimation(path: FileHandle, region: String = "", colour: Color = Color.WHITE, fitAll: Boolean=false, val fps: Float, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleRatio: Float=1f) : AtlasTexture(path, region, colour, fitAll, scalingType,scaleRatio) {
     var timeAccumulator = 0f
 
     override fun update() {

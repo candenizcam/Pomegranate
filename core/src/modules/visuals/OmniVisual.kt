@@ -3,6 +3,8 @@ package modules.visuals
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.modules.visuals.OVL
+import modules.basic.geometry.FastGeometry
+import modules.basic.geometry.Rectangle
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable as lv
@@ -12,35 +14,31 @@ import modules.lcsModule.LcsVariable as lv
  * visualSize describes fitting preference, static means size is conserved, fit element means fitting the element it is in, fit with ratio, fits to the element while staying in centre and protecting ratio
  * scale factor is a float that is used to multiply the final form after visual size operations are conducted, for static it scales directly, for others it scales the fitted form
  */
-abstract class OmniVisual(visualSize: VisualSize= VisualSize.FIT_ELEMENT, scaleFactor: Float = 1f) {
+abstract class OmniVisual {
     var block = GetLcsRect.ofZero()
-        protected set(value) {
-            field = value
-            imageBlock = updateImageBlock()
-        }
-    var imageBlock = GetLcsRect.ofZero()
-        protected set(value) {
-            field = value
-            updateVisual()
-        }
-    var originalBlock = GetLcsRect.ofZero()
-        protected set(value) {
-            field = value
-        }
-    var visualSize = visualSize
-        set(value) {
-            field = value
-            imageBlock = updateImageBlock()
-        }
-    var scaleFactor = scaleFactor
-        set(value) {
-            field = value
-            imageBlock = updateImageBlock()
-        }
-
+        protected set
     init {
-
         OVL.allVisuals.add(this)
+    }
+
+    open fun getOriginalRect(): LcsRect{
+        return block.copy()
+    }
+
+    open fun getImageRect(block: LcsRect?=null): LcsRect{
+
+        return block ?: this.block
+    }
+
+    open fun setClippingRect(r: Rectangle){}
+    /*
+    fun setClippingRect(r: Rectangle){
+        visualSizeData = visualSizeData.copy(clipRectangle = r)
+    }
+
+     */
+
+    open fun setScalingType(scalingType: ScalingType, scaleFactor: Float){
     }
 
 
@@ -58,13 +56,13 @@ abstract class OmniVisual(visualSize: VisualSize= VisualSize.FIT_ELEMENT, scaleF
 
     /** This is the resize function that can be called from outside
      */
-    fun resize(w: modules.lcsModule.LcsVariable,h: modules.lcsModule.LcsVariable){
-        block = block.resizeTo(w,h)
+    fun resize(w: modules.lcsModule.LcsVariable, h: modules.lcsModule.LcsVariable) {
+        block = block.resizeTo(w, h)
     }
 
     /** This directly updates the block
      */
-    fun reBlock(b: LcsRect){
+    fun reBlock(b: LcsRect) {
         block = b
     }
 
@@ -80,37 +78,7 @@ abstract class OmniVisual(visualSize: VisualSize= VisualSize.FIT_ELEMENT, scaleF
 
     abstract fun dispose()
 
-    abstract fun setFlip(x: Boolean,y: Boolean)
+    abstract fun setFlip(x: Boolean, y: Boolean)
 
-    private fun fitElement(): LcsRect {
-        return imageBlock.resizeTo(block.width*scaleFactor,block.height*scaleFactor)
-    }
-
-    private fun fitWithRatio(): LcsRect {
-        block.getFittingRect(originalBlock.width.asLcs(),originalBlock.height.asLcs()).also {
-            return imageBlock.resizeTo(it.width*scaleFactor,it.height*scaleFactor)
-        }
-    }
-
-    private fun fitStatic(): LcsRect {
-        return imageBlock.resizeTo(originalBlock.width*scaleFactor,originalBlock.height*scaleFactor)
-    }
-
-    protected abstract fun updateVisual()
-
-    private fun updateImageBlock(): LcsRect {
-        val ib = when (visualSize) {
-            VisualSize.STATIC -> {
-                fitStatic()
-            }
-            VisualSize.FIT_ELEMENT -> {
-                fitElement()
-            }
-            VisualSize.FIT_WITH_RATIO -> {
-                fitWithRatio()
-            }
-        }
-        return ib.relocateTo(block.cX,block.cY)
-    }
 
 }

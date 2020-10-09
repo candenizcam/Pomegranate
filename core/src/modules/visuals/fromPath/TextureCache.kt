@@ -3,6 +3,8 @@ package modules.visuals.fromPath
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import java.lang.Exception
+import kotlin.concurrent.thread
 
 object TextureCache {
     private var textureList = mutableMapOf<FileHandle,Texture>()
@@ -27,6 +29,18 @@ object TextureCache {
             textureList[path] as Texture
         }
 
+
+    }
+
+    /** Finds the path of a given texture
+     * it is not as insane as it sounds sena, its actually very logical
+     */
+    fun getTexturePath(t: Texture): FileHandle {
+        try{
+            return textureList.filterValues { it==t }.keys.toList()[0]
+        } catch (e: Exception){
+            return textureAtlasList.filterValues { it==t }.keys.toList()[0]
+        }
 
     }
 

@@ -9,7 +9,7 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
 import modules.visuals.fromPixmap.PixmapGenerator
-import modules.visuals.VisualSize
+import modules.visuals.ScalingType
 
 /**
  * horizontal false is vertical
@@ -30,17 +30,18 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
         println("block: ${block.width.asPixel()} ${block.height.asPixel()}")
         rail = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height)).also {
             it.resize(block)
-            it.visualSize = VisualSize.FIT_ELEMENT
+            //it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.DARK_GRAY)
         }
         if (horizontal) {
             knob = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width / (this.resolution), block.height)).also {
-                it.visualSize = VisualSize.FIT_WITH_RATIO
+                //it.setScalingType(scalingType = ScalingType.FIT_WITH_RATIO)
                 it.recolour(Color.WHITE)
             }
         } else {
             knob = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height / (this.resolution))).also {
-                it.visualSize = VisualSize.FIT_WITH_RATIO
+                //it.setScalingType(scalingType = ScalingType.FIT_WITH_RATIO)
+                //it.visualSize = VisualSize.FIT_WITH_RATIO
                 it.recolour(Color.WHITE)
             }
         }
@@ -49,7 +50,7 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
 
     constructor(id: String, resolution: IntRange = 0..100, block: LcsRect = GetLcsRect.ofZero(), rail: OmniVisual, knob: OmniVisual, horizontal: Boolean) : this(id, resolution, block, horizontal) {
         if (block.width.asLcs() == 0f) {
-            this.block = GetLcsRect.byParameters(rail.originalBlock.width,rail.block.height,rail.block.cX,rail.block.cY)
+            this.block = GetLcsRect.byParameters(rail.block.width,rail.block.height,rail.block.cX,rail.block.cY)
         }
         this.rail = rail
         this.knob = knob
@@ -84,14 +85,14 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
                     knobPosition = kp
                 }
 
-                knob.relocate(GetLcs.ofX().limitAbove(block.wEnd - knob.originalBlock.width / 2).limitBelow(block.wStart + knob.originalBlock.width / 2), block.cY)
+                knob.relocate(GetLcs.ofX().limitAbove(block.wEnd - knob.block.width / 2).limitBelow(block.wStart + knob.block.width / 2), block.cY)
             } else {
                 val kp = ((GetLcs.ofY() - block.hStart).asLcs() / block.height.asLcs() * resolution).toInt()
                 if (knobPosition != kp) {
                     knobPositionChangeFunction()
                     knobPosition = kp
                 }
-                knob.relocate(block.cX, GetLcs.ofY().limitAbove(block.hEnd - knob.originalBlock.height / 2).limitBelow(block.hStart + knob.originalBlock.height / 2))
+                knob.relocate(block.cX, GetLcs.ofY().limitAbove(block.hEnd - knob.block.height / 2).limitBelow(block.hStart + knob.block.height / 2))
             }
         }
 

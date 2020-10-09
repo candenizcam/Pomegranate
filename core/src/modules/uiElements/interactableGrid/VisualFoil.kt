@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
+import modules.lcsModule.LcsRect
 import modules.visuals.*
 import modules.visuals.fromPath.SingleTexture
 import modules.visuals.fromPath.AtlasTexture
@@ -17,7 +18,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
 
 
     var visualTypeList= mutableListOf<Pair<String,OmniVisual>>()
-    private var selectFrame = PixmapGenerator.singleColour(c = Color(0f,0.6f,0f,0.5f),visualSize = VisualSize.FIT_ELEMENT)
+    private var selectFrame = PixmapGenerator.singleColour(c = Color(0f,0.6f,0f,0.5f))
     private var selectedVisual = -1
     set(value){
         field = value
@@ -71,8 +72,8 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
     fun addVisualByType(selectedFile: File,posX: Float=0.5f,posY: Float=0.5f,z:Int=1, width: Float=1f,height: Float=1f) {
         val name = selectedFile.name
         val visual = when(selectedFile.extension){
-            "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath), visualSize = VisualSize.FIT_ELEMENT)
-            "atlas"-> AtlasTexture(Gdx.files.internal(selectedFile.absolutePath), visualSize = VisualSize.FIT_ELEMENT)
+            "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath))
+            "atlas"-> AtlasTexture(Gdx.files.internal(selectedFile.absolutePath))
             else->{
                 return
             }
@@ -80,17 +81,22 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         if(visualTypeList.none { it.first==name }){
             visualTypeList.add(Pair(name,visual))
         }
-        visualDataList.add(VisualData(name,selectedFile.path,posX,posY,z,width,height,visual.originalBlock.width.asPixel().toInt(),visual.originalBlock.height.asPixel().toInt()))
+        val o= visual.getOriginalRect()
+        visualDataList.add(VisualData(name,selectedFile.path,posX,posY,z,width,height,o.width.asPixel().toInt(),o.height.asPixel().toInt()))
         updateVisualTypes()
     }
 
     fun updateVisualTypes(){
         val pxPair = igd.getPxPair()
         visualTypeList.forEach {
-            val w = igd.gridBlock.width*(it.second.originalBlock.width.asPixel()/pxPair.first.toFloat())
-            val h = igd.gridBlock.height*(it.second.originalBlock.height.asPixel()/pxPair.second.toFloat())
+            it.second.getOriginalRect().also{originalRect->
+                val w = igd.gridBlock.width*(originalRect.width.asPixel()/pxPair.first.toFloat())
+                val h = igd.gridBlock.height*(originalRect.height.asPixel()/pxPair.second.toFloat())
+                it.second.resize(w,h)
+            }
 
-            it.second.resize(w,h)
+
+
         }
     }
 
@@ -109,7 +115,10 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
             if(selectedVisual == -1){
                 visualDataList.reversed().forEachIndexed() { index, it ->
                     //println("${}")
-                    val relBlock = visualTypeList.first { it2-> it2.first==it.type }.second.imageBlock
+                    val relBlock : LcsRect
+                    visualTypeList.first { it2-> it2.first==it.type }.apply {
+                        relBlock = second.getImageRect(second.block)
+                    }
                     val p = igd.getPxPair()
 
                     val thisBlock = GetLcsRect.byParameters(relBlock.width, relBlock.height, igd.gridBlock.wStart+ igd.gridBlock.width *it.posX, igd.gridBlock.hStart + igd.gridBlock.height *it.posY)
@@ -124,7 +133,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
                 }
             } else{
                 val it = visualDataList[selectedVisual]
-                val relBlock = visualTypeList.first { it2-> it2.first==it.type }.second.imageBlock
+                val relBlock = visualTypeList.first { it2-> it2.first==it.type }.second.getImageRect()
                 val thisBlock = GetLcsRect.byParameters(relBlock.width, relBlock.height, igd.gridBlock.wStart+ igd.gridBlock.width *it.posX, igd.gridBlock.hStart + igd.gridBlock.height *it.posY)
                 //val thisBlock = GetLcsRect.byParameters(igd.gridBlock.width*relBlock.width,igd.gridBlock.height*relBlock.height,igd.gridBlock.wStart + igd.gridBlock.width*relBlock.cX,igd.gridBlock.hStart + igd.gridBlock.height*relBlock.cY)
 
@@ -165,7 +174,9 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
             visualTypeList.first { it2 -> it2.first == it.type }.apply {
                 second.relocate(igd.gridBlock.wStart + igd.gridBlock.width * it.posX, igd.gridBlock.hStart + igd.gridBlock.height * it.posY)
                 if (selectedVisual == index) {
-                    selectFrame.reBlock(second.imageBlock.resizeTo(1.05f))
+                    //selectFrame.visualSizeData.updateImageBlock(second.visualSizeData.imageBlock.resizeTo(1.05f))
+                    //selectFrame.reBlock(second.imageBlock.resizeTo(1.05f))
+                    selectFrame.reBlock(second.getImageRect().resizeTo(1.05f))
                     selectFrame.draw(batch, alpha)
                 }
                 second.draw(batch, alpha)
