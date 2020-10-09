@@ -2,7 +2,6 @@ package modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.modules.visuals.FontGenerator
-import com.modules.visuals.OVL
 import modules.visuals.textureHandling.TextureCache
 import modules.visuals.fromTiles.TileMapOpener
 
@@ -52,7 +51,6 @@ object LayerManager {
             it.dispose()
         }
         FontGenerator.dispose()
-        OVL.dispose()
         TextureCache.dispose()
         TileMapOpener.dispose()
     }

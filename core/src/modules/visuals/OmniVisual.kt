@@ -2,7 +2,6 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.modules.visuals.OVL
 import modules.basic.geometry.Rectangle
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
@@ -17,9 +16,6 @@ import modules.lcsModule.LcsVariable as lv
 abstract class OmniVisual {
     var block = GetLcsRect.ofZero()
         protected set
-    init {
-        OVL.allVisuals.add(this)
-    }
 
     open fun getOriginalRect(): LcsRect{
         return block.copy()
