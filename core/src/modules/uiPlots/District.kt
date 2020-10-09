@@ -1,14 +1,11 @@
 package modules.uiPlots
 
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.basic.geometry.FastGeometry
 import modules.basic.geometry.Point
 import modules.basic.geometry.Rectangle
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsVariable
-import modules.uiElements.PinupImage
-import modules.visuals.fromPixmap.PixmapGenerator
 import java.lang.NullPointerException
 
 open class District(var districtId: String) {

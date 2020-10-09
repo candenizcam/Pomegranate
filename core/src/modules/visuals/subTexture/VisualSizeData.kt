@@ -1,4 +1,4 @@
-package modules.visuals
+package modules.visuals.subTexture
 
 import modules.lcsModule.LcsRect
 
@@ -20,7 +20,8 @@ data class VisualSizeData(val originalRect: LcsRect, val scalingType: ScalingTyp
         return imageBlock.resizeTo(originalRect.width * scaleFactor, originalRect.height * scaleFactor)
     }
 
-    fun updateImageBlock(block: LcsRect){
+    fun updateImageBlock(block: LcsRect): Boolean{
+        val ib = imageBlock.copy()
         imageBlock = when (scalingType) {
             ScalingType.STATIC -> {
                 fitStatic()
@@ -32,5 +33,6 @@ data class VisualSizeData(val originalRect: LcsRect, val scalingType: ScalingTyp
                 fitWithRatio(block)
             }
         }.relocateTo(block.cX, block.cY)
+        return ib!=imageBlock
     }
 }

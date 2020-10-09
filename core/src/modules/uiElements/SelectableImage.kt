@@ -6,7 +6,8 @@ import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.PixmapGenerator
 
 class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: LcsRect = GetLcsRect.ofFullScreen()): UiElement(id) {
     override var block: LcsRect = block
@@ -16,7 +17,7 @@ class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: 
             image.relocate(value.cX,value.cY)
             background.reBlock(value)
         }
-    var background = PixmapGenerator.singleColour(block,selectColor)
+    var background = SingleTexture(PixmapGenerator.singleColour(block,selectColor))
     var image = SetButton("sb",image,image.copy().apply{recolour(Color.DARK_GRAY)}).also {
         it.clicked = {
             selected = selected.not()

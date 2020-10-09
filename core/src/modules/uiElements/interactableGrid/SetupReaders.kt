@@ -7,8 +7,9 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.visuals.*
-import modules.visuals.fromPath.SingleTexture
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.PixmapGenerator
+import modules.visuals.subTexture.SubTexture
 
 object SetupReaders {
 
@@ -47,7 +48,7 @@ object SetupReaders {
                     colour = Color(it3[0].toFloat()/255,it3[1].toFloat()/255,it3[2].toFloat()/255,it3[3].toFloat()/255)
                 }
             }
-            returning.add(Pair(type, PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)), colour)))
+            returning.add(Pair(type, SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)), colour))))
 
         }
         return returning

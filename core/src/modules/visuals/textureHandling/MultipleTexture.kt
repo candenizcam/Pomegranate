@@ -1,11 +1,11 @@
-package modules.visuals.fromPath
+package modules.visuals.textureHandling
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.visuals.OmniVisual
-import modules.visuals.ScalingType
-import modules.visuals.SubTexture
+import modules.visuals.subTexture.ScalingType
+import modules.visuals.subTexture.SubTexture
 
 /** Unlike the previous iterations this class does not directly concern itself with modifying individual sprites but has handlers for them
  * The macro management approach I believe will yield better results

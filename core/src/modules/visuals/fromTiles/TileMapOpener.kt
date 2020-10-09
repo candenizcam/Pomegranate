@@ -7,9 +7,8 @@ import com.badlogic.gdx.utils.Array
 import com.pungo.modules.visuals.Tile
 import com.pungo.modules.visuals.TileRenderer
 import modules.visuals.OmniVisual
-import modules.visuals.ScalingType
-import modules.visuals.SubTexture
-import modules.visuals.fromPath.SingleTexture
+import modules.visuals.subTexture.SubTexture
+import modules.visuals.textureHandling.SingleTexture
 
 object TileMapOpener {
     var tileAtlasList = mutableMapOf<FileHandle, TextureAtlas>()

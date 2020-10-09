@@ -8,7 +8,8 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.uiElements.UiElement
 import modules.visuals.OmniVisual
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.PixmapGenerator
 
 class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRect.ofFullScreen(), var gridPadding: LcsVariable = GetLcs.ofZero(), var adjustToPxRatio: Boolean = false): UiElement(id) {
     var igd = InteractableGridData(row, col, false,Foils.GENERAL)
@@ -22,7 +23,7 @@ class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRe
             field = value
             this.gridBlock = getGridBlock()
         }
-    private var grid = PixmapGenerator.grid(row,col,gridBlock)
+    private var grid: OmniVisual = SingleTexture(PixmapGenerator.grid(row,col,gridBlock))
     var bf = BlockFoil(igd)
     var tf = BlockFoil(igd)
     var mf = MenuFoil(igd)
@@ -115,7 +116,7 @@ class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRe
             igd.col= mf.generalMenuLayout.colNo
             igd.pxRatio = mf.generalMenuLayout.pxRatio
             gridBlock = getGridBlock()
-            grid = PixmapGenerator.grid(igd.row,igd.col,gridBlock)
+            grid = SingleTexture(PixmapGenerator.grid(igd.row,igd.col,gridBlock))
 
             bf.resizeBlockVisuals(gridBlock.width/igd.col,gridBlock.height/igd.row)
             bf.gridColours= bf.gridColours.filter { it.col<igd.col&&it.row<igd.row }.toMutableList()
@@ -146,7 +147,7 @@ class InteractableGrid(id: String, row: Int, col: Int, block: LcsRect = GetLcsRe
     override fun resize(w: LcsVariable, h: LcsVariable) {
         if((w!=block.width)||(h!=block.height)){
             block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
-            grid = PixmapGenerator.grid(igd.row,igd.col,gridBlock)
+            grid = SingleTexture(PixmapGenerator.grid(igd.row,igd.col,gridBlock))
             bf.resizeBlockVisuals(gridBlock.width/igd.col,gridBlock.height/igd.row)
             tf.resizeBlockVisuals(gridBlock.width/igd.col,gridBlock.height/igd.row)
             mf.resize(w,h)

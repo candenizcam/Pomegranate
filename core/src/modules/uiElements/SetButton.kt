@@ -8,7 +8,8 @@ import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.PixmapGenerator
 
 /** Set button executes function clicked when clicked, but is similar to pinup visual otherwise
  * it needs to be loaded with basic size parameters, in the form of block
@@ -27,10 +28,10 @@ class SetButton(id: String) : UiElement(id) {
      */
     constructor(id: String, block: LcsRect) : this(id) {
         this.block = block
-        setVisuals(PixmapGenerator.singleColour().also {
+        setVisuals(SingleTexture(PixmapGenerator.singleColour()).also {
             //it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.WHITE)
-        }, PixmapGenerator.singleColour().also {
+        }, SingleTexture(PixmapGenerator.singleColour()).also {
             //it.visualSize = VisualSize.STATIC
             it.recolour(Color.DARK_GRAY)
         })

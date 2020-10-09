@@ -10,7 +10,8 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.fromFont.BlockText
 import modules.visuals.OmniVisual
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.PixmapGenerator
 
 class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect.ofFullScreen(),var charLimit: Int = 0, var numOnly: Boolean = false): UiElement(id) {
     override var block = block
@@ -28,7 +29,7 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
     var textChangeFun = {}
 
 
-    private var bg: OmniVisual = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width,block.height), Color.WHITE)
+    private var bg: OmniVisual = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width,block.height), Color.WHITE))
     private var invalid = bg.copy().also {
         it.recolour(Color.DARK_GRAY)
     }

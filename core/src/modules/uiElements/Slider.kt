@@ -8,8 +8,8 @@ import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
-import modules.visuals.fromPixmap.PixmapGenerator
-import modules.visuals.ScalingType
+import modules.visuals.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
 
 /**
  * horizontal false is vertical
@@ -18,8 +18,8 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     private var valRange = resolution.toList()
     private var resolution = valRange.size
 
-    private var rail: OmniVisual = PixmapGenerator.singleColour()
-    private var knob: OmniVisual = PixmapGenerator.singleColour()
+    private var rail: OmniVisual = SingleTexture(PixmapGenerator.singleColour())
+    private var knob: OmniVisual = SingleTexture(PixmapGenerator.singleColour())
     private var knobPosition = 1
     var knobPositionChangeFunction = { println("knob function ${valRange[knobPosition]}") }
     private var manipulated = false
@@ -28,18 +28,18 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     constructor(id: String, resolution: IntRange = 0..100, block: LcsRect, horizontal: Boolean) : this(id, resolution, horizontal) {
         this.block = block
         println("block: ${block.width.asPixel()} ${block.height.asPixel()}")
-        rail = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height)).also {
+        rail = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height))).also {
             it.resize(block)
             //it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.DARK_GRAY)
         }
         if (horizontal) {
-            knob = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width / (this.resolution), block.height)).also {
+            knob = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width / (this.resolution), block.height))).also {
                 //it.setScalingType(scalingType = ScalingType.FIT_WITH_RATIO)
                 it.recolour(Color.WHITE)
             }
         } else {
-            knob = PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height / (this.resolution))).also {
+            knob = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height / (this.resolution)))).also {
                 //it.setScalingType(scalingType = ScalingType.FIT_WITH_RATIO)
                 //it.visualSize = VisualSize.FIT_WITH_RATIO
                 it.recolour(Color.WHITE)

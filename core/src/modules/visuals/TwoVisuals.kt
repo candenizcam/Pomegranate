@@ -2,6 +2,7 @@ package modules.visuals
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import modules.visuals.subTexture.ScalingType
 
 class TwoVisuals(var front: OmniVisual, var back: OmniVisual, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f) : OmniVisual() {
     override fun draw(batch: SpriteBatch, alpha: Float) {

@@ -1,4 +1,4 @@
-package modules.visuals
+package modules.visuals.subTexture
 
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Batch
@@ -35,12 +35,12 @@ class SubTexture: Sprite {
 
     constructor(t: Texture): super(t){
         originalURect = FastGeometry.unitSquare()
-        visualSizeData =  VisualSizeData(GetLcsRect.byParameters(GetLcs.byPixel(t.width), GetLcs.byPixel(t.height)))
+        visualSizeData = VisualSizeData(GetLcsRect.byParameters(GetLcs.byPixel(t.width), GetLcs.byPixel(t.height)))
     }
 
     constructor(t: TextureRegion): super(t){
         originalURect = Rectangle(t.u,t.u2,t.v,t.v2)
-        visualSizeData =  VisualSizeData(GetLcsRect.byParameters(GetLcs.byPixel(t.texture.width*(t.u2-t.u)), GetLcs.byPixel(t.texture.height*(t.v2-t.v))))
+        visualSizeData = VisualSizeData(GetLcsRect.byParameters(GetLcs.byPixel(t.texture.width * (t.u2 - t.u)), GetLcs.byPixel(t.texture.height * (t.v2 - t.v))))
     }
 
 
@@ -51,10 +51,10 @@ class SubTexture: Sprite {
      * ...they must be doing something to prevent the flowering.
      */
     fun draw(batch: Batch?, alphaModulation: Float, block: LcsRect) {
-        visualSizeData.updateImageBlock(block)
-        //activeURect = visualSizeData.clipRectangle
-        setSize(visualSizeData.imageBlock.width.asPixel(),visualSizeData.imageBlock.height.asPixel())
-        setCenter(visualSizeData.imageBlock.cX.asPixel(),visualSizeData.imageBlock.cY.asPixel())
+        if(visualSizeData.updateImageBlock(block)){
+            setSize(visualSizeData.imageBlock.width.asPixel(),visualSizeData.imageBlock.height.asPixel())
+            setCenter(visualSizeData.imageBlock.cX.asPixel(),visualSizeData.imageBlock.cY.asPixel())
+        }
         super.draw(batch,alphaModulation)
     }
 

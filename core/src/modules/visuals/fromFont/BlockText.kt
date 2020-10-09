@@ -9,8 +9,8 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.visuals.OmniVisual
-import modules.visuals.ScalingType
-import modules.visuals.VisualSizeData
+import modules.visuals.subTexture.ScalingType
+import modules.visuals.subTexture.VisualSizeData
 import modules.lcsModule.LcsVariable as lv
 
 /** Creates a textbox with the set text

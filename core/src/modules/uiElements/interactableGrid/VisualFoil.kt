@@ -7,9 +7,9 @@ import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
 import modules.visuals.*
-import modules.visuals.fromPath.SingleTexture
-import modules.visuals.fromPath.AtlasTexture
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.textureHandling.TextureCache
+import modules.visuals.PixmapGenerator
 import java.io.File
 
 class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedLayout, var visualSelector: (Boolean)->Unit) {
@@ -18,7 +18,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
 
 
     var visualTypeList= mutableListOf<Pair<String,OmniVisual>>()
-    private var selectFrame = PixmapGenerator.singleColour(c = Color(0f,0.6f,0f,0.5f))
+    private var selectFrame = SingleTexture(PixmapGenerator.singleColour(c = Color(0f,0.6f,0f,0.5f)))
     private var selectedVisual = -1
     set(value){
         field = value
@@ -73,7 +73,7 @@ class VisualFoil(var igd: InteractableGridData, var selectedMenu: ImageSelectedL
         val name = selectedFile.name
         val visual = when(selectedFile.extension){
             "png","jpg" -> SingleTexture(Gdx.files.internal(selectedFile.absolutePath))
-            "atlas"-> AtlasTexture(Gdx.files.internal(selectedFile.absolutePath))
+            "atlas"-> TextureCache.atlasOpener(Gdx.files.internal(selectedFile.absolutePath))
             else->{
                 return
             }

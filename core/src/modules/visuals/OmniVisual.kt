@@ -3,10 +3,10 @@ package modules.visuals
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.modules.visuals.OVL
-import modules.basic.geometry.FastGeometry
 import modules.basic.geometry.Rectangle
 import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsRect
+import modules.visuals.subTexture.ScalingType
 import modules.lcsModule.LcsVariable as lv
 
 /** OmniVisual is the base class for visuals

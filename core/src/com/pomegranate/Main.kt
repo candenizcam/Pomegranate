@@ -2,19 +2,12 @@ package com.pomegranate
 
 import com.badlogic.gdx.ApplicationAdapter
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.basic.geometry.ConvexPolygon
-import modules.basic.geometry.Point
 import modules.inputProcessor.BasicListener
 import modules.lcsModule.GetLcs
-import modules.lcsModule.GetLcsRect
 import modules.scenes.LayerManager
-import modules.uiElements.PinupImage
-import modules.uiPlots.District
 import modules.uiPlots.Plot
-import modules.visuals.fromPixmap.PixmapGenerator
 
 
 class Main : ApplicationAdapter() {

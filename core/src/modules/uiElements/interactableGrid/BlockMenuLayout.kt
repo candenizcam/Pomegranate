@@ -10,7 +10,8 @@ import modules.uiElements.layouts.ColLayout
 import modules.uiElements.layouts.RowLayout
 import modules.visuals.*
 import modules.visuals.fromFont.BlockText
-import modules.visuals.fromPixmap.PixmapGenerator
+import modules.visuals.textureHandling.SingleTexture
+import modules.visuals.PixmapGenerator
 
 class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
 
@@ -62,7 +63,7 @@ class BlockMenuLayout(id: String): RowLayout(id,GetLcsRect.ofFullScreen()) {
     fun generateEraser(): SelectableImage {
         val eraseOV = TwoVisuals(
                 BlockText("Eraser", 36, Color.WHITE, "fonts/PTMono-Regular.ttf"),
-                PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)),Color.CORAL)
+                SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(GetLcs.byPixel(100f), GetLcs.byPixel(100f)),Color.CORAL))
         )
         return SelectableImage("eraser",Color.FOREST,eraseOV)
     }

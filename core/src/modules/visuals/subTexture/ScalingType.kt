@@ -1,4 +1,4 @@
-package modules.visuals
+package modules.visuals.subTexture
 
 enum class ScalingType {
     STATIC, //visual size stays as it was in its original inception regardless of what happens outside

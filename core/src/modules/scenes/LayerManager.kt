@@ -3,7 +3,7 @@ package modules.scenes
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.modules.visuals.FontGenerator
 import com.modules.visuals.OVL
-import modules.visuals.fromPath.TextureCache
+import modules.visuals.textureHandling.TextureCache
 import modules.visuals.fromTiles.TileMapOpener
 
 object LayerManager {

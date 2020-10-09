@@ -1,23 +1,34 @@
-package modules.visuals.fromPath
+package modules.visuals.textureHandling
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import modules.visuals.ScalingType
-import modules.visuals.SubTexture
-import java.lang.Exception
-import kotlin.concurrent.thread
+import modules.visuals.subTexture.ScalingType
+import modules.visuals.subTexture.SubTexture
+
 
 object TextureCache {
     private var textureList = mutableMapOf<FileHandle,Texture>()
     private var textureAtlasList = mutableMapOf<FileHandle, TextureAtlas>()
+    private var pixmapTextures = mutableListOf<Texture>() //this is for disposing
+
+    fun addToPixmapTextures(t: Texture){
+        pixmapTextures.add(t)
+    }
+
+
 
 
 
     fun jsonOpener(){
-        
+        val s = Gdx.files.internal("pidgeon/pigeon_poop_export2.json").readString()
+        val o = mapOf<String,Any>()
+
+        //JsonReader().parse(s)
+
+
     }
 
 
@@ -59,6 +70,7 @@ object TextureCache {
     }
 
 
+    /* I hope to delete this baby
     /** Finds the path of a given texture
      * it is not as insane as it sounds sena, its actually very logical
      */
@@ -71,9 +83,19 @@ object TextureCache {
 
     }
 
+     */
+
     fun dispose(){
         textureList.forEach {
             it.value.dispose()
+        }
+        textureAtlasList.forEach{
+            it.value.textures.forEach { it2->
+                it2.dispose()
+            }
+        }
+        pixmapTextures.forEach {
+            it.dispose()
         }
     }
 }
