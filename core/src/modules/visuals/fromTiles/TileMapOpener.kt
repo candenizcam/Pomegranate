@@ -36,7 +36,7 @@ object TileMapOpener {
         }.toMutableList()
         tr.typesList = openAtlas(tilesPath,region).map {
             val s = SubTexture(it)
-            SingleTexture(s, scalingType = ScalingType.FIT_ELEMENT)
+            SingleTexture(s)
         }.mapIndexed { index, it ->
             Pair<String, OmniVisual>("tile_$index", it)
         }.toMutableList()

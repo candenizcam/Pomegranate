@@ -61,7 +61,7 @@ object SetupReaders {
         }
 
          */
-        var msl = TextureAtlas(f).createSprites().map{ SingleTexture(SubTexture(it), scalingType = ScalingType.FIT_ELEMENT) }
+        var msl = TextureAtlas(f).createSprites().map{ SingleTexture(SubTexture(it)) }
         return msl.mapIndexed {index,it -> Pair<String,OmniVisual>("tile_$index",it) }.toMutableList()
             /*
             TextureAtlas(f).also { textureAtlas ->

@@ -58,8 +58,8 @@ class SubTexture: Sprite {
         super.draw(batch,alphaModulation)
     }
 
-    fun setScaling(scalingType: ScalingType = visualSizeData.scalingType, scaleFactor: Float = visualSizeData.scaleFactor){
-        visualSizeData = visualSizeData.copy(scalingType = scalingType, scaleFactor = scaleFactor)
+    fun setScaling(scalingType: ScalingType? = null, scaleFactor: Float? = null){
+        visualSizeData = visualSizeData.copy(scalingType = scalingType ?: visualSizeData.scalingType, scaleFactor = scaleFactor ?: visualSizeData.scaleFactor)
     }
 
 

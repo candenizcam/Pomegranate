@@ -38,7 +38,7 @@ abstract class OmniVisual {
 
      */
 
-    open fun setScalingType(scalingType: ScalingType, scaleFactor: Float){
+    open fun setScalingType(scalingType: ScalingType? = null, scaleFactor: Float?= null){
     }
 
 

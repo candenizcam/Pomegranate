@@ -1,5 +1,6 @@
 package modules.visuals.fromPath
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.visuals.OmniVisual
@@ -9,10 +10,10 @@ import modules.visuals.SubTexture
 /** Unlike the previous iterations this class does not directly concern itself with modifying individual sprites but has handlers for them
  * The macro management approach I believe will yield better results
  */
-open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf<SubTexture>(),scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f): OmniVisual() {
+open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf()): OmniVisual() {
     protected var activeSubTexture= 0
     private var subTextures = subTextures
-    var changeActiveSubTextureFunc = {activeSubTexture: Int->activeSubTexture}
+    var frameChanger = FrameChanger()
 
 
     fun addToSubTextures(st: SingleTexture){
@@ -40,9 +41,15 @@ open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf<
     }
 
 
+
+    override fun setScalingType(scalingType: ScalingType?, scaleFactor: Float?){
+        subTextures.forEach {
+            it.setScaling(scalingType,scaleFactor)
+        }
+    }
+
+
     override fun draw(batch: SpriteBatch, alpha: Float) {
-        // visualSizeData.updateImageBlock(block)
-        // subTextures[activeSubTexture].visualSizeData.updateImageBlock(block)
         subTextures[activeSubTexture].draw(batch,alpha,block)
     }
 
@@ -51,8 +58,7 @@ open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf<
     }
 
     override fun update() {
-        activeSubTexture = changeActiveSubTextureFunc(activeSubTexture)
-
+        frameChanger.update()
     }
 
     override fun recolour(c: Color) {
@@ -68,6 +74,10 @@ open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf<
         subTextures[itemNo ?: activeSubTexture].color = c
     }
 
+    fun changeVisualTypes(){
+        subTextures[0].v
+    }
+
     override fun copy(): OmniVisual {
         return MultipleTexture(subTextures)
     }
@@ -80,5 +90,33 @@ open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf<
         subTextures.forEach {
             it.flip(x,y)
         }
+    }
+
+    fun rollActiveFrame(n: Int){
+        activeSubTexture = (activeSubTexture + n).rem(subTextures.size)
+    }
+
+
+    /** This is the base class for frame changers
+     * for any custom design, one can generate a frame changer class here
+     * or inherit this from outside and make its own class, then inject to frameChanger of this object
+     */
+    open inner class FrameChanger(){
+        open fun update(){
+
+        }
+    }
+
+    /** This generates a frame changer class with fps and changes frame with time
+     *
+     */
+    inner class FpsFrameChanger(var fps: Float) : FrameChanger(){
+        var time = 0f
+        override fun update(){
+            time += Gdx.graphics.deltaTime
+            rollActiveFrame((time*fps).toInt())
+            time = time.rem(1/fps)
+        }
+
     }
 }
