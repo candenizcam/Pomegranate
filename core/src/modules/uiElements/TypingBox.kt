@@ -14,16 +14,7 @@ import modules.visuals.textureHandling.SingleTexture
 import modules.visuals.PixmapGenerator
 
 class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect.ofFullScreen(),var charLimit: Int = 0, var numOnly: Boolean = false): UiElement(id) {
-    override var block = block
-    set(value){
-        field = value
-        bg.resize(block.width,block.height)
-        bg.relocate(block.cX,block.cY)
-        bt.resize(block.width,block.height)
-        bt.relocate(block.cX,block.cY)
-        invalid.resize(block.width,block.height)
-        invalid.relocate(block.cX,block.cY)
-    }
+
     var selected = false
     private var textString = ""
     var textChangeFun = {}
@@ -39,7 +30,7 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
 
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
-        val contains = block.contains(GetLcs.ofX(), GetLcs.ofY())
+        val contains = district.block.contains(GetLcs.ofX(), GetLcs.ofY())
         if(Gdx.input.justTouched()){ //pressed somewhere else
             selected=false
         }
@@ -85,6 +76,7 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
         textChangeFun()
     }
 
+    /*
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         block = GetLcsRect.byParameters(block.width,block.height,x,y)
     }
@@ -92,6 +84,8 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
     override fun resize(w: LcsVariable, h: LcsVariable) {
         block = GetLcsRect.byParameters(w,h,block.cX,block.cY)
     }
+
+     */
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         bg.draw(batch,alpha)

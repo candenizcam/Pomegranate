@@ -23,10 +23,11 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     private var knobPosition = 1
     var knobPositionChangeFunction = { println("knob function ${valRange[knobPosition]}") }
     private var manipulated = false
-    override var block: LcsRect = GetLcsRect.ofZero()
+
+    // override var block: LcsRect = GetLcsRect.ofZero()
 
     constructor(id: String, resolution: IntRange = 0..100, block: LcsRect, horizontal: Boolean) : this(id, resolution, horizontal) {
-        this.block = block
+        district.block = block
         println("block: ${block.width.asPixel()} ${block.height.asPixel()}")
         rail = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height))).also {
             it.resize(block)
@@ -50,7 +51,7 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
 
     constructor(id: String, resolution: IntRange = 0..100, block: LcsRect = GetLcsRect.ofZero(), rail: OmniVisual, knob: OmniVisual, horizontal: Boolean) : this(id, resolution, block, horizontal) {
         if (block.width.asLcs() == 0f) {
-            this.block = GetLcsRect.byParameters(rail.block.width,rail.block.height,rail.block.cX,rail.block.cY)
+            district.block = GetLcsRect.byParameters(rail.block.width,rail.block.height,rail.block.cX,rail.block.cY)
         }
         this.rail = rail
         this.knob = knob
@@ -58,6 +59,7 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     }
 
     private fun updateKnobPosition() {
+        val block = district.block
         if (horizontal) {
             knob.relocate(block.wStart + block.width / resolution * (knobPosition + 0.5f), block.cY)
         } else {
@@ -66,7 +68,8 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     }
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
-        if (block.contains(GetLcs.ofX(), GetLcs.ofY())) {
+
+        if (hovering()) {
             if (Gdx.input.justTouched()) {
                 manipulated = true
             }
@@ -77,6 +80,7 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
             manipulated = false
         }
         if (manipulated) {
+            val block = district.block
 
             if (horizontal) {
                 val kp = ((GetLcs.ofX() - block.wStart).asLcs() / block.width.asLcs() * resolution).toInt()
@@ -107,6 +111,7 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
         }
     }
 
+    /*
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         block = GetLcsRect.byParameters(block.width, block.height, x, y)
         rail.relocate(x, y)
@@ -119,6 +124,8 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
         rail.resize(w, h)
         knob.resize(w, h)
     }
+
+     */
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         rail.draw(batch,alpha)

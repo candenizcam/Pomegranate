@@ -17,6 +17,6 @@ object FastGenerator {
         val v22 = SingleTexture(PixmapGenerator.singleColour(c = Color(bgColour.r*pressedColorRatio, bgColour.g*pressedColorRatio, bgColour.b*pressedColorRatio, bgColour.a),scalingType = scalingType))
         val v11 = BlockText(text, textSize, textColour, fontPath, scalingType = scalingType)
         val v21 = BlockText(text, textSize, Color(bgColour.r * pressedColorRatio, bgColour.g * pressedColorRatio, bgColour.b * pressedColorRatio, bgColour.a), fontPath, scalingType= scalingType)
-        return SetButton(id, TwoVisuals(v11, v12), TwoVisuals(v21, v22))
+        return SetButton(id, onVisual= TwoVisuals(v11, v12), offVisual =  TwoVisuals(v21, v22))
     }
 }

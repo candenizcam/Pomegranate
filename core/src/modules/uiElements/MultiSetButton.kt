@@ -8,7 +8,7 @@ import modules.lcsModule.LcsVariable
 /** This is a collection of set buttons that, in addition to buttons' function, switches the displayed button with every click
  * I really really hope this works cos I don't want to figure out a different way to do this
  */
-class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.ofZero()): UiElement(id) {
+class MultiSetButton(id: String): UiElement(id) {
     var buttonsList = mutableListOf<SetButton>()
     var activeButton = 0
 
@@ -47,6 +47,7 @@ class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.ofZero
     }
 
 
+    /*
 
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         buttonsList.forEach {
@@ -59,6 +60,8 @@ class MultiSetButton(id: String, override var block: LcsRect = GetLcsRect.ofZero
             it.resize(w,h)
         }
     }
+
+     */
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         if(buttonsList.isNotEmpty()){buttonsList[activeButton].draw(batch,alpha)}

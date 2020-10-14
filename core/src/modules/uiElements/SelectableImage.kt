@@ -10,6 +10,10 @@ import modules.visuals.textureHandling.SingleTexture
 import modules.visuals.PixmapGenerator
 
 class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: LcsRect = GetLcsRect.ofFullScreen()): UiElement(id) {
+    init{
+        district.block = block
+    }
+    /*
     override var block: LcsRect = block
         set(value) {
             field = value
@@ -17,6 +21,8 @@ class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: 
             image.relocate(value.cX,value.cY)
             background.reBlock(value)
         }
+
+     */
     var background = SingleTexture(PixmapGenerator.singleColour(block,selectColor))
     var image = SetButton("sb",image,image.copy().apply{recolour(Color.DARK_GRAY)}).also {
         it.clicked = {
@@ -46,6 +52,7 @@ class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: 
         image.update()
     }
 
+    /*
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         block = block.relocateTo(x,y)
     }
@@ -53,6 +60,8 @@ class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: 
     override fun resize(w: LcsVariable, h: LcsVariable) {
         block = block.resizeTo(w,h)
     }
+
+     */
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         if(selected) background.draw(batch,alpha)

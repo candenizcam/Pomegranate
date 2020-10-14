@@ -5,7 +5,7 @@ import modules.lcsModule.GetLcsRect
 import modules.lcsModule.LcsVariable
 
 class PlaceholderElement(id: String) : UiElement(id) {
-    override var block = GetLcsRect.ofZero()
+    // override var block = GetLcsRect.ofZero()
 
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
@@ -13,8 +13,8 @@ class PlaceholderElement(id: String) : UiElement(id) {
     }
 
     override fun update() {}
-    override fun relocate(x: LcsVariable, y: LcsVariable) {}
-    override fun resize(w: LcsVariable, h: LcsVariable) {}
+    // override fun relocate(x: LcsVariable, y: LcsVariable) {}
+    // override fun resize(w: LcsVariable, h: LcsVariable) {}
 
     override fun draw(batch: SpriteBatch, alpha: Float) {}
     override fun dispose() {}

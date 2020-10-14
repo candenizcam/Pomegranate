@@ -9,8 +9,8 @@ import modules.lcsModule.LcsVariable
 import java.lang.NullPointerException
 
 open class District(var districtId: String) {
-    var plots = mutableListOf(Plot("main"))
-    var block = GetLcsRect.ofFullScreen()
+    var plots = mutableListOf(Plot("main")) // these are references to the block
+    var block = GetLcsRect.ofFullScreen() // size is only changed by this
 
     init{
 
@@ -74,18 +74,31 @@ open class District(var districtId: String) {
      * row & col are for the partition
      * retainOriginal adds the unpartitioned plot to the plots
      */
-    fun splitToPlots(id: String, r: Rectangle = FastGeometry.unitSquare(), row: Int=1, col: Int=1, retainOriginal: Boolean = false, z: Int=0){
+    fun splitToPlots(id: String, r: Rectangle = FastGeometry.unitSquare(), row: Int=1, col: Int=1, retainOriginal: Boolean = false, z: Int=0): MutableList<Plot> {
         val bigPlot = Plot(id,r,z)
         val smallPlots = bigPlot.gridEqual(id,row,col)
-        if(retainOriginal) plots.add(bigPlot)
+        if(retainOriginal) smallPlots.add(0,bigPlot)//plots.add(bigPlot)
         addToPlots(smallPlots)
+        return smallPlots
     }
 
-    fun splitToPlots(id: String, r: Rectangle = FastGeometry.unitSquare(), rows: List<Float> = listOf(1f), cols: List<Float> = listOf(1f), retainOriginal: Boolean = false, z: Int=0){
+    fun addFullPlot(id: String, r: Rectangle=FastGeometry.unitSquare(),z: Int = 0): Plot {
+        Plot(id,r,z).also {
+            addToPlots(it)
+            return it
+        }
+    }
+
+    fun splitToPlots(id: String, r: Rectangle = FastGeometry.unitSquare(), rows: List<Float> = listOf(1f), cols: List<Float> = listOf(1f), retainOriginal: Boolean = false, z: Int=0): MutableList<Plot> {
         val bigPlot = Plot(id,r,z)
         val smallPlots = bigPlot.gridBiased(id,rows,cols)
-        if(retainOriginal) plots.add(bigPlot)
+        if(retainOriginal) smallPlots.add(0,bigPlot)
         addToPlots(smallPlots)
+        return smallPlots
+    }
+
+    fun setVisible(id: String, visible: Boolean){
+        plots.first { it.id == id }.element?.visible = visible
     }
     
 

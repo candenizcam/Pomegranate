@@ -11,21 +11,25 @@ class Camera(id: String, block: LcsRect, subjectList: List<UiElement>, zoomRect:
         set(value){
             field = value
             subjects.forEach {
-                it.resize(block.width/value.width,block.height/value.height)
-                it.relocate(block.cX + it.block.width*(0.5f - value.cX),block.cY + it.block.height*(0.5f - value.cY))
+                it.resize(district.block.width/value.width,district.block.height/value.height)
+                it.relocate(district.block.cX + it.getBlock().width*(0.5f - value.cX), district.block.cY + it.getBlock().height*(0.5f - value.cY))
             }
         }
 
 
+
+    /*
     override var block: LcsRect = block
         set(value) {
             field = value
             subjects.forEach {subject->
                 subject.resize(value.width/zoomRect.width,value.height/zoomRect.height)
-                subject.relocate(value.cX + subject.block.width*(0.5f - zoomRect.cX),value.cY + subject.block.height*(0.5f - zoomRect.cY))
+                subject.relocate(value.cX + subject.getBlock().width*(0.5f - zoomRect.cX),value.cY + subject.getBlock().height*(0.5f - zoomRect.cY))
             }
 
         }
+
+     */
 
 
 
@@ -42,6 +46,7 @@ class Camera(id: String, block: LcsRect, subjectList: List<UiElement>, zoomRect:
         }
     }
 
+    /*
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         block = block.relocateTo(x,y)
     }
@@ -49,6 +54,8 @@ class Camera(id: String, block: LcsRect, subjectList: List<UiElement>, zoomRect:
     override fun resize(w: LcsVariable, h: LcsVariable) {
         block = block.resizeTo(w,h)
     }
+
+     */
 
     override fun draw(batch: SpriteBatch, alpha: Float) {
         subjects.forEach {

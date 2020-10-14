@@ -182,4 +182,12 @@ abstract class PhysicsItem(var id: String) {
             if(!collisionTimeWith(other,0f).isStuck()) break
         }
     }
+
+    fun getRow(): Float{
+        return pid.cY-0.5f
+    }
+
+    fun getCol(): Float {
+        return pid.cX-0.5f
+    }
 }

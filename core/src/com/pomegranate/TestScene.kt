@@ -4,7 +4,10 @@ package com.pomegranate
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.pungo.engine.physicsField.PhysicsLayout
 import modules.basic.geometry.Rectangle
+import modules.lcsModule.GetLcs
+import modules.lcsModule.GetLcsRect
 import modules.scenes.Scene
 import modules.uiElements.*
 import modules.uiPlots.Plot
@@ -47,12 +50,20 @@ class TestScene: Scene("testScene",0f) {
         //m.changeActiveSubTextureFunc = {a: Int -> listOf(0,1).random()}
         tr.recolour(Color.PURPLE)
         //m.changeActiveSprite(1)
+        val sb = SetButton("button", GetLcsRect.ofFullScreen())
+        val pl = PhysicsLayout("pt",GetLcsRect.ofFullScreen(),10,10)
+        pl.addPhysicsSquare("hey",3f,3f,mass=1f,mobility = true)
+        pl.findElement("hey").elementPointer = PinupImage("trr",cat2)
+        pl.pf.forceFieldY = {x:Float,y: Float,m:Float-> -m*10f}
+        pl.pf.collisionElasticity = 1f
+
 
         mainDistrict.addToPlots(Plot("left",Rectangle(0f,0.25f,0.25f,0.5f),z=20))
 
-        mainDistrict.findPlot("left").element = PinupImage("trr",cat2)
+        //mainDistrict.findPlot("left").element = PinupImage("trr",cat2)
+        mainDistrict.findPlot("left").element = sb
 
-        mainDistrict.findPlot("centre").element = PinupImage("tr",trr)
+        mainDistrict.findPlot("centre").element = pl
 
     }
 

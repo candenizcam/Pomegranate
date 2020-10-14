@@ -3,8 +3,6 @@ package modules.scenes
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import modules.lcsModule.GetLcsRect
 import modules.uiElements.UiElement
-import modules.uiElements.layouts.OmniLayout
-import modules.uiElements.layouts.PinboardLayout
 import modules.uiPlots.District
 
 /** Scenes are used to arrange and use districts

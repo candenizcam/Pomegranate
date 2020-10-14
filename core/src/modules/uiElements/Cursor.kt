@@ -10,15 +10,16 @@ import modules.lcsModule.LcsRect
 import modules.lcsModule.LcsVariable
 import modules.visuals.OmniVisual
 
-class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()) : UiElement("Cursor") {
-    override lateinit var block: LcsRect
+class Cursor(private var image: OmniVisual) : UiElement("Cursor") {
+    //override lateinit var block: LcsRect
 
 
     private var lastPressTime = 0L
     var active = true
 
     init {
-
+        district.block = image.block
+        /*
         if (block.isZero()) {
             println("image size ${image.block.width.asPixel()} ${image.block.height.asPixel()}")
             this.block = GetLcsRect.byParameters(image.block.width, image.block.height, GetLcs.ofX(), GetLcs.ofY())
@@ -28,12 +29,12 @@ class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()
         }
         image.relocate(block.cX, block.cY)
         image.recolour(Color(1f, 0f, 0f, 0.8f))
+
+         */
     }
 
 
     override fun touchHandler(mayTouch: Boolean): Boolean {
-
-
         when (Gdx.app.type) {
             Application.ApplicationType.Android, Application.ApplicationType.iOS -> {
                 if (Gdx.input.justTouched()) {
@@ -44,21 +45,16 @@ class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()
                     lastPressTime = System.currentTimeMillis()
                     //if(lastPressTime-Gdx.ti)
                 }
-
-
             }
             Application.ApplicationType.Desktop -> {
                 if (Gdx.input.isButtonJustPressed(0)) {
                     active = active.not()
                 }
-
             }
             else -> {
                 throw Exception("I DON'T KNOW WHAT IM WORKING ON\nI MEAN WHAT IS ${Gdx.app.type}")
             }
         }
-
-
         return false
     }
 
@@ -68,11 +64,10 @@ class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()
 
 
     override fun update() {
-
         touchHandler()
-
     }
 
+    /*
     override fun relocate(x: LcsVariable, y: LcsVariable) {
         block = GetLcsRect.byParameters(block.width, block.height, x, y)
         image.relocate(x, y)
@@ -83,10 +78,11 @@ class Cursor(private var image: OmniVisual, block: LcsRect = GetLcsRect.ofZero()
         image.resize(w, h)
     }
 
+     */
+
     override fun draw(batch: SpriteBatch, alpha: Float) {
         if (active) {
             relocate(GetLcs.ofX(), GetLcs.ofY())
-
             image.draw(batch,alpha)
         }
 
