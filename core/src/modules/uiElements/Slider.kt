@@ -29,18 +29,20 @@ class Slider(id: String, resolution: IntRange = 0..100, var horizontal: Boolean 
     constructor(id: String, resolution: IntRange = 0..100, block: LcsRect, horizontal: Boolean) : this(id, resolution, horizontal) {
         district.block = block
         println("block: ${block.width.asPixel()} ${block.height.asPixel()}")
-        rail = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height))).also {
+        rail = SingleTexture(PixmapGenerator.singleColour()).also {
             it.resize(block)
             //it.visualSize = VisualSize.FIT_ELEMENT
             it.recolour(Color.DARK_GRAY)
         }
         if (horizontal) {
-            knob = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width / (this.resolution), block.height))).also {
+            knob = SingleTexture(PixmapGenerator.singleColour()).also {
+                it.reBlock(GetLcsRect.byParameters(block.width / (this.resolution), block.height))
                 //it.setScalingType(scalingType = ScalingType.FIT_WITH_RATIO)
                 it.recolour(Color.WHITE)
             }
         } else {
-            knob = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width, block.height / (this.resolution)))).also {
+            knob = SingleTexture(PixmapGenerator.singleColour()).also {
+                it.reBlock(GetLcsRect.byParameters(block.width, block.height / (this.resolution)))
                 //it.setScalingType(scalingType = ScalingType.FIT_WITH_RATIO)
                 //it.visualSize = VisualSize.FIT_WITH_RATIO
                 it.recolour(Color.WHITE)

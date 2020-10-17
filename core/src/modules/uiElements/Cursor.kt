@@ -83,6 +83,7 @@ class Cursor(private var image: OmniVisual) : UiElement("Cursor") {
     override fun draw(batch: SpriteBatch, alpha: Float) {
         if (active) {
             relocate(GetLcs.ofX(), GetLcs.ofY())
+            image.reBlock(getBlock())
             image.draw(batch,alpha)
         }
 

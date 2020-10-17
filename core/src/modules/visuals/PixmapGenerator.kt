@@ -11,24 +11,18 @@ import kotlin.math.ceil
  *
  */
 object PixmapGenerator {
-    fun singleColour(b: LcsRect=GetLcsRect.ofFullScreen(), c: Color =Color.WHITE, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f): Pixmap {
+    fun singleColour(): Pixmap {
         Pixmap(11, 11, Pixmap.Format.RGBA8888).also {
             it.setColor(1f, 1f, 1f, 1f)
             it.fill()
             return it
-            /*
-            return CustomPixmap(it, c, scalingType, scaleFactor).also { it2 ->
-                it2.reBlock(b)
-            }
-
-             */
         }
     }
 
 
     /** Creates a grid with col and row
      */
-    fun grid(row: Int, col: Int, b: LcsRect=GetLcsRect.ofFullScreen(), c: Color = Color.WHITE, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f): Pixmap {
+    fun grid(row: Int, col: Int, b: LcsRect=GetLcsRect.ofFullScreen()): Pixmap {
         val w = ceil(b.width.asPixel()).toInt()
         val h = ceil(b.height.asPixel()).toInt()
         Pixmap(w,h, Pixmap.Format.RGBA8888).also {

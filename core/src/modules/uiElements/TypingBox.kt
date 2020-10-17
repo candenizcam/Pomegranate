@@ -20,7 +20,10 @@ class TypingBox(id: String,initialText: String = "", block: LcsRect = GetLcsRect
     var textChangeFun = {}
 
 
-    private var bg: OmniVisual = SingleTexture(PixmapGenerator.singleColour(GetLcsRect.byParameters(block.width,block.height), Color.WHITE))
+    private var bg: OmniVisual = SingleTexture(PixmapGenerator.singleColour()).also {
+        it.recolour(Color.WHITE)
+        it.reBlock(GetLcsRect.byParameters(block.width,block.height))
+    }
     private var invalid = bg.copy().also {
         it.recolour(Color.DARK_GRAY)
     }

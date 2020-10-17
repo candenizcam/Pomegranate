@@ -20,11 +20,12 @@ class PhysicsLayout(id: String, rect: LcsRect=GetLcsRect.ofFullScreen(), r:Int, 
 
     /** Following guys are about adding removing or finding elements from layout
      */
-    fun addPhysicsItem(item: PhysicsItem){
+    fun addPhysicsItem(item: PhysicsItem): PhysicsItem {
         if (pf.items.any { it.id == id }) {
             throw Exception("ID clash at add physics item for $id")
         }
         pf.addItem(item)
+        return item
     }
 
     fun removePhysicsItem(id: String){
@@ -64,8 +65,8 @@ class PhysicsLayout(id: String, rect: LcsRect=GetLcsRect.ofFullScreen(), r:Int, 
 
     }
 
-    fun addPhysicsSquare(id: String,  row: Float, column: Float,side: Float = 1f, vX: Float = 0f, vY: Float = 0f, mass: Float = 0f, mobility: Boolean) {
-        addPhysicsItem(RectangleMass(id, w = side, h = side, mass = mass, cX = column + 0.5f, cY = row + 0.5f, vX = vX, vY = vY, mobility = mobility))
+    fun addPhysicsSquare(id: String,  row: Float, column: Float,side: Float = 1f, vX: Float = 0f, vY: Float = 0f, mass: Float = 0f, mobility: Boolean): PhysicsItem {
+        return addPhysicsItem(RectangleMass(id, w = side, h = side, mass = mass, cX = column + 0.5f, cY = row + 0.5f, vX = vX, vY = vY, mobility = mobility))
     }
 
     /** Returns items in that lcs coordinate

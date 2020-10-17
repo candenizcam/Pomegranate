@@ -23,7 +23,10 @@ class SelectableImage(id: String, selectColor: Color, image: OmniVisual, block: 
         }
 
      */
-    var background = SingleTexture(PixmapGenerator.singleColour(block,selectColor))
+    var background = SingleTexture(PixmapGenerator.singleColour()).also {
+        it.reBlock(block)
+        it.recolour(selectColor)
+    }
     var image = SetButton("sb",image,image.copy().apply{recolour(Color.DARK_GRAY)}).also {
         it.clicked = {
             selected = selected.not()
