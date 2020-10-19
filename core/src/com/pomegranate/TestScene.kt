@@ -71,7 +71,7 @@ class TestScene: Scene("testScene",0f) {
         mainDistrict.findPlot("left").element = sb
 
         mainDistrict.findPlot("centre").element = pl
-        s = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json"))
+        s = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json")) { it:String-> it.contains("1")||it.contains("2") }
         s.frameChanger = s.FpsFrameChanger(10f)
         s.reBlock(GetLcsRect.byBorders(GetLcs.ofWidth(0.5f),GetLcs.ofWidth(1f),GetLcs.ofZero(),GetLcs.ofHeight(1f)))
 

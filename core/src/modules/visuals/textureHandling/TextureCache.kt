@@ -30,7 +30,7 @@ object TextureCache {
 
 
 
-    fun jsonOpener(path: FileHandle,region: String?=null): MultipleTexture {
+    fun jsonOpener(path: FileHandle,func: (String)->Boolean={true}): MultipleTexture {
         val at : AnimateJson
         if(jsonAtlasList.containsKey(path)){
             at = jsonAtlasList[path]!!
@@ -38,7 +38,7 @@ object TextureCache {
             at= AnimateJson(path)
             jsonAtlasList[path] = at
         }
-        return MultipleTexture(at.getSubTextures(region))
+        return MultipleTexture(at.getSubTextures(func))
     }
 
 
