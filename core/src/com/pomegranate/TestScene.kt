@@ -3,8 +3,13 @@ package com.pomegranate
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.engine.physicsField.PhysicsLayout
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
 import modules.basic.geometry.Rectangle
 import modules.lcsModule.GetLcs
 import modules.lcsModule.GetLcsRect
@@ -17,9 +22,12 @@ import modules.visuals.textureHandling.TextureCache
 import modules.visuals.PixmapGenerator
 import modules.visuals.fromTiles.TileMapOpener
 import modules.visuals.subTexture.ScalingType
+import modules.visuals.subTexture.SubTexture
 
 
 class TestScene: Scene("testScene",0f) {
+    lateinit var s: MultipleTexture
+    lateinit var s2: MultipleTexture
 
     init{
         val tv = TestVisuals()
@@ -64,12 +72,22 @@ class TestScene: Scene("testScene",0f) {
         mainDistrict.findPlot("left").element = sb
 
         mainDistrict.findPlot("centre").element = pl
+        s = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json"))
+        s.frameChanger = s.FpsFrameChanger(10f)
+        s.reBlock(GetLcsRect.byBorders(GetLcs.ofWidth(0.5f),GetLcs.ofWidth(1f),GetLcs.ofZero(),GetLcs.ofHeight(1f)))
 
+        s2 = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json"))
+        s2.frameChanger = s2.FpsFrameChanger(20f)
+        s2.reBlock(GetLcsRect.byBorders(GetLcs.ofZero(),GetLcs.ofWidth(0.5f),GetLcs.ofZero(),GetLcs.ofHeight(1f)))
     }
 
 
     override fun draw(batch: SpriteBatch){
         super.draw(batch)
+        s.update()
+        s2.update()
+        s.draw(batch)
+        s2.draw(batch)
         //sc.draw(batch)
     }
 

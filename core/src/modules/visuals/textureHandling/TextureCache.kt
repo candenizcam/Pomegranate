@@ -4,7 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
+import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
+import com.pomegranate.AnimateJson
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.jsonArray
+import modules.lcsModule.GetLcsRect
 import modules.visuals.subTexture.ScalingType
 import modules.visuals.subTexture.SubTexture
 
@@ -12,6 +19,7 @@ import modules.visuals.subTexture.SubTexture
 object TextureCache {
     private var textureList = mutableMapOf<FileHandle,Texture>()
     private var textureAtlasList = mutableMapOf<FileHandle, TextureAtlas>()
+    private var jsonAtlasList = mutableMapOf<FileHandle,AnimateJson>()
     private var pixmapTextures = mutableListOf<Texture>() //this is for disposing
 
     fun addToPixmapTextures(t: Texture){
@@ -22,14 +30,18 @@ object TextureCache {
 
 
 
-    fun jsonOpener(){
-        val s = Gdx.files.internal("pidgeon/pigeon_poop_export2.json").readString()
-        val o = mapOf<String,Any>()
-
-        //JsonReader().parse(s)
-
-
+    fun jsonOpener(path: FileHandle,region: String?=null): MultipleTexture {
+        val at : AnimateJson
+        if(jsonAtlasList.containsKey(path)){
+            at = jsonAtlasList[path]!!
+        }else{
+            at= AnimateJson(path)
+            jsonAtlasList[path] = at
+        }
+        return MultipleTexture(at.getSubTextures(region))
     }
+
+
 
 
     fun atlasOpener(path: FileHandle, region : String? = null): MultipleTexture {
@@ -96,6 +108,10 @@ object TextureCache {
         }
         pixmapTextures.forEach {
             it.dispose()
+        }
+        jsonAtlasList.forEach{
+            it.value.dispose()
+
         }
     }
 }

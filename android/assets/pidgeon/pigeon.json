@@ -1,0 +1,11 @@
+﻿{
+  "word":"hey",
+  "otherword":"hey2",
+  "thirdword":{
+    "one":"bird",
+    "other":{
+      "yes": "maybe",
+      "no": "not really"
+    }
+  }
+}

@@ -1,0 +1,90 @@
+﻿{
+  "frames": [
+  {
+    "frame": {"x":0,"y":0,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+  {
+    "frame": {"x":80,"y":0,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":160,"y":0,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":240,"y":0,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":320,"y":0,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":400,"y":0,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":0,"y":102,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":80,"y":102,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":160,"y":102,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  },
+
+  {
+    "frame": {"x":240,"y":102,"w":80,"h":102},
+    "rotated": false,
+    "trimmed": false,
+    "spriteSourceSize": {"x":0,"y":0,"w":80,"h":102},
+    "sourceSize": {"w":80,"h":102}
+  }
+  ],
+  "meta": {
+    "app": "Adobe Animate",
+    "version": "20.5.1.31044",
+    "image": "pigeon_poop_export.png",
+    "format": "RGBA8888",
+    "size": {"w":512,"h":256},
+    "scale": "1"
+  }
+}
