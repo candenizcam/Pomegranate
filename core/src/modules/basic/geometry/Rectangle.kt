@@ -18,12 +18,12 @@ class Rectangle: ConvexPolygon {
         height= top-bottom
     }
 
-    constructor(left: Float, right: Float,bottom: Float, top: Float){
+    constructor(w1: Float, w2: Float,h1: Float, h2: Float){
+        this.top = h1.coerceAtMost(h2)
+        this.bottom = h1.coerceAtLeast(h2)
+        this.right = w1.coerceAtLeast(w2)
+        this.left = w1.coerceAtMost(w2)
         points = mutableListOf(Point(bottom,left),Point(bottom,right),Point(top,right),Point(top,left))
-        this.top = top
-        this.bottom = bottom
-        this.right = right
-        this.left = left
         width = right-left
         height= top-bottom
     }

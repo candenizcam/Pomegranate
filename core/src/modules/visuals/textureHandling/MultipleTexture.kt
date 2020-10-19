@@ -42,9 +42,9 @@ open class MultipleTexture(subTextures: MutableList<SubTexture> = mutableListOf(
 
 
 
-    override fun setScalingType(scalingType: ScalingType?, scaleFactor: Float?){
+    override fun setScalingType(scalingType: ScalingType?, widthScaleFactor: Float?,heightScaleFactor: Float?){
         subTextures.forEach {
-            it.setScaling(scalingType,scaleFactor)
+            it.setScaling(scalingType,widthScaleFactor,heightScaleFactor)
         }
     }
 

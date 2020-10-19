@@ -3,6 +3,7 @@ package modules.uiElements
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import modules.lcsModule.GetLcs
 import modules.lcsModule.LcsRect
 import modules.visuals.OmniVisual
 import modules.visuals.textureHandling.SingleTexture
@@ -16,6 +17,7 @@ class SetButton(id: String) : UiElement(id) {
     init{
         district.addFullPlot("down").element?.visible = false
         district.addFullPlot("up")
+        district.addFullPlot("inactive",z=10).element?.visible=false
     }
 
     private var pressing = false
@@ -23,9 +25,16 @@ class SetButton(id: String) : UiElement(id) {
             field = value
             district.setVisible("up",pressing.not())
             district.setVisible("down",pressing)
+
+
         }
 
     var clicked = { println("$id clicked") }
+    var deactivate = false
+        set(value) {
+            field = value
+            district.findPlot("inactive").element?.visible=value
+        }
 
     constructor(id: String, block : LcsRect) : this(id){
         district.block = block
@@ -48,12 +57,21 @@ class SetButton(id: String) : UiElement(id) {
 
     constructor(id: String, onVisual: OmniVisual, offVisual: OmniVisual, block: LcsRect?=null) : this(id,PinupImage("up",onVisual),PinupImage("down",offVisual),block)
 
+    fun setInactiveVisual(omniVisual: OmniVisual){
+        setInactiveElement(PinupImage("inactive",omniVisual))
+    }
+
+    fun setInactiveElement(uiElement: UiElement){
+        district.findPlot("inactive").element = uiElement
+    }
+
     /** Handles touching
      * hierarchy is handled by the callers in layout
      */
     override fun touchHandler(mayTouch: Boolean): Boolean {
         if (mayTouch) {
             val containing = hovering()
+            if(containing&&deactivate) return true
             if (pressing) {
                 pressing = if (Gdx.input.isTouched) {
                     containing
@@ -94,4 +112,6 @@ class SetButton(id: String) : UiElement(id) {
     override fun getValue(): Int {
         return if(pressing) 1 else 0
     }
+
+
 }

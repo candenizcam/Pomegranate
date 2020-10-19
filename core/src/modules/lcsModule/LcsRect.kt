@@ -8,6 +8,7 @@ import modules.basic.geometry.Rectangle
 data class LcsRect(val width: LcsVariable, val height: LcsVariable, val cX: LcsVariable, val cY: LcsVariable,
                    val wStart: LcsVariable, val wEnd: LcsVariable, val hStart: LcsVariable, val hEnd: LcsVariable) {
 
+
     fun contains(x: LcsVariable, y: LcsVariable): Boolean {
         return (wStart.asLcs() < x.asLcs()) && (wEnd.asLcs() > x.asLcs()) && (hStart.asLcs() < y.asLcs()) && (hEnd.asLcs() > y.asLcs())
     }
@@ -86,7 +87,7 @@ data class LcsRect(val width: LcsVariable, val height: LcsVariable, val cX: LcsV
     }
 
     fun getLcsRectFromGeo(other: Rectangle): LcsRect{
-        return GetLcsRect.byBorders(wStart + width*other.left,wStart + width*other.right,hStart + height*other.bottom, hStart + height*other.top)
+        return GetLcsRect.byBorders(wStart + width*other.left,wStart + width*other.right,hStart + height*(other.top), hStart + height*other.bottom)
     }
 
 

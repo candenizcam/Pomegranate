@@ -49,4 +49,16 @@ open class Scene(val id: String, var zOrder: Float) {
     open fun keyDown(keycode: Int) {
 
     }
+
+    open fun touchUp(screenX: Int, screenY: Int) {
+
+    }
+
+    open fun touchDragged(screenX: Int, screenY: Int) {
+
+    }
+
+    open fun touchDown(screenX: Int, screenY: Int) {
+
+    }
 }

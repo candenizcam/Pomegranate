@@ -33,6 +33,8 @@ abstract class UiElement(var id: String) {
      * it does not switch hovering to true, because mouse being on something does not necessarily mean it is hovering
      */
     fun hovering(): Boolean {
+        //println("district: ${district.block.wStart.asPixel()} ${district.block.wEnd.asPixel()} ${district.block.hStart.asPixel()} ${district.block.hEnd.asPixel()}")
+        //println("point: ${GetLcs.ofX().asPixel()} ${GetLcs.ofY().asPixel()}")
         return district.block.contains(GetLcs.ofX(),GetLcs.ofY())
     }
 

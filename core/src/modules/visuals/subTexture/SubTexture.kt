@@ -24,6 +24,7 @@ class SubTexture: Sprite {
         }
     var visualSizeData: VisualSizeData
 
+
     constructor(s: Sprite): super(s){
         originalURect = Rectangle(s.u,s.u2,s.v,s.v2)
         visualSizeData = if(s is SubTexture){
@@ -58,8 +59,8 @@ class SubTexture: Sprite {
         super.draw(batch,alphaModulation)
     }
 
-    fun setScaling(scalingType: ScalingType? = null, scaleFactor: Float? = null){
-        visualSizeData = visualSizeData.copy(scalingType = scalingType ?: visualSizeData.scalingType, scaleFactor = scaleFactor ?: visualSizeData.scaleFactor)
+    fun setScaling(scalingType: ScalingType? = null, widthScaleFactor: Float? = null, heightScaleFactor: Float?=null){
+        visualSizeData = visualSizeData.copy(scalingType = scalingType ?: visualSizeData.scalingType, widthScaleFactor = widthScaleFactor ?: visualSizeData.widthScaleFactor, heightScaleFactor = heightScaleFactor ?: visualSizeData.heightScaleFactor)
     }
 
 

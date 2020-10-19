@@ -37,7 +37,7 @@ class TestScene: Scene("testScene",0f) {
 
         val name = "test"
         val trr = TileMapOpener.openTileRenderer( Gdx.files.internal("maps/$name/tiles.assets"),Gdx.files.internal("tiles/tiles.atlas"),"")
-        trr.visualSizeData = trr.visualSizeData.copy(scalingType = ScalingType.FIT_WITH_RATIO,scaleFactor = 1f)
+        trr.visualSizeData = trr.visualSizeData.copy(scalingType = ScalingType.FIT_WITH_RATIO)
         mainDistrict.addToPlots(Plot("centre",Rectangle(0.25f,0.75f,0.15f,0.85f),z=20))
         //val tr = SingleTexture(Gdx.files.internal("badlogic.jpg"))
         val tr = SingleTexture(PixmapGenerator.circle(c = Color.ROYAL))

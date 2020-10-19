@@ -33,20 +33,20 @@ class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(), va
         var nRows = r.map{it/r.sum()}
         var nCols = c.map{it/c.sum()}
         val returning = mutableListOf<Plot>()
-        var rowAcc = 0f
+        var rowAcc = estate.top
         nRows.forEachIndexed {ri,row->
-            var colAcc = 0f
-            val bottom = 1 - (rowAcc + row)
-            val top = 1 - rowAcc
+            var colAcc = estate.left
+            val bottom = rowAcc - row*estate.height
+            val top = rowAcc
             nCols.forEachIndexed {ci,col->
                 val left = colAcc
-                val right = colAcc + col
-                colAcc +=col
+                val right = colAcc + col*estate.width
+                colAcc +=col*estate.width
                 val plot = Plot("${tag}_r${ri}_c$ci",Rectangle(left,right,top,bottom),z+1)
                 returning.add(plot)
 
             }
-            rowAcc +=row
+            rowAcc -=row*estate.height
 
         }
         return returning
@@ -70,6 +70,10 @@ class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(), va
 
     fun update(){
         element?.update()
+    }
+
+    fun copy(id: String=this.id, z: Int=this.z): Plot {
+        return Plot(id,estate, z, element)
     }
 
 }

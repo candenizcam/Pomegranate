@@ -16,10 +16,10 @@ import modules.visuals.subTexture.ScalingType
 class SingleTexture: OmniVisual {
     var subTexture: SubTexture
         private set
-    constructor(path: FileHandle, colour: Color = Color.WHITE, scalingType: ScalingType = ScalingType.FIT_ELEMENT, scaleFactor: Float = 1f): super() {
+    constructor(path: FileHandle, colour: Color = Color.WHITE, scalingType: ScalingType = ScalingType.FIT_ELEMENT, widthScaleFactor: Float = 1f, heightScaleFactor: Float=1f): super() {
         subTexture = SubTexture(TextureCache.openTexture(path)).also { st->
             st.color = colour
-            st.setScaling(scalingType,scaleFactor)
+            st.setScaling(scalingType,widthScaleFactor,heightScaleFactor)
             block = GetLcsRect.byParameters(GetLcs.byPixel(st.width), GetLcs.byPixel(st.height))
         }
     }
@@ -40,8 +40,8 @@ class SingleTexture: OmniVisual {
 
 
 
-    override fun setScalingType(scalingType: ScalingType?, scaleFactor: Float?){
-        subTexture.setScaling(scalingType,scaleFactor)
+    override fun setScalingType(scalingType: ScalingType?, widthScaleFactor: Float?, heightScaleFactor: Float?){
+        subTexture.setScaling(scalingType,widthScaleFactor,heightScaleFactor)
     }
 
 

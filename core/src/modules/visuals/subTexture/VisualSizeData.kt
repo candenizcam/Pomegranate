@@ -2,22 +2,22 @@ package modules.visuals.subTexture
 
 import modules.lcsModule.LcsRect
 
-data class VisualSizeData(val originalRect: LcsRect, val scalingType: ScalingType = ScalingType.FIT_ELEMENT, val scaleFactor: Float = 1f) {
+data class VisualSizeData(val originalRect: LcsRect, val scalingType: ScalingType = ScalingType.FIT_ELEMENT, val widthScaleFactor: Float = 1f, val heightScaleFactor: Float = 1f) {
     var imageBlock: LcsRect = originalRect
 
 
     private fun fitElement(block: LcsRect): LcsRect {
-        return imageBlock.resizeTo(block.width * scaleFactor, block.height * scaleFactor)
+        return imageBlock.resizeTo(block.width * widthScaleFactor, block.height * heightScaleFactor)
     }
 
     private fun fitWithRatio(block: LcsRect): LcsRect {
         block.getFittingRect(originalRect.width.asLcs(), originalRect.height.asLcs()).also {
-            return imageBlock.resizeTo(it.width * scaleFactor, it.height * scaleFactor)
+            return imageBlock.resizeTo(it.width * widthScaleFactor, it.height * heightScaleFactor)
         }
     }
 
     private fun fitStatic(): LcsRect {
-        return imageBlock.resizeTo(originalRect.width * scaleFactor, originalRect.height * scaleFactor)
+        return imageBlock.resizeTo(originalRect.width * widthScaleFactor, originalRect.height * heightScaleFactor)
     }
 
     fun updateImageBlock(block: LcsRect): Boolean{

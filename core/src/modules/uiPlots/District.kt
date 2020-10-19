@@ -91,6 +91,7 @@ open class District(var districtId: String) {
 
     fun splitToPlots(id: String, r: Rectangle = FastGeometry.unitSquare(), rows: List<Float> = listOf(1f), cols: List<Float> = listOf(1f), retainOriginal: Boolean = false, z: Int=0): MutableList<Plot> {
         val bigPlot = Plot(id,r,z)
+        println(bigPlot.estate.dataString())
         val smallPlots = bigPlot.gridBiased(id,rows,cols)
         if(retainOriginal) smallPlots.add(0,bigPlot)
         addToPlots(smallPlots)

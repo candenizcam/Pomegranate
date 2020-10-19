@@ -15,7 +15,11 @@ object GetLcsRect {
         val height = hEnd - hStart
         val cX = (wEnd + wStart) / 2f
         val cY = (hEnd + hStart) / 2f
-        return LcsRect(width, height, cX, cY, wStart, wEnd, hStart, hEnd)
+        val wStartIn = GetLcs.byLcs(wStart.asLcs().coerceAtMost(wEnd.asLcs()))
+        val wEndIn = GetLcs.byLcs(wStart.asLcs().coerceAtLeast(wEnd.asLcs()))
+        val hStartIn = GetLcs.byLcs(hStart.asLcs().coerceAtMost(hEnd.asLcs()))
+        val hEndIn = GetLcs.byLcs(hStart.asLcs().coerceAtLeast(hEnd.asLcs()))
+        return LcsRect(width, height, cX, cY, wStartIn, wEndIn, hStartIn, hEndIn)
     }
 
     /** calls a rectangle by parameters
