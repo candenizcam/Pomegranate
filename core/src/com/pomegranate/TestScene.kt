@@ -68,7 +68,6 @@ class TestScene: Scene("testScene",0f) {
 
         mainDistrict.addToPlots(Plot("left",Rectangle(0f,0.25f,0.25f,0.5f),z=20))
 
-        //mainDistrict.findPlot("left").element = PinupImage("trr",cat2)
         mainDistrict.findPlot("left").element = sb
 
         mainDistrict.findPlot("centre").element = pl
