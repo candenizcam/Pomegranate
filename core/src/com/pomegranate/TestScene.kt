@@ -28,6 +28,7 @@ import modules.visuals.subTexture.SubTexture
 class TestScene: Scene("testScene",0f) {
     lateinit var s: MultipleTexture
     lateinit var s2: MultipleTexture
+    var yaBilmiyorumUzgunum = MultiMediaItem("ybü")
 
     init{
         val tv = TestVisuals()
@@ -61,6 +62,7 @@ class TestScene: Scene("testScene",0f) {
         val sb = SetButton("button", GetLcsRect.ofFullScreen())
         val pl = PhysicsLayout("pt",GetLcsRect.ofFullScreen(),10,10)
         pl.addPhysicsSquare("hey",3f,3f,mass=1f,mobility = true)
+        cat2.frameChanger = cat2.FpsFrameChanger(3f)
         pl.findElement("hey").elementPointer = PinupImage("trr",cat2)
         pl.pf.forceFieldY = {x:Float,y: Float,m:Float-> -m*10f}
         pl.pf.collisionElasticity = 1f
@@ -78,15 +80,23 @@ class TestScene: Scene("testScene",0f) {
         s2 = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json"))
         s2.frameChanger = s2.FpsFrameChanger(20f)
         s2.reBlock(GetLcsRect.byBorders(GetLcs.ofZero(),GetLcs.ofWidth(0.5f),GetLcs.ofZero(),GetLcs.ofHeight(1f)))
+        yaBilmiyorumUzgunum.addElement("s1",s)
+        yaBilmiyorumUzgunum.addElement("s2",s2)
+        mainDistrict.addFullPlot("ybu",Rectangle(0.25f,0.75f,0.25f,0.75f)).element = yaBilmiyorumUzgunum
+        yaBilmiyorumUzgunum.setVisibility("s1",false)
+
     }
 
 
     override fun draw(batch: SpriteBatch){
         super.draw(batch)
+        /*
         s.update()
         s2.update()
         s.draw(batch)
         s2.draw(batch)
+
+         */
         //sc.draw(batch)
     }
 

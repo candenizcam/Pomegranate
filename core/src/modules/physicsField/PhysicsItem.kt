@@ -53,6 +53,7 @@ abstract class PhysicsItem(var id: String) {
         }
 
     open fun update() {
+        elementPointer?.update()
 
     }
 

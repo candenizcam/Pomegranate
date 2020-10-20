@@ -23,9 +23,13 @@ open class Scene(val id: String, var zOrder: Float) {
     open fun update(){
         if(visible){
             mainDistrict.update()
+            mainDistrict.touchHandler(true)
+            /*
             mainDistrict.plots.forEach {
                 it.element?.touchHandler(true)
             }
+
+             */
         }
     }
 

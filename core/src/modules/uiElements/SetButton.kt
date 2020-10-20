@@ -93,9 +93,7 @@ class SetButton(id: String) : UiElement(id) {
     }
 
 
-    /** Runs on every update
-     */
-    override fun update() {}
+
 
     /** Called on every draw
      */

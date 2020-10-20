@@ -42,6 +42,7 @@ class PhysicsLayout(id: String, rect: LcsRect=GetLcsRect.ofFullScreen(), r:Int, 
 
     override fun update() {
         pf.update()
+        super.update()
     }
 
     override fun draw(batch: SpriteBatch, alpha: Float) {

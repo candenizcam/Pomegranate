@@ -108,15 +108,28 @@ open class District(var districtId: String) {
     fun draw(batch: SpriteBatch, alpha: Float=1f){
         plots.sortedBy { it.z }.forEach {
             try{
-                it.element?.reBlock( block.getLcsRectFromGeo(it.estate))
+
                 it.element?.draw(batch,alpha)
             } catch(e: NullPointerException){}
         }
 
     }
 
+    fun touchHandler(mayTouch: Boolean): Boolean{
+
+        plots.sortedByDescending { it.z }.forEach {
+            if(it.element?.touchHandler(mayTouch) == true){
+                return true
+            }
+
+        }
+        return false
+    }
+
+
     fun update(){
         plots.forEach {
+            it.element?.reBlock( block.getLcsRectFromGeo(it.estate))
             it.update()
         }
     }

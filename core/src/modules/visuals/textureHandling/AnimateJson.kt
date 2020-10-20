@@ -1,4 +1,4 @@
-package com.pomegranate
+package modules.visuals.textureHandling
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle

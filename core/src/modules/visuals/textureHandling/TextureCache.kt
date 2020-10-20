@@ -1,17 +1,9 @@
 package modules.visuals.textureHandling
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.pomegranate.AnimateJson
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.jsonArray
-import modules.lcsModule.GetLcsRect
 import modules.visuals.subTexture.ScalingType
 import modules.visuals.subTexture.SubTexture
 
@@ -19,7 +11,7 @@ import modules.visuals.subTexture.SubTexture
 object TextureCache {
     private var textureList = mutableMapOf<FileHandle,Texture>()
     private var textureAtlasList = mutableMapOf<FileHandle, TextureAtlas>()
-    private var jsonAtlasList = mutableMapOf<FileHandle,AnimateJson>()
+    private var jsonAtlasList = mutableMapOf<FileHandle, AnimateJson>()
     private var pixmapTextures = mutableListOf<Texture>() //this is for disposing
 
     fun addToPixmapTextures(t: Texture){

@@ -12,14 +12,25 @@ abstract class UiElement(var id: String) {
     }
 
     protected val district = District(id)
+    var penetrable = true
 
     var visible = true //adjusts visibility
 
     var mouseHovering = false //true if mouse is hovering on it in a meaningful way
 
-    abstract fun touchHandler(mayTouch: Boolean = true): Boolean
+    /** For a non intractable object penetration i
+     */
+    open fun touchHandler(mayTouch: Boolean = true): Boolean{
+        return if(penetrable){
+            return hovering()&&mayTouch
+        }else{
+            false
+        }
+    }
 
-    abstract fun update()
+    open fun update(){
+        district.update()
+    }
 
     abstract fun draw(batch: SpriteBatch, alpha: Float=1f)
 

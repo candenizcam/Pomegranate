@@ -64,6 +64,7 @@ class Cursor(private var image: OmniVisual) : UiElement("Cursor") {
 
 
     override fun update() {
+        super.update()
         touchHandler()
     }
 
