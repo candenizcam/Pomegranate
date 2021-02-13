@@ -1,40 +1,39 @@
-package modules.scenes
+package com.pungo.modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import modules.lcsModule.GetLcsRect
-import modules.uiElements.UiElement
-import modules.uiPlots.District
+import modules.application.PuniversalValues
+import modules.uiPlots.SceneDistrict
 
 /** Scenes are used to arrange and use districts
  *
  */
-open class Scene(val id: String, var zOrder: Float) {
+open class Scene(val id: String, var zOrder: Float,
+                 intendedWidth: Float=PuniversalValues.punWidth,
+                 intendedHeight: Float = PuniversalValues.punHeight,
+                 sceneScaling: SceneDistrict.ResizeReaction = SceneDistrict.ResizeReaction.STRETCH) {
     var visible = true
-    var mainDistrict = District("${id}_district")
+    var mainDistrict = SceneDistrict("${id}_district", intendedWidth,intendedHeight,sceneScaling)
         private set
 
-    open fun draw(batch: SpriteBatch){
-        if(visible){
+    open fun entering() {
+
+    }
+
+    open fun draw(batch: SpriteBatch) {
+        if (visible) {
             mainDistrict.draw(batch)
         }
 
     }
 
-    open fun update(){
-        if(visible){
+    open fun update() {
+        if (visible) {
             mainDistrict.update()
-            mainDistrict.touchHandler(true)
-            /*
-            mainDistrict.plots.forEach {
-                it.element?.touchHandler(true)
-            }
-
-             */
         }
     }
 
 
-    open fun dispose(){
+    open fun dispose() {
         mainDistrict.dispose()
     }
 

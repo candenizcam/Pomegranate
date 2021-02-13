@@ -1,104 +1,185 @@
 package com.pomegranate
 
-
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Texture
-import com.badlogic.gdx.graphics.g2d.Sprite
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.engine.physicsField.PhysicsLayout
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonElement
-import modules.basic.geometry.Rectangle
-import modules.lcsModule.GetLcs
-import modules.lcsModule.GetLcsRect
-import modules.scenes.Scene
-import modules.uiElements.*
-import modules.uiPlots.Plot
-import modules.visuals.textureHandling.MultipleTexture
-import modules.visuals.textureHandling.SingleTexture
-import modules.visuals.textureHandling.TextureCache
-import modules.visuals.PixmapGenerator
-import modules.visuals.fromTiles.TileMapOpener
-import modules.visuals.subTexture.ScalingType
-import modules.visuals.subTexture.SubTexture
+import com.pungo.modules.basic.geometry.Rectangle
+import com.pungo.modules.scenes.Scene
+
+import modules.basic.Colours
+
+import modules.simpleUi.Displayer
+import modules.simpleUi.PunGlyph
+import modules.simpleUi.TextBox
+import modules.uiPlots.SceneDistrict
 
 
-class TestScene: Scene("testScene",0f) {
-    lateinit var s: MultipleTexture
-    lateinit var s2: MultipleTexture
-    var yaBilmiyorumUzgunum = MultiMediaItem("ybü")
-
-    init{
-        val tv = TestVisuals()
-        //mainDistrict.addToPlots( Plot("id1",Rectangle(0.25f,0.75f,0.4f,0.8f),10,element = PinupImage("id1",tv.ta)))
-        //mainDistrict.addToPlots( Plot("id2",Rectangle(0.65f,1.05f,0.4f,0.8f),10,element = PinupImage("id2",tv.ta2)))
-        //mainDistrict.addToPlots( Plot("id3",Rectangle(-0.05f,0.45f,0.4f,0.8f), element = PinupImage("id3",tv.ta3)))
-        val cat1 = TextureCache.atlasOpener(Gdx.files.internal("placeholderAtlas/cats.atlas"))
-        cat1.setScalingType(ScalingType.FIT_WITH_RATIO)
-        cat1.frameChanger = cat1.FpsFrameChanger(2f)
-
-        val cat2 = TextureCache.atlasOpener(Gdx.files.internal("placeholderAtlas/cats.atlas"),"still")
-        cat2.setScalingType(ScalingType.FIT_WITH_RATIO)
-        cat2.frameChanger = cat2.FpsFrameChanger(1f)
-        //TextureCache.jsonOpener()
-
-        val name = "test"
-        val trr = TileMapOpener.openTileRenderer( Gdx.files.internal("maps/$name/tiles.assets"),Gdx.files.internal("tiles/tiles.atlas"),"")
-        trr.visualSizeData = trr.visualSizeData.copy(scalingType = ScalingType.FIT_WITH_RATIO)
-        mainDistrict.addToPlots(Plot("centre",Rectangle(0.25f,0.75f,0.15f,0.85f),z=20))
-        //val tr = SingleTexture(Gdx.files.internal("badlogic.jpg"))
-        val tr = SingleTexture(PixmapGenerator.circle(c = Color.ROYAL))
-        //tr.subTexture.visualSizeData = tr.subTexture.visualSizeData.copy(clipRectangle = Rectangle(0.25f,0.75f,0.25f,0.75f))
-        tr.setClippingRect(Rectangle(0.25f,0.75f,0.25f,0.75f))
-        val tr2 = SingleTexture(Gdx.files.internal("placeholder.png"))
-        val m = MultipleTexture()
-        m.addToSubTextures(tr2)
-        m.addToSubTextures(tr)
-        //m.changeActiveSubTextureFunc = {a: Int -> listOf(0,1).random()}
-        tr.recolour(Color.PURPLE)
-        //m.changeActiveSprite(1)
-        val sb = SetButton("button", GetLcsRect.ofFullScreen())
-        val pl = PhysicsLayout("pt",GetLcsRect.ofFullScreen(),10,10)
-        pl.addPhysicsSquare("hey",3f,3f,mass=1f,mobility = true)
-        cat2.frameChanger = cat2.FpsFrameChanger(3f)
-        pl.findElement("hey").elementPointer = PinupImage("trr",cat2)
-        pl.pf.forceFieldY = {x:Float,y: Float,m:Float-> -m*10f}
-        pl.pf.collisionElasticity = 1f
+class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReaction.RATED) {
+    init {
 
 
-        mainDistrict.addToPlots(Plot("left",Rectangle(0f,0.25f,0.25f,0.5f),z=20))
 
-        mainDistrict.findPlot("left").element = sb
+        mainDistrict.addFullPlot("bg",Rectangle(-0.5f,-0.1f,0f,1f)).also {
+            it.element = Displayer(Gdx.files.internal("badlogic.jpg")).also {
+                it.imageCollection.yieldImage().also {it2->
+                    it2!!.u=0f
+                    it2!!.u2=1f
+                    it2!!.v=0f
+                    it2!!.v2=1f
 
-        mainDistrict.findPlot("centre").element = pl
-        s = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json")) { it:String-> it.contains("1")||it.contains("2") }
-        s.frameChanger = s.FpsFrameChanger(10f)
-        s.reBlock(GetLcsRect.byBorders(GetLcs.ofWidth(0.5f),GetLcs.ofWidth(1f),GetLcs.ofZero(),GetLcs.ofHeight(1f)))
-
-        s2 = TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json"))
-        s2.frameChanger = s2.FpsFrameChanger(20f)
-        s2.reBlock(GetLcsRect.byBorders(GetLcs.ofZero(),GetLcs.ofWidth(0.5f),GetLcs.ofZero(),GetLcs.ofHeight(1f)))
-        yaBilmiyorumUzgunum.addElement("s1",s)
-        yaBilmiyorumUzgunum.addElement("s2",s2)
-        mainDistrict.addFullPlot("ybu",Rectangle(0.25f,0.75f,0.25f,0.75f)).element = yaBilmiyorumUzgunum
-        yaBilmiyorumUzgunum.setVisibility("s1",false)
-
-    }
+                }
+            }
+        }
 
 
-    override fun draw(batch: SpriteBatch){
-        super.draw(batch)
+        var l = 0.15f
+        var r = 0.65f
+        var lr = l*0.5f + r*0.5f
+        var b = 0.05f
+        var t = 0.55f
+        var bt = b*0.5f + t*0.5f
+        mainDistrict.addFullPlot("b2g1",Rectangle(l,lr,b,bt)).also {
+            it.element = Displayer(Color.CHARTREUSE)
+        }
+        mainDistrict.addFullPlot("b2g2",Rectangle(lr,r,b,bt)).also {
+            it.element = Displayer(Color.GOLD)
+        }
+        mainDistrict.addFullPlot("b2g3",Rectangle(l,lr,bt,t)).also {
+            it.element = Displayer(Color.CORAL)
+        }
+        mainDistrict.addFullPlot("b2g4",Rectangle(lr,r,bt,t)).also {
+            it.element = Displayer(Color.BLUE)
+        }
+
+        mainDistrict.addFullPlot("b22g",Rectangle(l,r,b,t)).also {
+            it.element = TextBox("  Pungine is the best engine in the world, Pungine is the best engine in the world, Pungine is the best engine in the world",alignment = PunGlyph.TextAlignment.TOP_LEFT,maxPunto = 16)
+        }
+
+        mainDistrict.addFullPlot("b223g",Rectangle(l,r,b,t)).also {
+            it.element = TextBox("  Pungine is the best engine in the world, Pungine is the best engine in the world, Pungine is the best engine in the world",alignment = PunGlyph.TextAlignment.LEFT,16).also {
+                it.colour = Color.RED
+
+            }
+        }
+
+        mainDistrict.addFullPlot("b224g",Rectangle(l,r,b,t)).also {
+            it.element = TextBox("  Pungine is the best engine in the world, Pungine is the best engine in the world, Pungine is the best engine in the world",alignment = PunGlyph.TextAlignment.BOTTOM_LEFT,16)
+        }
         /*
-        s.update()
-        s2.update()
-        s.draw(batch)
-        s2.draw(batch)
+
+        mainDistrict.addFullPlot("bg2", Rectangle(0f,0.5f,0f,1f)).also {
+            it.element = SetButton("cb",FastGenerator.colouredBox("cb1",Colours.byRGBA256(100,100,100)),FastGenerator.colouredBox("cb2",Colours.byRGBA256(50,50,50)))
+        }
 
          */
-        //sc.draw(batch)
+
+
+        /*
+        mainDistrict.addFullPlot("otherbg", Rectangle(0f,0.5f,0f,1f)).also {
+            val d = Displayer(ImageCollection(TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json")))).also {
+                it.imageCollection.frameChanger = it.imageCollection.FpsFrameChanger(15f)
+            }
+            it.element = d
+        }
+
+        mainDistrict.addFullPlot("bg",Rectangle(0.5f,1f,0f,1f)).also {
+            //it.element = FastGenerator.colouredBox("hey",Colours.byRGBA256(200,200,200))
+            //it.element = Displayer(Gdx.files.internal("badlogic.jpg"))
+            //it.element = Displayer(Colours.byRGBA256(200,100,100))
+
+            val d = Displayer(ImageCollection(TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json")))).also {
+                it.imageCollection.frameChanger = it.imageCollection.FpsFrameChanger(25f)
+            }
+            val d2 = d.copy().also {
+                it.imageCollection.recolour(Colours.byRGB(0.5f,0.5f,0.5f))
+            }
+            //it.element = d
+
+            it.element = SetButton(d,d2).also {it2->
+                it2.clicked = {
+                    if((d.imageCollection.frameChanger as ImageCollection.FpsFrameChanger).active){
+                        d.imageCollection.frameChanger.deactivate()
+                        d2.imageCollection.frameChanger.deactivate()
+                    }else{
+                        d.imageCollection.frameChanger.start()
+                        d2.imageCollection.frameChanger.start()
+                    }
+
+                }
+                //it.setHovering(Displayer(Colours.byRGBA256(250,125,125)))
+                //it.inactive = true
+            }
+
+         */
+
+
+
+
+            /*
+            it.element = Displayer(ImageCollection(TextureCache.jsonOpener(Gdx.files.internal("pidgeon/pigeon_poop_export.json")))).also {
+                it.imageCollection.frameChanger = it.imageCollection.FpsFrameChanger(25f)
+            }
+
+             */
+
+
+        //mainDistrict.block = mainDistrict.block.getFittingRect(1f,1f)
+    }
+    //val frame = SceneScaling.RATIO
+    //val st = (FastGenerator.colouredBox("cb", Colours.byRGBA256(25,125,15)).image as SingleTexture).subTexture.also {
+    //    it.setSize(PuniversalValues.appWidth*0.5f,PuniversalValues.appHeight*0.5f)
+    //}
+    //val st = SubTexture2(Texture(Gdx.files.internal("badlogic.jpg"))).also {
+    //    it.setFlip(false,true)
+   // }
+
+    override fun update() {
+        /*
+        when(sceneScaling){
+            SceneScaling.RATIO ->{
+                mainDistrict.block =GetLcsRect.byParameters(
+                    GetLcs.byPixel(PuniversalValues.ratedWidth),
+                    GetLcs.byPixel(PuniversalValues.ratedHeight),
+                    GetLcs.byPixel(PuniversalValues.appCentre.x),
+                    GetLcs.byPixel(PuniversalValues.appCentre.y)
+                )
+            }
+        }
+
+         */
+
+        /*
+        mainDistrict.block = GetLcsRect.byParameters(
+            w = GetLcs.byPixel(SceneScaling.RATIO.scaledWidth()),
+            h = GetLcs.byPixel(SceneScaling.RATIO.scaledHeight()),
+            //w = GetLcs.byPixel(Gdx.graphics.width*0.5f),
+            //h = GetLcs.byPixel(Gdx.graphics.height*0.5f),
+            cX = GetLcs.byPixel(Gdx.graphics.width/2),
+            cY = GetLcs.byPixel(Gdx.graphics.height/2)
+        )
+
+         */
+
+
+        //st.setCenter()
+        super.update()
+
     }
 
+    override fun draw(batch: SpriteBatch) {
+        super.draw(batch)
+        //tr.reBlock()
+        //st.setCenter(PuniversalValues.appWidth/2f,PuniversalValues.appHeight/2f)
+        //st.setSize(PuniversalValues.appWidth*0.5f,PuniversalValues.appHeight*0.5f)
+
+        //val appWidth = PuniversalValues.appWidth
+        //val appHeight = PuniversalValues.appHeight
+        //st.draw(batch,1f, block = PunRect(
+        //    PunVariable(PunVariable.As.PuniversalWidth),PunVariable(PunVariable.As.PuniversalHeight),
+        //    Quips.cursor
+        //),SceneScaling.RATIO
+        //)
+    }
 
 }
+

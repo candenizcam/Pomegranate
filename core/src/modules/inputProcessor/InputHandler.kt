@@ -1,18 +1,18 @@
-package modules.inputProcessor
+package com.pungo.modules.inputProcessor
 
 object InputHandler {
     var typeCache = ""
-    var backspacePressed = false
+    private var backspacePressed = false
     var deletePressed = false
-    fun getTypeCache(erase: Boolean = true):String{
+    fun getTypeCache(erase: Boolean = true): String {
         return typeCache.also {
-            if(erase) typeCache = ""
+            if (erase) typeCache = ""
         }
     }
 
-    fun listenBackspace(erase: Boolean): Boolean{
+    fun listenBackspace(erase: Boolean): Boolean {
         return backspacePressed.also {
-            if(erase) backspacePressed = false
+            if (erase) backspacePressed = false
         }
     }
 

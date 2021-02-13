@@ -1,17 +1,17 @@
-package modules.scenes
+package com.pungo.modules.scenes
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.modules.visuals.FontGenerator
-import modules.visuals.textureHandling.TextureCache
-import modules.visuals.fromTiles.TileMapOpener
+import modules.visuals.FontGenerator
+import modules.visuals.TextureCache
 
 object LayerManager {
     val layers = mutableListOf<Scene>()
     val scenesToAdd = mutableListOf<Pair<Scene, Boolean>>()
+    val scenesToRemove = mutableListOf<Scene>()
 
     fun add(scene: Scene, visible: Boolean) {
         if (layers.any { it.id == scene.id }) {
-            throw Exception("A scene with that id already exists")
+            throw Exception("A scene with this id already exists: " + scene.id)
         } else {
             scene.visible = visible
             layers.add(scene)
@@ -22,7 +22,7 @@ object LayerManager {
         val found = layers.filter { it.id == id }
         when {
             found.isEmpty() -> {
-                throw Exception("No scene with that name")
+                throw SceneNotFoundException("No scene with that name")
             }
             found.size == 1 -> {
                 return found[0]
@@ -36,22 +36,27 @@ object LayerManager {
     fun update() {
         layers.sortWith(compareBy({ it.visible }, { it.zOrder }))
         layers.forEach { it.update() }
+
+        scenesToRemove.forEach {
+            layers.remove(it)
+        }
         scenesToAdd.forEach {
             add(it.first, it.second)
+            it.first.entering()
         }
         scenesToAdd.clear()
+        scenesToRemove.clear()
     }
 
     fun draw(batch: SpriteBatch) {
         layers.forEach { if (it.visible) it.draw(batch) }
     }
 
-    fun dispose(){
+    fun dispose() {
         layers.forEach {
             it.dispose()
         }
         FontGenerator.dispose()
         TextureCache.dispose()
-        TileMapOpener.dispose()
     }
 }
