@@ -1,43 +1,27 @@
 package modules.uiPlots
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
-import com.pungo.modules.uiPlots.District
-import com.pungo.modules.uiPlots.Plot
+import com.pungo.modules.uiPlots.UrbanPlanning
 import modules.application.PuniversalValues
 
-class SceneDistrict(id: String, private var w: Float, private var h: Float, var resizeReaction: ResizeReaction = ResizeReaction.STRETCH): District(id) {
-
-    override fun draw(batch: SpriteBatch, alpha: Float, faceOther: Boolean) {
-
+class SceneDistrict(id: String, private var w: Float, private var h: Float, var resizeReaction: ResizeReaction = ResizeReaction.STRETCH): UrbanPlanning() {
+    override fun draw(batch: SpriteBatch, alpha: Float) {
         plots.sortedBy { it.z }.forEach {
             if(it.visible){
-                val rec2go = getPlayingField().getSubRectangle(it.estate)
-                val pf = getPlayingField()
-
-                if(rec2go.overlaps(getPlayingField())){
-                    val u1 = (pf.left-rec2go.left).coerceAtLeast(0f)/rec2go.width
-                    val u2 = 1 + (pf.right-rec2go.right).coerceAtMost(0f)/rec2go.width
-                    val v1 = - (pf.top-rec2go.top).coerceAtMost(0f)/rec2go.height
-                    val v2 = 1 - (pf.bottom-rec2go.bottom).coerceAtLeast(0f)/rec2go.height
-                    val rec3go = Rectangle(rec2go.left.coerceAtLeast(pf.left),rec2go.right.coerceAtMost(pf.right),rec2go.bottom.coerceAtLeast(pf.bottom),rec2go.top.coerceAtMost(pf.top))
-                    it.element?.draw(batch,rec3go,w*rec2go.width/pf.width,h*rec2go.height/pf.height,u1,u2,v1,v2)
+                val dr = DrawingRectangle(getPlayingField(),w,h,it.estate)
+                if(dr.toBeDrawn()){
+                    it.element?.draw(batch,dr)
                 }
-
             }
         }
-
-
-        //super.draw(batch, alpha, faceOther)
     }
 
     override fun update() {
-        // following handles clicks
-        var holder = false
+        var holder = false // following handles clicks
         for (i in plots.sortedBy { it.z }.reversed()){ // in reverse z order
-            if(holder||i.inactive){ //if touch was consumed or i is inactive
+            if(holder||i.inactive|| !getPlayingField().contains(PuniversalValues.cursorPoint)){ //if touch was consumed or i is inactive
                 i.hovering = false // hovering is false
             }else{ // hover is checked
                 val h = getPlayingField().getSubRectangle(i.estate).contains(PuniversalValues.cursorPoint)
@@ -46,8 +30,20 @@ class SceneDistrict(id: String, private var w: Float, private var h: Float, var 
             }
         }
 
-        super.update()
+        plots.forEach {
+            it.update()
+        }
     }
+
+
+    /** This function returns the normalized version of a point in pun coordinates
+     */
+    fun getPunRatedPointOnPlot(id: String, p: Point): Point {
+        return Rectangle(0f,w,0f,h).getSubRectangle( findPlot(id).estate).getNormalPoint(p)
+        //return getPlayingField().getSubRectangle( findPlot(id).estate).getNormalPoint(p)
+    }
+
+
 
 
     private fun getPlayingField(): Rectangle {

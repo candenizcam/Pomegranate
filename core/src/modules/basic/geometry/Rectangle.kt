@@ -46,6 +46,13 @@ class Rectangle : ConvexPolygon {
         return Rectangle(l, r, b, t)
     }
 
+    /** Takes a point and returns the normalized version of this point
+     * normalized means x and y are in 0..1
+     */
+    fun getNormalPoint(p: Point): Point {
+        return Point((p.x - left)/width,(p.y-bottom)/height)
+    }
+
     /** This function takes itself as unit rectangle and input as ratios for it, and returns the adjusted rectangle
      * ex: this = (left: 0,bottom: 0,right: 2,top: 1), other = (0.25,0.25,0.75,0.75) ->  (0.5,0.25,1.5,0.75)
      */
@@ -60,11 +67,12 @@ class Rectangle : ConvexPolygon {
 
     /** This function returns true if this and the other overlaps
      */
-    fun overlaps(other: Rectangle): Boolean {
-        val c1 = this.right<other.left
-        val c2 = this.left>other.right
-        val c3 = this.bottom>other.top
-        val c4 = this.top<other.bottom
+    fun overlaps(other: Rectangle, touching: Boolean = false): Boolean {
+        val comparer = {v1: Float, v2: Float-> if(touching) v1<v2 else v1<=v2}
+        val c1 = comparer(this.right,other.left)
+        val c2 = comparer(other.right,this.left)
+        val c3 = comparer(other.top,this.bottom)
+        val c4 = comparer(this.top,other.bottom)
         return !(c1||c2||c3||c4)
     }
 

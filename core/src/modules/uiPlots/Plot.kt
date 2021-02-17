@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx
 import com.pungo.modules.basic.geometry.FastGeometry
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.simpleUi.Building
+import modules.simpleUi.Campus
 
-open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(), var z: Int = 0, var element: Building? = null) {
+open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(), var z: Int = 0, element: Building? = null) {
     var visible = true
         set(value) {
             field = value
@@ -17,6 +18,13 @@ open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(
     var hovering = false
     var inactive = false //handled on district level
     var touchStopper = true // if false things behind this can be touched
+    var element: Building? = element
+    set(value) {
+        field = value
+        if(value is Campus){
+            value.estatePointer = estate
+        }
+    }
 
 
 
@@ -62,18 +70,6 @@ open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(
 
         }
         return returning
-
-
-    }
-
-    /** Just in case
-     */
-    fun dispose() {
-        try {
-            //element!!.dispose()
-        } catch (e: Exception) {
-            println("error at disposing")
-        }
 
 
     }

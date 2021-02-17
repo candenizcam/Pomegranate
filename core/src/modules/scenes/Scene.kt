@@ -34,7 +34,7 @@ open class Scene(val id: String, var zOrder: Float,
 
 
     open fun dispose() {
-        mainDistrict.dispose()
+
     }
 
     open fun mouseMoved(screenX: Int, screenY: Int) {

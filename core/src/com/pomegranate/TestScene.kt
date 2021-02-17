@@ -4,12 +4,14 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
+import com.pungo.modules.physicsField.PhysicsLayout
 import com.pungo.modules.scenes.Scene
 
 import modules.basic.Colours
 
 import modules.simpleUi.Displayer
 import modules.simpleUi.PunGlyph
+import modules.simpleUi.SetButton
 import modules.simpleUi.TextBox
 import modules.uiPlots.SceneDistrict
 
@@ -19,8 +21,8 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
 
 
 
-        mainDistrict.addFullPlot("bg",Rectangle(-0.5f,-0.1f,0f,1f)).also {
-            it.element = Displayer(Gdx.files.internal("badlogic.jpg")).also {
+        mainDistrict.addFullPlot("bg",Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also {
+            it.element = SetButton(Displayer(Gdx.files.internal("badlogic.jpg")).also {
                 it.imageCollection.yieldImage().also {it2->
                     it2!!.u=0f
                     it2!!.u2=1f
@@ -28,10 +30,28 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
                     it2!!.v2=1f
 
                 }
+            })
+        }
+
+
+        //mainDistrict.addFullPlot("bg2",Rectangle(0f,1f,0f,1f)).also{
+        //    it.element = Displayer(Color.BLACK)
+        //}
+
+        mainDistrict.addFullPlot("pl", Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also{
+            it.touchStopper = false
+            it.element = PhysicsLayout("pll",10,10).also {
+                it.pf.collisionElasticity = 1f
+                it.addPhysicsSquare("s1",4f,3.1f,vX = 2f,vY = 2.1f,mobility = true).also {
+                    it.elementPointer = SetButton(Displayer(Color.CORAL))
+                }
             }
         }
 
 
+
+
+        /*
         var l = 0.15f
         var r = 0.65f
         var lr = l*0.5f + r*0.5f
@@ -70,6 +90,8 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         mainDistrict.addFullPlot("bg2", Rectangle(0f,0.5f,0f,1f)).also {
             it.element = SetButton("cb",FastGenerator.colouredBox("cb1",Colours.byRGBA256(100,100,100)),FastGenerator.colouredBox("cb2",Colours.byRGBA256(50,50,50)))
         }
+
+         */
 
          */
 

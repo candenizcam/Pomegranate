@@ -9,7 +9,7 @@ import com.pungo.modules.uiPlots.Plot
  * It exists
  *
  */
-abstract class DistrictSplits {
+interface PlotSplitting {
     open fun addFullPlot(id: String, r: Rectangle = FastGeometry.unitSquare(), z: Int = 0, takeOriginAs: Origin = Origin.BOTTOMLEFT): Plot {
         Plot(id, r.switchOrigin(Origin.BOTTOMLEFT, takeOriginAs), z).also {
             addToPlots(it)

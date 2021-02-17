@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
 import com.pungo.modules.visuals.PixmapGenerator
+import modules.uiPlots.DrawingRectangle
 import modules.visuals.TextureCache
 
 
@@ -40,16 +41,19 @@ class Displayer: Building {
         imageCollection.update()
     }
 
-    override fun draw(batch: SpriteBatch, rectangle: Rectangle, baseWidth: Float, baseHeight: Float, u1: Float, u2: Float, v1: Float, v2: Float) {
+
+
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
         imageCollection.yieldImage()?.also {
-            it.setRectangle(rectangle)
-            it.u = u1
-            it.u2 = u2
-            it.v = v1
-            it.v2 = v2
+            it.setRectangle(drawingRectangle.croppedSegment)
+            it.u = drawingRectangle.u1
+            it.u2 = drawingRectangle.u2
+            it.v = drawingRectangle.v1
+            it.v2 = drawingRectangle.v2
             it.draw(batch)
         }
     }
+
 
     override fun hoverFunction(hovering: Boolean) {
 

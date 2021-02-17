@@ -3,6 +3,7 @@ package modules.simpleUi
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
+import modules.uiPlots.DrawingRectangle
 import modules.visuals.FontGenerator
 
 class TextBox: Building {
@@ -49,13 +50,14 @@ class TextBox: Building {
         //TODO("Not yet implemented")
     }
 
-    override fun draw(batch: SpriteBatch, rectangle: Rectangle,baseWidth:Float, baseHeight: Float, u1: Float, u2: Float, v1: Float, v2: Float, ) {
-        if((glyph.targetHeight(baseWidth)>baseHeight)||(widthRecord!=baseWidth)){
-            widthRecord = baseWidth
-            updateGlyph(baseWidth,baseHeight)
+
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+        if((glyph.targetHeight(drawingRectangle.baseWidth)>drawingRectangle.baseHeight)||(widthRecord!=drawingRectangle.baseWidth)){
+            widthRecord = drawingRectangle.baseWidth
+            updateGlyph(drawingRectangle.baseWidth,drawingRectangle.baseHeight)
         }
         glyph.font.color = colour
-        glyph.draw(batch,rectangle, baseWidth)
+        glyph.draw(batch,drawingRectangle.croppedSegment, drawingRectangle.baseWidth)
     }
 
     override fun hoverFunction(hovering: Boolean) {

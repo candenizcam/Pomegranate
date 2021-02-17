@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.FastGeometry
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.basic.Colours
+import modules.uiPlots.DrawingRectangle
 
 class SetButton: Building {
     constructor(upDisplayer: Displayer, downDisplayer: Displayer?=null, upRectangle: Rectangle=FastGeometry.unitSquare(), downRectangle: Rectangle=FastGeometry.unitSquare()){
@@ -52,12 +53,17 @@ class SetButton: Building {
         buttonVisuals.forEach { it.visual.update() }
     }
 
-    override fun draw(batch: SpriteBatch, rectangle: Rectangle, baseWidth: Float, baseHeight: Float,u1: Float, u2: Float, v1: Float, v2: Float) {
+
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
         var av = buttonVisuals.filter { it.id==activeVisual }
         if(av.isEmpty()){
             av =  buttonVisuals.filter { it.id == ButtonId.UP }
         }
-        av[0].visual.draw(batch,rectangle.getSubRectangle(av[0].rectangle),baseWidth,baseHeight,u1,u2,v1,v2)
+        val dr = drawingRectangle.ratedCopy(av[0].rectangle)
+        if(dr.toBeDrawn()){
+            av[0].visual.draw(batch, dr)
+        }
+
     }
 
     override fun hoverFunction(hovering: Boolean) {
