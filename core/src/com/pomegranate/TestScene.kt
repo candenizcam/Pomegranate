@@ -43,7 +43,7 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
             it.element = PhysicsLayout("pll",10,10).also {
                 it.pf.collisionElasticity = 1f
                 it.addPhysicsSquare("s1",4f,3.1f,vX = 2f,vY = 2.1f,mobility = true).also {
-                    it.elementPointer = SetButton(Displayer(Color.CORAL))
+                    it.elementPointer = Displayer(Gdx.files.internal("badlogic.jpg"))
                 }
             }
         }
