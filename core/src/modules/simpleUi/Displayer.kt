@@ -10,7 +10,7 @@ import modules.uiPlots.DrawingRectangle
 import modules.visuals.TextureCache
 
 
-class Displayer: Building {
+class Displayer: DisplayBuilding {
     constructor(imageCollection: ImageCollection){
         this.imageCollection = imageCollection
     }
@@ -37,6 +37,19 @@ class Displayer: Building {
 
     var imageCollection = ImageCollection()
 
+
+    override fun getColour(): Color {
+        return imageCollection.getColour()
+    }
+
+    override fun recolour(c: Color) {
+        imageCollection.recolour(c)
+    }
+
+    fun recolour(c: Color, index: Int){
+        imageCollection.recolour(c,index)
+    }
+
     override fun update() {
         imageCollection.update()
     }
@@ -60,7 +73,7 @@ class Displayer: Building {
     }
 
 
-    fun copy(): Displayer {
+    override fun copy(): DisplayBuilding {
         return Displayer(imageCollection.copy())
     }
 }

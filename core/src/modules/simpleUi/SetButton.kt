@@ -8,25 +8,38 @@ import modules.basic.Colours
 import modules.uiPlots.DrawingRectangle
 
 class SetButton: Building {
-    constructor(upDisplayer: Displayer, downDisplayer: Displayer?=null, upRectangle: Rectangle=FastGeometry.unitSquare(), downRectangle: Rectangle=FastGeometry.unitSquare()){
+    constructor(upDisplayer: DisplayBuilding, downDisplayer: DisplayBuilding?=null, upRectangle: Rectangle=FastGeometry.unitSquare(), downRectangle: Rectangle=FastGeometry.unitSquare()){
         buttonVisuals.add(ButtonVisuals(ButtonId.UP,upDisplayer,upRectangle))
         buttonVisuals.add(ButtonVisuals(ButtonId.DOWN,downDisplayer?:upDisplayer.copy().also {
-            val c = upDisplayer.imageCollection.getColour()
-            it.imageCollection.recolour(Colours.byRGB(c.r*0.5f,c.g*0.5f,c.b*0.5f))
+            val c = upDisplayer.getColour()
+            it.recolour(Colours.byRGB(c.r*0.5f,c.g*0.5f,c.b*0.5f))
+            if(it is ColouredTextBox){
+                val baseColour = it.getBgColour()
+                it.bgRecolour(Colours.byRGB(baseColour.r*0.5f,baseColour.g*0.5f,baseColour.b*0.5f))
+            }
                                                                                              },downRectangle))
+
     }
 
     constructor(visual: Displayer,  offRatio: Float, inactiveRatio: Float?=null, hoverRatio: Float?=null,rectangle: Rectangle=FastGeometry.unitSquare()){
-        val baseColour = visual.imageCollection.getColour()
+        val baseColour = visual.getColour()
         buttonVisuals.add(ButtonVisuals(ButtonId.UP,visual,rectangle))
-        buttonVisuals.add(ButtonVisuals(ButtonId.DOWN,visual.copy().also { it.imageCollection.recolour(Colours.byRGB(baseColour.r*offRatio,baseColour.g*offRatio,baseColour.b*offRatio)) },rectangle))
+        val offVisual = visual.copy().also {
+            it.recolour(Colours.byRGB(baseColour.r*offRatio,baseColour.g*offRatio,baseColour.b*offRatio))
+            if(it is ColouredTextBox){
+                val baseColour = it.getBgColour()
+                it.bgRecolour(Colours.byRGB(baseColour.r*offRatio,baseColour.g*offRatio,baseColour.b*offRatio))
+            }
+        }
+        buttonVisuals.add(ButtonVisuals(ButtonId.DOWN,offVisual,rectangle))
+
         if(inactiveRatio!=null){
             val inactiveColour = Colours.byRGB(baseColour.r*inactiveRatio,baseColour.g*inactiveRatio,baseColour.b*inactiveRatio)
-            buttonVisuals.add(ButtonVisuals(ButtonId.INACTIVE,visual.copy().also { it.imageCollection.recolour(inactiveColour) },rectangle))
+            buttonVisuals.add(ButtonVisuals(ButtonId.INACTIVE,visual.copy().also { it.recolour(inactiveColour) },rectangle))
         }
         if(hoverRatio!=null){
             val hoverColour = Colours.byRGB(baseColour.r*hoverRatio,baseColour.g*hoverRatio,baseColour.b*hoverRatio)
-            buttonVisuals.add(ButtonVisuals(ButtonId.HOVER,visual.copy().also { it.imageCollection.recolour(hoverColour) },rectangle))
+            buttonVisuals.add(ButtonVisuals(ButtonId.HOVER,visual.copy().also { it.recolour(hoverColour) },rectangle))
         }
     }
 
@@ -89,7 +102,7 @@ class SetButton: Building {
         }
     }
 
-    data class ButtonVisuals(var id: ButtonId, var visual: Displayer, var rectangle: Rectangle)
+    data class ButtonVisuals(var id: ButtonId, var visual: DisplayBuilding, var rectangle: Rectangle)
 
     enum class ButtonId{
         UP,

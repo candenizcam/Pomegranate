@@ -6,7 +6,7 @@ import com.pungo.modules.basic.geometry.Rectangle
 import modules.uiPlots.DrawingRectangle
 import modules.visuals.FontGenerator
 
-open class TextBox: Building {
+open class TextBox: DisplayBuilding {
     constructor(text: String, fontPath: String, alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, colour: Color = Color.WHITE){
         this.minPunto = minPunto?:this.minPunto
         this.maxPunto = maxPunto?:this.maxPunto
@@ -14,6 +14,7 @@ open class TextBox: Building {
         glyph.textAlignment = alignment
         this.text = text
         this.colour = colour
+        this.fontPath = fontPath
     }
 
 
@@ -24,11 +25,16 @@ open class TextBox: Building {
             glyph.setText(glyph.font, text)
         }
     var glyph: PunGlyph
-    private var activePunto = FontGenerator.frequentPuntoList.last()
-    private var minPunto = FontGenerator.frequentPuntoList.first()
-    private var maxPunto = FontGenerator.frequentPuntoList.last()
+    var fontPath: String
+    protected var activePunto = FontGenerator.frequentPuntoList.last()
+    protected  var minPunto = FontGenerator.frequentPuntoList.first()
+    protected  var maxPunto = FontGenerator.frequentPuntoList.last()
     private var widthRecord = 0f
-    var colour: Color
+    private var colour: Color
+    override fun getColour(): Color {
+        return colour
+    }
+
 
     fun setPuntoRange(min: Int, max: Int){
         minPunto = min
@@ -43,6 +49,18 @@ open class TextBox: Building {
                 break
             }
         }
+    }
+
+    //override fun getColour(): Color {
+    //    TODO("Not yet implemented")
+    //}
+
+    override fun recolour(c: Color) {
+        colour = c
+    }
+
+    override fun copy(): DisplayBuilding {
+        return TextBox(text, fontPath,glyph.textAlignment,maxPunto, minPunto, colour)
     }
 
     override fun update() {

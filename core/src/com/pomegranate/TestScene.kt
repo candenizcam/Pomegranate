@@ -8,11 +8,8 @@ import com.pungo.modules.physicsField.PhysicsLayout
 import com.pungo.modules.scenes.Scene
 
 import modules.basic.Colours
+import modules.simpleUi.*
 
-import modules.simpleUi.Displayer
-import modules.simpleUi.PunGlyph
-import modules.simpleUi.SetButton
-import modules.simpleUi.TextBox
 import modules.uiPlots.SceneDistrict
 
 
@@ -22,15 +19,7 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
 
 
         mainDistrict.addFullPlot("bg",Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also {
-            it.element = SetButton(Displayer(Gdx.files.internal("badlogic.jpg")).also {
-                it.imageCollection.yieldImage().also {it2->
-                    it2!!.u=0f
-                    it2!!.u2=1f
-                    it2!!.v=0f
-                    it2!!.v2=1f
-
-                }
-            })
+            it.element = SetButton(ColouredTextBox("heyhey","fonts/PTMono-Regular.ttf",bgColour = Color.RED))
         }
 
 
