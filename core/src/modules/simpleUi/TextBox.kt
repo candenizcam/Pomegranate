@@ -6,11 +6,11 @@ import com.pungo.modules.basic.geometry.Rectangle
 import modules.uiPlots.DrawingRectangle
 import modules.visuals.FontGenerator
 
-class TextBox: Building {
-    constructor(text: String, alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, colour: Color = Color.WHITE){
+open class TextBox: Building {
+    constructor(text: String, fontPath: String, alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, colour: Color = Color.WHITE){
         this.minPunto = minPunto?:this.minPunto
         this.maxPunto = maxPunto?:this.maxPunto
-        glyph = PunGlyph(FontGenerator.getFont("fonts/PTMono-Regular.ttf",activePunto),text)
+        glyph = PunGlyph(FontGenerator.getFont(fontPath,activePunto),text)
         glyph.textAlignment = alignment
         this.text = text
         this.colour = colour
