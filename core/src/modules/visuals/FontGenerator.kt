@@ -50,7 +50,12 @@ object FontGenerator {
 
     fun dispose() {
         usedFonts.forEach {
-            it.third.dispose()
+            try {
+                it.third.dispose()
+            }catch (e: Exception){
+
+            }
+
         }
     }
 }

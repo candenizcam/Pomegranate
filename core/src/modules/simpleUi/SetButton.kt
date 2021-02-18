@@ -21,7 +21,7 @@ class SetButton: Building {
 
     }
 
-    constructor(visual: Displayer,  offRatio: Float, inactiveRatio: Float?=null, hoverRatio: Float?=null,rectangle: Rectangle=FastGeometry.unitSquare()){
+    constructor(visual: DisplayBuilding,  offRatio: Float, inactiveRatio: Float?=null, hoverRatio: Float?=null,rectangle: Rectangle=FastGeometry.unitSquare()){
         val baseColour = visual.getColour()
         buttonVisuals.add(ButtonVisuals(ButtonId.UP,visual,rectangle))
         val offVisual = visual.copy().also {
@@ -35,11 +35,25 @@ class SetButton: Building {
 
         if(inactiveRatio!=null){
             val inactiveColour = Colours.byRGB(baseColour.r*inactiveRatio,baseColour.g*inactiveRatio,baseColour.b*inactiveRatio)
-            buttonVisuals.add(ButtonVisuals(ButtonId.INACTIVE,visual.copy().also { it.recolour(inactiveColour) },rectangle))
+            buttonVisuals.add(ButtonVisuals(ButtonId.INACTIVE,visual.copy().also {
+                it.recolour(inactiveColour)
+                if(it is ColouredTextBox){
+                    val baseColour = it.getBgColour()
+                    it.bgRecolour(Colours.byRGB(baseColour.r*inactiveRatio,baseColour.g*inactiveRatio,baseColour.b*inactiveRatio))
+                }
+                                                                                 },rectangle))
+
         }
         if(hoverRatio!=null){
             val hoverColour = Colours.byRGB(baseColour.r*hoverRatio,baseColour.g*hoverRatio,baseColour.b*hoverRatio)
-            buttonVisuals.add(ButtonVisuals(ButtonId.HOVER,visual.copy().also { it.recolour(hoverColour) },rectangle))
+            buttonVisuals.add(ButtonVisuals(ButtonId.HOVER,visual.copy().also {
+                it.recolour(hoverColour)
+                if(it is ColouredTextBox){
+                    val baseColour = it.getBgColour()
+                    it.bgRecolour(Colours.byRGB(baseColour.r*hoverRatio,baseColour.g*offRatio,hoverColour.b*hoverRatio))
+                }
+
+                                                                              },rectangle))
         }
     }
 

@@ -22,7 +22,7 @@ open class TextBox: DisplayBuilding {
         set(value) {
             field = value
             widthRecord = 0f
-            glyph.setText(glyph.font, text)
+            glyph.text = field
         }
     var glyph: PunGlyph
     var fontPath: String
