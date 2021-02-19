@@ -1,13 +1,14 @@
-package modules.simpleUi
+package modules.simpleUi.text
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Point
+import modules.simpleUi.DisplayBuilding
 import modules.uiPlots.DrawingRectangle
 import modules.visuals.FontGenerator
 
 open class TextBox: DisplayBuilding {
-    constructor(text: String, fontPath: String, alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, colour: Color = Color.WHITE){
+    constructor(text: String, fontPath: String, alignment: PunGlyph.TextAlignment = PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, colour: Color = Color.WHITE){
         this.minPunto = minPunto?:this.minPunto
         this.maxPunto = maxPunto?:this.maxPunto
         glyph = PunGlyph(FontGenerator.getFont(fontPath,activePunto),text)

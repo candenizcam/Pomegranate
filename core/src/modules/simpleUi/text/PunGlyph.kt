@@ -1,13 +1,10 @@
-package modules.simpleUi
+package modules.simpleUi.text
 
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.Pixmap
-import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
-import modules.application.PuniversalValues
 
 
 class PunGlyph: GlyphLayout {

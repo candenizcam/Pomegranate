@@ -1,10 +1,12 @@
-package modules.simpleUi
+package modules.simpleUi.text
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import modules.simpleUi.DisplayBuilding
+import modules.simpleUi.Displayer
 import modules.uiPlots.DrawingRectangle
 
-class ColouredTextBox(text: String, fontPath: String, alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, textColour: Color = Color.WHITE, bgColour: Color = Color.BLACK): TextBox(text, fontPath, alignment, maxPunto, minPunto, textColour) {
+class ColouredTextBox(text: String, fontPath: String, alignment: PunGlyph.TextAlignment = PunGlyph.TextAlignment.CENTRE, maxPunto: Int? = null, minPunto: Int? = null, textColour: Color = Color.WHITE, bgColour: Color = Color.BLACK): TextBox(text, fontPath, alignment, maxPunto, minPunto, textColour) {
     private var bgDisplayer = Displayer(bgColour)
 
 

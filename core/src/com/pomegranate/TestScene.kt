@@ -1,14 +1,12 @@
 package com.pomegranate
 
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
-import com.pungo.modules.physicsField.PhysicsLayout
 import com.pungo.modules.scenes.Scene
 
-import modules.basic.Colours
 import modules.simpleUi.*
+import modules.simpleUi.text.ColouredTextBox
 
 import modules.uiPlots.SceneDistrict
 
@@ -19,10 +17,26 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
 
 
         mainDistrict.addFullPlot("bg",Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also {
-            it.element = SetButton(ColouredTextBox("heyhey","fonts/PTMono-Regular.ttf",bgColour = Color.RED))
+            it.element = SetButton(ColouredTextBox("heyhey","fonts/PTMono-Regular.ttf",bgColour = Color.GOLDENROD)).also {
+                it.clicked = {
+                    (mainDistrict.findPlot("bg3").element as TiledDisplay).modifyTile("green")
+                }
+            }
+        }
+
+        mainDistrict.addFullPlot("bg3").also {
+            it.touchStopper = false
+            it.element = TiledDisplay(4,4).also {
+                it.modifyTile("red",Displayer(Color.RED))
+                it.modifyTile("green",Displayer(Color.FOREST))
+
+                it.modifyGrid("red",2,2)
+                it.modifyGrid("green",4,3)
+            }
         }
 
 
+        /*
         mainDistrict.addFullPlot("bg2",Rectangle(0f,1f,0f,1f)).also{
             it.touchStopper = false
             it.element = Constellation().also{
@@ -36,6 +50,8 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
                     ,rect=Rectangle(0f,0.5f,1f,0.5f))
             }
         }
+
+         */
 
         /*
         mainDistrict.addFullPlot("pl", Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also{

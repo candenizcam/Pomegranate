@@ -6,6 +6,7 @@ import com.pungo.modules.basic.geometry.FastGeometry
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.basic.Colours
+import modules.simpleUi.text.ColouredTextBox
 import modules.uiPlots.DrawingRectangle
 
 class SetButton: Building {
