@@ -4,7 +4,7 @@ import com.badlogic.gdx.files.FileHandle
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.modules.basic.geometry.Rectangle
+import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.visuals.PixmapGenerator
 import modules.uiPlots.DrawingRectangle
 import modules.visuals.TextureCache
@@ -68,7 +68,7 @@ class Displayer: DisplayBuilding {
     }
 
 
-    override fun hoverFunction(hovering: Boolean) {
+    override fun hoverFunction(hovering: Boolean, relativePoint: Point?) {
 
     }
 

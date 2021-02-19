@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.simpleUi.Building
-import modules.simpleUi.Campus
 import modules.uiPlots.DrawingRectangle
 
 open class PhysicsLayout(var id: String, r: Int, c: Int) : Building {
@@ -49,7 +48,7 @@ open class PhysicsLayout(var id: String, r: Int, c: Int) : Building {
         }
     }
 
-    override fun hoverFunction(hovering: Boolean) {
+    override fun hoverFunction(hovering: Boolean, relativePoint: Point?) {
         //TODO("Not yet implemented")
         // this will probably be application spesific
     }

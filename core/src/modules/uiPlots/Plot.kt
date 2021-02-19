@@ -2,6 +2,7 @@ package com.pungo.modules.uiPlots
 
 import com.badlogic.gdx.Gdx
 import com.pungo.modules.basic.geometry.FastGeometry
+import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.simpleUi.Building
 import modules.simpleUi.Campus
@@ -74,8 +75,8 @@ open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(
 
     }
 
-    fun update() {
-        element?.hoverFunction(hovering)
+    fun update(relativePoint: Point) {
+        element?.hoverFunction(hovering,relativePoint)
         element?.update()
         if (locations.moving) {
             estate = locations.getEstate()

@@ -2,7 +2,7 @@ package modules.simpleUi
 
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.pungo.modules.basic.geometry.Rectangle
+import com.pungo.modules.basic.geometry.Point
 import modules.uiPlots.DrawingRectangle
 import modules.visuals.FontGenerator
 
@@ -78,7 +78,7 @@ open class TextBox: DisplayBuilding {
         glyph.draw(batch,drawingRectangle.croppedSegment, drawingRectangle.baseWidth)
     }
 
-    override fun hoverFunction(hovering: Boolean) {
+    override fun hoverFunction(hovering: Boolean, relativePoint: Point?) {
         //TODO("Not yet implemented")
     }
 }

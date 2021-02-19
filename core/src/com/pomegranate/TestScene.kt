@@ -23,10 +23,21 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         }
 
 
-        //mainDistrict.addFullPlot("bg2",Rectangle(0f,1f,0f,1f)).also{
-        //    it.element = Displayer(Color.BLACK)
-        //}
+        mainDistrict.addFullPlot("bg2",Rectangle(0f,1f,0f,1f)).also{
+            it.touchStopper = false
+            it.element = Constellation().also{
+                it.addElement(Displayer(Color.GOLD),rect=Rectangle(0f,0.5f,0f,0.5f))
+                it.addElement(Displayer(Color.FOREST),rect=Rectangle(1f,0.5f,1f,0.5f))
+                it.addElement(SetButton(Displayer(Color.BLUE)).also {it2->
+                    it2.clicked = {
+                        (it.getElement("1") as DisplayBuilding).recolour(Color.CHARTREUSE)
+                    }
+                }
+                    ,rect=Rectangle(0f,0.5f,1f,0.5f))
+            }
+        }
 
+        /*
         mainDistrict.addFullPlot("pl", Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also{
             it.touchStopper = false
             it.element = PhysicsLayout("pll",10,10).also {
@@ -36,6 +47,8 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
                 }
             }
         }
+
+         */
 
 
 

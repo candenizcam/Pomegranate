@@ -3,6 +3,7 @@ package modules.simpleUi
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.FastGeometry
+import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.basic.Colours
 import modules.uiPlots.DrawingRectangle
@@ -93,7 +94,7 @@ class SetButton: Building {
 
     }
 
-    override fun hoverFunction(hovering: Boolean) {
+    override fun hoverFunction(hovering: Boolean, relativePoint: Point?) {
         activeVisual = if(inactive){
             ButtonId.INACTIVE
         }else{

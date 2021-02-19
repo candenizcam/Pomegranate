@@ -31,7 +31,7 @@ class SceneDistrict(id: String, private var w: Float, private var h: Float, var 
         }
 
         plots.forEach {
-            it.update()
+            it.update(getPlayingField().getSubRectangle(it.estate).getNormalPoint(PuniversalValues.cursorPoint))
         }
     }
 
