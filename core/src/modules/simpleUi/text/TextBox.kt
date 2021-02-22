@@ -44,7 +44,7 @@ open class TextBox: DisplayBuilding {
     }
 
     private fun updateGlyph(baseWidth: Float, baseHeight: Float){
-        for (i in FontGenerator.getFontsBetween(minPunto..maxPunto,"fonts/PTMono-Regular.ttf").reversed()){
+        for (i in FontGenerator.getFontsBetween(minPunto..maxPunto,fontPath).reversed()){
             glyph = glyph.copy(i)
             if(glyph.targetHeight(baseWidth)<=baseHeight){
                 break
