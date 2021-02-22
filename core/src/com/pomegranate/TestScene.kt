@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
 import com.pungo.modules.scenes.Scene
+import modules.basic.Colours
 
 import modules.simpleUi.*
 import modules.simpleUi.text.ColouredTextBox
@@ -27,7 +28,7 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         mainDistrict.addFullPlot("bg3").also {
             it.touchStopper = false
             it.element = TiledDisplay(4,4).also {
-                it.modifyTile("red",Displayer(Color.RED))
+                it.modifyTile("red",Displayer(Colours.byHex("2FD49F55")))
                 it.modifyTile("green",Displayer(Color.FOREST))
 
                 it.modifyGrid("red",2,2)
