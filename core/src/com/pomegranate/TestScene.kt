@@ -8,15 +8,22 @@ import modules.basic.Colours
 
 import modules.simpleUi.*
 import modules.simpleUi.text.ColouredTextBox
+import modules.simpleUi.text.TextEditor
 
 import modules.uiPlots.SceneDistrict
 
 
 class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReaction.RATED) {
     init {
+        mainDistrict.addFullPlot("bg",Rectangle(0.3f,0.7f,0.2f,0.5f)).also{
+            it.element = Displayer(Color.GOLD)
+        }
 
+        mainDistrict.addFullPlot("abvk",Rectangle(0.3f,0.7f,0.2f,0.5f)).also {
+            it.element = TextEditor("fonts/PTMono-Regular.ttf",36)
+        }
 
-
+        /*
         mainDistrict.addFullPlot("bg",Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also {
             it.element = SetButton(ColouredTextBox("heyhey","fonts/PTMono-Regular.ttf",bgColour = Color.GOLDENROD)).also {
                 it.clicked = {
@@ -35,6 +42,8 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
                 it.modifyGrid("green",4,3)
             }
         }
+
+         */
 
 
         /*

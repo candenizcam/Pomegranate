@@ -76,6 +76,16 @@ class Rectangle : ConvexPolygon {
         return !(c1||c2||c3||c4)
     }
 
+    /** Takes a rectangle, and returns the rated rectangle
+     */
+    fun getRatedRectangle(r: Rectangle): Rectangle{
+        val w1 = (r.left-left)/width
+        val w2 = (r.right-left)/width
+        val h1 = (r.bottom - bottom)/height
+        val h2 = (r.top-bottom)/height
+        return Rectangle(w1,w2,h1,h2)
+    }
+
     fun getSubRectangle(width: Float, height: Float): Rectangle {
         return getSubRectangle(width/height)
     }
