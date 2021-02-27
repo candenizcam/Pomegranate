@@ -6,9 +6,33 @@ import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
 import modules.uiPlots.DrawingRectangle
 
-class TiledDisplay(val cols: Int, val rows: Int) :Building {
+class TiledDisplay(cols: Int, rows: Int) :Building {
+    var cols: Int = cols
+        private set(value) {
+            field = value
+            tileLocations.removeIf { it.col>field }
+        }
+    var rows: Int = rows
+        private set(value) {
+            field=value
+            tileLocations.removeIf { it.row>field }
+        }
+
+
     val tiles = mutableListOf<Tile>()
     val tileLocations = mutableListOf<TileLocation>()
+
+    /** This is the access function for modifying rows and cols
+     * filtering is handled at setters
+     */
+    fun modifySlicing(rows: Int?=null, cols: Int?=null){
+        if(rows!=null){
+            this.rows = rows
+        }
+        if(cols!=null){
+            this.cols = cols
+        }
+    }
 
 
     /** This function modifies a spesific point on the grid
