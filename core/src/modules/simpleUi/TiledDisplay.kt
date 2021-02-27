@@ -52,14 +52,14 @@ class TiledDisplay(val cols: Int, val rows: Int) :Building {
         }
     }
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha: Float) {
         tileLocations.forEach {
             val l = 1f/cols.toFloat()*(it.col.toFloat()-1f)
             val r = 1f/cols.toFloat()*(it.col.toFloat())
             val t = 1f - ((it.row.toFloat())/rows.toFloat())
             val b = 1f- ((it.row.toFloat()-1)/rows.toFloat())
 
-            tiles.first {it2-> it.id == it2.id }.db.draw(batch,drawingRectangle.ratedCopy(Rectangle(l,r,t,b)))
+            tiles.first {it2-> it.id == it2.id }.db.draw(batch,drawingRectangle.ratedCopy(Rectangle(l,r,t,b)),alpha)
         }
     }
 

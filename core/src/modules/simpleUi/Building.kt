@@ -10,6 +10,6 @@ import modules.uiPlots.DrawingRectangle
  */
 interface Building {
     fun update()
-    fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle)
+    fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha: Float=1f)
     fun hoverFunction(hovering: Boolean, relativePoint: Point?=null) //this is the function that plots use to report hoveredness, it does not contain checks for it
 }

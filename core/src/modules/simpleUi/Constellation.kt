@@ -41,9 +41,9 @@ class Constellation(): Building {
     }
 
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha:Float) {
         stars.sortedBy{ it.z }.forEach {
-            it.building.draw(batch,drawingRectangle.ratedCopy(it.rect))
+            it.building.draw(batch,drawingRectangle.ratedCopy(it.rect),alpha)
         }
     }
 

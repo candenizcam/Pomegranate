@@ -10,9 +10,9 @@ class ColouredTextBox(text: String, fontPath: String, alignment: PunGlyph.TextAl
     private var bgDisplayer = Displayer(bgColour)
 
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle,alpha: Float) {
         bgDisplayer.draw(batch, drawingRectangle)
-        super.draw(batch, drawingRectangle)
+        super.draw(batch, drawingRectangle,alpha)
     }
 
     override fun copy(): DisplayBuilding {

@@ -56,14 +56,14 @@ class Displayer: DisplayBuilding {
 
 
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha:Float) {
         imageCollection.yieldImage()?.also {
             it.setRectangle(drawingRectangle.croppedSegment)
             it.u = drawingRectangle.u1
             it.u2 = drawingRectangle.u2
             it.v = drawingRectangle.v1
             it.v2 = drawingRectangle.v2
-            it.draw(batch)
+            it.draw(batch,alpha)
         }
     }
 

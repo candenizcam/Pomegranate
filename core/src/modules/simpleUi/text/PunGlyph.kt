@@ -34,7 +34,7 @@ class PunGlyph: GlyphLayout {
         return height
     }
 
-    fun draw(batch: SpriteBatch, rectangle: Rectangle, intendedWidth: Float){
+    fun draw(batch: SpriteBatch, rectangle: Rectangle, intendedWidth: Float,alpha: Float){
         width = intendedWidth
         val recordText = text
         font.data.setScale(1f)
@@ -43,7 +43,11 @@ class PunGlyph: GlyphLayout {
         val scaling = rectangle.width/intendedWidth
         font.data.setScale(scaling,scaling)
         val y = getTopY(rectangle,intendedWidth)
+
+        val tempColour = font.color
+        font.color = Color(tempColour.r,tempColour.g,tempColour.b,alpha)
         font.draw(batch, text, rectangle.left, y, rectangle.width, textAlignment.getHAlign(), true)
+        font.color=tempColour
 
     }
 

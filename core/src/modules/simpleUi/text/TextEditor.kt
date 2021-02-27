@@ -13,7 +13,7 @@ class TextEditor(fontPath: String, punto:Int,initialText: String="", alignment: 
     private var blinkTimeHolder = 0f
 
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha: Float) {
         if(clickCaptured){
             blinkTimeHolder += Gdx.graphics.deltaTime
             blinkTimeHolder %= 1.5f
@@ -21,7 +21,10 @@ class TextEditor(fontPath: String, punto:Int,initialText: String="", alignment: 
             blinkTimeHolder=0f
         }
         if(blinkTimeHolder<=0.75f){
-            super.draw(batch, drawingRectangle)
+
+            super.draw(batch, drawingRectangle,alpha)
+        }else{
+            super.draw(batch, drawingRectangle,alpha*0.7f)
         }
     }
 

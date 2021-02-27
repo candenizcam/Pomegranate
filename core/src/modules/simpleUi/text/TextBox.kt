@@ -70,13 +70,13 @@ open class TextBox: DisplayBuilding {
     }
 
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha:Float) {
         if((glyph.targetHeight(drawingRectangle.baseWidth)>drawingRectangle.baseHeight)||(widthRecord!=drawingRectangle.baseWidth)){
             widthRecord = drawingRectangle.baseWidth
             updateGlyph(drawingRectangle.baseWidth,drawingRectangle.baseHeight)
         }
         glyph.font.color = colour
-        glyph.draw(batch,drawingRectangle.croppedSegment, drawingRectangle.baseWidth)
+        glyph.draw(batch,drawingRectangle.croppedSegment, drawingRectangle.baseWidth,alpha)
     }
 
     override fun hoverFunction(hovering: Boolean, relativePoint: Point?) {

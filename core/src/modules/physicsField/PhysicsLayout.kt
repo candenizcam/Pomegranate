@@ -33,7 +33,7 @@ open class PhysicsLayout(var id: String, r: Int, c: Int) : Building {
         pf.update()
     }
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha: Float) {
         pf.items.forEach {
             val e = it.elementPointer
             if (e is Building) {
@@ -42,7 +42,7 @@ open class PhysicsLayout(var id: String, r: Int, c: Int) : Building {
                 val point = Point(it.pid.cX/pf.colNo,it.pid.cY/pf.rowNo)
                 val dr = drawingRectangle.ratedCopy(Rectangle(width,height,point))
                 if(dr.toBeDrawn()){
-                    e.draw(batch,dr)
+                    e.draw(batch,dr,alpha)
                 }
             }
         }

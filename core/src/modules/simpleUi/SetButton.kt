@@ -83,14 +83,14 @@ class SetButton: Building {
     }
 
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle) {
+    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha:Float) {
         var av = buttonVisuals.filter { it.id==activeVisual }
         if(av.isEmpty()){
             av =  buttonVisuals.filter { it.id == ButtonId.UP }
         }
         val dr = drawingRectangle.ratedCopy(av[0].rectangle)
         if(dr.toBeDrawn()){
-            av[0].visual.draw(batch, dr)
+            av[0].visual.draw(batch, dr,alpha)
         }
 
     }
