@@ -7,7 +7,7 @@ import com.pungo.modules.basic.geometry.Rectangle
 import modules.simpleUi.Building
 import modules.simpleUi.Campus
 
-open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(), var z: Int = 0, element: Building? = null) {
+open class Plot(val id: String, var estate: Rectangle = FastGeometry.unitSquare(), var z: Int = 0, element: Building? = null, var zoomRectangle: Rectangle = FastGeometry.unitSquare()) {
     var visible = true
         set(value) {
             field = value

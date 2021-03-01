@@ -1,19 +1,39 @@
 package modules.uiPlots
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
+import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
+import com.pungo.modules.basic.geometry.FastGeometry
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
 import com.pungo.modules.uiPlots.UrbanPlanning
 import modules.application.PuniversalValues
+import modules.simpleUi.Displayer
 
 class SceneDistrict(id: String, private var w: Float, private var h: Float, var resizeReaction: ResizeReaction = ResizeReaction.STRETCH): UrbanPlanning() {
     override fun draw(batch: SpriteBatch, alpha: Float) {
         plots.sortedBy { it.z }.forEach {
             if(it.visible){
-                val dr = DrawingRectangle(getPlayingField(),w,h,it.estate)
-                if(dr.toBeDrawn()){
-                    it.element?.draw(batch,dr)
+                val punRect = Rectangle(0f,w,0f,h).getSubRectangle(it.estate)
+                it.element?.draw(batch, DrawData(punRect,getPlayingField().getSubRectangle(it.estate),it.zoomRectangle,getPlayingField()),alpha)
+                /*
+                if(it.element is Displayer){
+
+                }else{
+                    val dr1 = DrawingRectangle(getPlayingField(),w,h,it.estate)
+
+                    if(dr1.toBeDrawn()){
+                        val dr2 = DrawingRectangle(dr1.croppedSegment,w,h,it.zoomRectangle.getRatedRectangle(FastGeometry.unitSquare()))
+                        dr2.u1 = dr1.u1
+                        dr2.u2 = dr1.u2
+                        dr2.v1 = dr1.v1
+                        dr2.v2 = dr1.v2
+                        it.element?.draw(batch,dr2)
+                    }
                 }
+
+                 */
             }
         }
     }

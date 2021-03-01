@@ -1,13 +1,16 @@
 package com.pomegranate
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
+import com.pungo.modules.physicsField.PhysicsLayout
 import com.pungo.modules.scenes.Scene
 import modules.basic.Colours
 
 import modules.simpleUi.*
 import modules.simpleUi.text.ColouredTextBox
+import modules.simpleUi.text.TextBox
 import modules.simpleUi.text.TextEditor
 
 import modules.uiPlots.SceneDistrict
@@ -15,22 +18,82 @@ import modules.uiPlots.SceneDistrict
 
 class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReaction.RATED) {
     init {
-        mainDistrict.addFullPlot("bg",Rectangle(0.3f,0.7f,0.2f,0.5f)).also{
-            it.element = Displayer(Color.GOLD)
+        val r1 = Rectangle(-16f,244f,1f,49f)
+        val r2 = Rectangle(0.1f,0.54f,0.22f,0.14f)
+        val r3 = r1.getSubRectangle(r2).invertSubRectangle(r2)
+
+
+
+        mainDistrict.addFullPlot("bg",Rectangle(0.25f,0.75f, 0.25f,0.75f)).also{
+            it.element = Displayer(Colours.byHSV(0.2f,0f,0.2f,1f))
         }
 
+        //mainDistrict.addFullPlot("grid",Rectangle(0.75f,1.25f,0.75f,1.25f)).also {
+        //    it.zoomRectangle = Rectangle(0.25f,1f,0.25f,1f)
+        //    it.element = Displayer(Gdx.files.internal("grid.png"))
+        //}
+
+        /*
+        mainDistrict.addFullPlot("bg3",Rectangle(0.25f,0.75f,0.25f,0.75f)).also {
+            it.zoomRectangle = Rectangle(0.05f,0.5f,0.3f,1f)
+            it.touchStopper = false
+            it.element = TiledDisplay(10,10).also {
+                it.modifyTile("red",Displayer(Colours.byHex("2FD49F55")))
+                it.modifyTile("green",Displayer(Gdx.files.internal("grid.png")))
+                for(i in 1..it.cols){
+                    it.modifyGrid("red",i,i)
+                    it.modifyGrid("green",it.cols+1-i,i)
+                }
+
+
+            }
+        }
+
+         */
+
+
+        /*
+        mainDistrict.addFullPlot("bg",Rectangle(0.3f,0.7f,0.4f,0.8f)).also{
+            it.element = Displayer(Color.CORAL)
+        }
+
+        mainDistrict.addFullPlot("bg2",Rectangle(0.3f,0.7f,0.4f,0.8f)).also{
+            it.zoomRectangle = Rectangle(0.3f,1f,0.5f,0.7f)
+            it.element = Displayer(Gdx.files.internal("grid.png"))
+        }
+        */
+
+        /*
+        mainDistrict.addFullPlot("b3g",Rectangle(0.3f,0.7f,0.4f,0.8f)).also{
+            it.element = Displayer(Color.CORAL)
+        }
+
+
+        mainDistrict.addFullPlot("abvk",Rectangle(0.3f,0.7f,0.4f,0.8f)).also {
+            it.element = TextEditor("fonts/PTMono-Regular.ttf",36)
+        }
+
+         */
+
+        /*
         mainDistrict.addFullPlot("abvk",Rectangle(0.3f,0.7f,0.2f,0.5f)).also {
             it.element = TextEditor("fonts/PTMono-Regular.ttf",36)
         }
 
+         */
+
+
         /*
-        mainDistrict.addFullPlot("bg",Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also {
+        mainDistrict.addFullPlot("bg33",Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also {
             it.element = SetButton(ColouredTextBox("heyhey","fonts/PTMono-Regular.ttf",bgColour = Color.GOLDENROD)).also {
                 it.clicked = {
                     (mainDistrict.findPlot("bg3").element as TiledDisplay).modifyTile("green")
                 }
             }
         }
+
+         */
+        /*
 
         mainDistrict.addFullPlot("bg3").also {
             it.touchStopper = false
@@ -46,12 +109,16 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
          */
 
 
+
+
         /*
-        mainDistrict.addFullPlot("bg2",Rectangle(0f,1f,0f,1f)).also{
+
+        mainDistrict.addFullPlot("bg2",Rectangle(0f,0.5f,0f,1f)).also{
             it.touchStopper = false
             it.element = Constellation().also{
-                it.addElement(Displayer(Color.GOLD),rect=Rectangle(0f,0.5f,0f,0.5f))
-                it.addElement(Displayer(Color.FOREST),rect=Rectangle(1f,0.5f,1f,0.5f))
+                it.addElement(Displayer(Color.GOLD),rect=Rectangle(-0.25f,0.5f,0f,0.5f))
+                it.addElement(Displayer(Color.FOREST),rect=Rectangle(0.5f,1.25f,1f,0.5f))
+                it.addElement(Displayer(Color.FOREST),rect=Rectangle(0.5f,1f,0f,0.5f))
                 it.addElement(SetButton(Displayer(Color.BLUE)).also {it2->
                     it2.clicked = {
                         (it.getElement("1") as DisplayBuilding).recolour(Color.CHARTREUSE)
@@ -63,9 +130,15 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
 
          */
 
-        /*
-        mainDistrict.addFullPlot("pl", Rectangle(-0.1f,1.1f,-0.1f,1.1f)).also{
+
+
+
+
+
+
+        mainDistrict.addFullPlot("pl", Rectangle(1.25f,0.75f,0.25f,0.75f)).also{
             it.touchStopper = false
+            it.zoomRectangle = Rectangle(0.15f,0.95f,0.15f,0.95f)
             it.element = PhysicsLayout("pll",10,10).also {
                 it.pf.collisionElasticity = 1f
                 it.addPhysicsSquare("s1",4f,3.1f,vX = 2f,vY = 2.1f,mobility = true).also {
@@ -74,7 +147,23 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
             }
         }
 
+        /*
+        mainDistrict.addFullPlot("pl2", Rectangle(0.5f,1.5f,0f,1f)).also{
+            it.touchStopper = false
+            it.zoomRectangle= Rectangle(0.25f,0.75f,0f,1f)
+            it.element = PhysicsLayout("pll",10,10).also {
+                it.pf.collisionElasticity = 1f
+                it.addPhysicsSquare("s1",4f,3.1f,vX = 2f,vY = 2.1f,mobility = true).also {
+                    it.elementPointer = Displayer(Gdx.files.internal("badlogic.jpg")).also { it.recolour(Color.GREEN) }
+                }
+            }
+        }
+
          */
+
+
+
+
 
 
 

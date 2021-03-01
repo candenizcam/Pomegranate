@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.FastGeometry
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.basic.geometry.Rectangle
-import modules.uiPlots.DrawingRectangle
+import modules.uiPlots.DrawData
 
 class TiledDisplay(cols: Int, rows: Int) :Building {
     var cols: Int = cols
@@ -76,14 +76,19 @@ class TiledDisplay(cols: Int, rows: Int) :Building {
         }
     }
 
-    override fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha: Float) {
+    override fun draw(batch: SpriteBatch, drawData: DrawData, alpha: Float) {
         tileLocations.forEach {
             val l = 1f/cols.toFloat()*(it.col.toFloat()-1f)
             val r = 1f/cols.toFloat()*(it.col.toFloat())
             val t = 1f - ((it.row.toFloat())/rows.toFloat())
             val b = 1f- ((it.row.toFloat()-1)/rows.toFloat())
+            val tileRectangle = Rectangle(l,r,b,t)
+            val limited =  drawData.targetPxRectangle.getIntersection(drawData.drawLimits)
+            val dd2 = DrawData(drawData.targetPunRectangle.getSubRectangle(tileRectangle),drawData.expandedFrame.getSubRectangle(tileRectangle),FastGeometry.unitSquare(),limited)
+            if(dd2.toBeDrawn()){
+                tiles.first {it2-> it.id == it2.id }.db.draw(batch, dd2,alpha)
+            }
 
-            tiles.first {it2-> it.id == it2.id }.db.draw(batch,drawingRectangle.ratedCopy(Rectangle(l,r,t,b)),alpha)
         }
     }
 

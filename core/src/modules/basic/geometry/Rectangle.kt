@@ -53,6 +53,18 @@ class Rectangle : ConvexPolygon {
         return Point((p.x - left)/width,(p.y-bottom)/height)
     }
 
+
+    /** This works such that: r == r.getSubRectangle(other).invertSubRectangle(other)
+     *
+     */
+    fun invertSubRectangle(other: Rectangle): Rectangle {
+        val l = left - width*other.left/other.width
+        val r = right + width/other.width*(1-other.right)
+        val b = bottom - height*other.bottom/other.height
+        val t = top + height/other.height*(1-other.top)
+        return Rectangle(l, r, b, t)
+    }
+
     /** This function takes itself as unit rectangle and input as ratios for it, and returns the adjusted rectangle
      * ex: this = (left: 0,bottom: 0,right: 2,top: 1), other = (0.25,0.25,0.75,0.75) ->  (0.5,0.25,1.5,0.75)
      */
@@ -104,6 +116,14 @@ class Rectangle : ConvexPolygon {
         val r = this.left + this.centre.x+w2/2
         val b = this.bottom + this.centre.y-h2/2
         val t = this.bottom + this.centre.y+h2/2
+        return Rectangle(l,r,b,t)
+    }
+
+    fun getIntersection(other: Rectangle): Rectangle{
+        val l = this.left.coerceAtLeast(other.left)
+        val r = this.right.coerceAtMost(other.right)
+        val b = this.bottom.coerceAtLeast(other.bottom)
+        val t = this.top.coerceAtMost(other.top)
         return Rectangle(l,r,b,t)
     }
 

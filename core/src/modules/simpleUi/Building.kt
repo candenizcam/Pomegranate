@@ -2,7 +2,7 @@ package modules.simpleUi
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Point
-import modules.uiPlots.DrawingRectangle
+import modules.uiPlots.DrawData
 
 
 /** Building is the fundamental ui element block for district system, any element should be inherited from it and district calls only the abstract methods
@@ -10,6 +10,6 @@ import modules.uiPlots.DrawingRectangle
  */
 interface Building {
     fun update()
-    fun draw(batch: SpriteBatch, drawingRectangle: DrawingRectangle, alpha: Float=1f)
+    fun draw(batch: SpriteBatch,drawData: DrawData, alpha: Float = 1f)
     fun hoverFunction(hovering: Boolean, relativePoint: Point?=null) //this is the function that plots use to report hoveredness, it does not contain checks for it
 }
