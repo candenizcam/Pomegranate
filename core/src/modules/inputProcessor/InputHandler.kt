@@ -11,6 +11,9 @@ object InputHandler {
     }
     private var backspacePressed = false
     var deletePressed = false
+    var rotated: Int = 0
+
+
     fun getTypeCache(erase: Boolean = true): String {
         return typeCache.also {
             if (erase) typeCache = ""
@@ -83,6 +86,12 @@ object InputHandler {
 
     fun backspacePressed(): Boolean{
         return Gdx.input.isKeyJustPressed(67)
+    }
+
+    /** This update is called in the main class after the update and is used to fix various problems libgdx creates about input
+     */
+    fun afterUpdate(){
+        rotated = 0
     }
 
 }
