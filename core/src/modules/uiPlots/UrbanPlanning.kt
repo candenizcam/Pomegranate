@@ -14,6 +14,11 @@ abstract class UrbanPlanning: PlotSplitting{
     open var plots = mutableListOf<Plot>() // these are references to the plots
 
 
+    fun findPlots(s: String): List<Plot> {
+        return plots.filter { s in it.id }
+    }
+
+
     /** This finds plots in specific main rectangle coordinate (between 0 & 1)
      */
     fun findPlot(p: Point): List<Plot> {

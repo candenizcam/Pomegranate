@@ -37,6 +37,8 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         mainDistrict.addFullPlot("tv",Rectangle(0.8f,1.2f,0.3f,0.7f)).also {
             it.element= TestVisuals()
         }
+
+        mainDistrict.findPlot("id")
     }
 }
 
