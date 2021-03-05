@@ -1,5 +1,7 @@
 package com.pungo.modules.basic.geometry
 
+import java.lang.Exception
+
 class Rectangle : ConvexPolygon {
     var top: Float
     var bottom: Float
@@ -175,6 +177,65 @@ class Rectangle : ConvexPolygon {
             Rectangle(this.left, this.right, within.height - this.bottom, within.height - this.top)
         } else {
             copy()
+        }
+    }
+
+    /** Returns the area of the rectangle
+     */
+    fun area(): Float {
+        return width*height
+    }
+
+    /** Returns a rectangle that is pushed to one side of this rectangle with the same area
+     * errorIfBigger: if the other rectangle is larger, returns error when true, returns cocentric when false, default is true
+     */
+    fun getPushedRectangle(other: Rectangle, errorIfBigger: Boolean=true): Rectangle{
+        return if(other.area()==getIntersection(other).area()){
+            other
+        }else{
+            if((other.width>width)||(other.height>height)){
+                if(errorIfBigger){
+                    throw Exception("pushed rectangle is bigger than the mother rectangle")
+                }else{
+                    Rectangle(other.width,other.height,centre)
+                }
+            }else{
+                val l: Float
+                val r: Float
+                when {
+                    other.left<0f -> {
+                        l = 0f
+                        r = other.width
+                    }
+                    other.right>1f -> {
+                        l = 1f
+                        r = 1f-other.width
+                    }
+                    else -> {
+                        l = other.left
+                        r = other.right
+                    }
+                }
+
+                val t: Float
+                val b: Float
+                when {
+                    other.bottom<0f -> {
+                        b = 0f
+                        t = other.height
+                    }
+                    other.top>1f -> {
+                        t = 1f
+                        b = 1f-other.height
+                    }
+                    else -> {
+                        b = other.bottom
+                        t = other.top
+                    }
+                }
+                Rectangle(l,r,t,b)
+            }
+
         }
     }
 

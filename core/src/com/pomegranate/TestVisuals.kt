@@ -1,14 +1,26 @@
 package com.pomegranate
 
-/*
+
 import com.badlogic.gdx.Gdx
-import modules.visuals.textureHandling.SingleTexture
-import modules.outdated.subTexture.ScalingType
+import com.badlogic.gdx.graphics.Color
+import com.pungo.modules.basic.geometry.Rectangle
+import modules.simpleUi.Campus
+import modules.simpleUi.Displayer
+import modules.simpleUi.SetButton
 
-class TestVisuals() {
-    val st = SingleTexture(Gdx.files.internal("badlogic.jpg"), scalingType = ScalingType.FIT_ELEMENT, widthScaleFactor = 0.5f, heightScaleFactor = 0.5f)
 
-    //val bt = BlockText("text",24,colour = Color.WHITE,fontPath = "fonts/PTMono-Regular.ttf",block = GetLcsRect.ofCentreSquare(),visualSize = VisualSize.FIT_ELEMENT)
+class TestVisuals: Campus() {
+    init {
+        district.addFullPlot("bg").also {
+            it.element = Displayer(Color.CORAL)
+        }
+
+        district.addFullPlot("button", Rectangle(0f,0.5f,0f,0.5f)).also {
+            it.element = SetButton(Displayer(Color.GOLD)).also {
+                it.clicked = {
+                    (district.findPlot("bg").element as Displayer).recolour(Color.CHARTREUSE)
+                }
+            }
+        }
+    }
 }
-
- */

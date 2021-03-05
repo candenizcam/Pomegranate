@@ -72,6 +72,6 @@ abstract class UrbanPlanning: PlotSplitting{
         }
     }
 
-    abstract fun update()
+    abstract fun update(hoveredOn: Boolean=true)
     abstract fun draw(batch: SpriteBatch, alpha: Float = 1f)
 }
