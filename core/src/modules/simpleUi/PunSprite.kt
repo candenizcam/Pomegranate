@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Pixmap
 import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.Sprite
 import com.pungo.modules.basic.geometry.Rectangle
+import modules.visuals.PuxMap
 import modules.visuals.TextureCache
 
 
@@ -21,7 +22,7 @@ class PunSprite: Sprite {
         originalWidth = t.width.toFloat()
         originalHeight = t.height.toFloat()
     }
-    constructor(p: Pixmap): super(Texture(p)){
+    constructor(p: PuxMap): super(Texture(p)){
         TextureCache.addToPixmapTextures(texture)
         originalWidth = texture.width.toFloat()
         originalHeight = texture.height.toFloat()
@@ -51,6 +52,10 @@ class PunSprite: Sprite {
 
     fun copy(): PunSprite {
         return PunSprite(this)
+    }
+
+    fun finalize(){
+        println("i am dead but you are alive")
     }
 
 

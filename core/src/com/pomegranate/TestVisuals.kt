@@ -18,7 +18,7 @@ class TestVisuals: Campus() {
         district.addFullPlot("button", Rectangle(0f,0.5f,0f,0.5f)).also {
             it.element = SetButton(Displayer(Color.GOLD)).also {
                 it.clicked = {
-                    (district.findPlot("bg").element as Displayer).recolour(Color.CHARTREUSE)
+                    district.findPlot("bg").element = Displayer(Color.CHARTREUSE)
                 }
             }
         }

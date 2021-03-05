@@ -22,13 +22,11 @@ abstract class SimpleDistrict(): UrbanPlanning() {
     override fun update(hoveredOn: Boolean) {
         var holder = false // following handles clicks
         for (i in plots.sortedBy { it.z }.reversed()){ // in reverse z order
-            if(holder||i.inactive|| !getPlayingField().contains(PuniversalValues.cursorPoint)){ //if touch was consumed or i is inactive
+            val h = getPlayingField().getSubRectangle(i.estate)
+            i.element?.updatePunRectangle(h)
+            if(holder||i.inactive||!i.visible||!hoveredOn|| !getPlayingField().contains(PuniversalValues.cursorPoint)){ //if touch was consumed or i is inactive
                 i.hovering = false // hovering is false
             }else{ // hover is checked
-
-
-                val h = getPlayingField().getSubRectangle(i.estate)
-                i.element?.updatePunRectangle(h)
                 i.hovering = h.contains(PuniversalValues.cursorPoint)
                 holder = (i.hovering&&i.touchStopper)
             }

@@ -38,7 +38,7 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
             it.element= TestVisuals()
         }
 
-        mainDistrict.findPlot("id")
+
     }
 }
 

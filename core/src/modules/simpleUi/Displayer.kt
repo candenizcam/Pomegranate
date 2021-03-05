@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.visuals.PixmapGenerator
 import modules.uiPlots.DrawData
+import modules.visuals.PuxMap
 import modules.visuals.TextureCache
 
 
@@ -23,7 +24,7 @@ class Displayer: DisplayBuilding {
         imageCollection.add(PunSprite(TextureCache.openTexture(fileHandle)))
     }
 
-    constructor(pixmap: Pixmap, colour: Color = Color.WHITE){
+    constructor(pixmap: PuxMap, colour: Color = Color.WHITE){
         imageCollection.add(PunSprite(pixmap).also {
             it.color = colour
         })
