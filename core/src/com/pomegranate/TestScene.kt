@@ -29,10 +29,24 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         }
 
 
+        mainDistrict.splitToPlots("grid",Rectangle(0.25f,0.75f,0.25f,0.75f),listOf(2f,1f,2f,1f),listOf(1f,2f,3f)).also {
+            it.forEach {it2->
+                it2.element = TextBox(it2.id,"fonts/PTMono-Regular.ttf",maxPunto = 24)
+            }
+            //it[0].id
+        }
+
+        mainDistrict.findPlot("grid",1,3).also {
+            (it.element as TextBox).recolour(Color.RED)
+        }
+
+        /*
         mainDistrict.addFullPlot("grid",Rectangle(0.25f,0.75f,0.25f,0.75f)).also {
 
             it.element = Displayer(Gdx.files.internal("grid.png"))
         }
+
+         */
 
         mainDistrict.addFullPlot("tv",Rectangle(0.8f,1.2f,0.3f,0.7f)).also {
             it.element= TestVisuals()

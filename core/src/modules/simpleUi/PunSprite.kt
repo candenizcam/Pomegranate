@@ -23,7 +23,6 @@ class PunSprite: Sprite {
         originalHeight = t.height.toFloat()
     }
     constructor(p: PuxMap): super(Texture(p)){
-        TextureCache.addToPixmapTextures(texture)
         originalWidth = texture.width.toFloat()
         originalHeight = texture.height.toFloat()
     }
@@ -52,10 +51,6 @@ class PunSprite: Sprite {
 
     fun copy(): PunSprite {
         return PunSprite(this)
-    }
-
-    fun finalize(){
-        println("i am dead but you are alive")
     }
 
 

@@ -14,7 +14,6 @@ object TextureCache {
 
 
 
-
     fun jsonOpener(path: FileHandle, visualPath: FileHandle? = null, func: (String) -> Boolean = { true }): MutableList<Sprite> {
         val at: AnimateJson
         if (jsonAtlasList.containsKey(path)) {

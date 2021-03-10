@@ -18,6 +18,8 @@ open class TextBox: DisplayBuilding {
         this.fontPath = fontPath
     }
 
+    constructor(textBox: TextBox): this(textBox.text,textBox.fontPath,textBox.glyph.textAlignment,textBox.maxPunto,textBox.minPunto,textBox.colour)
+
 
     var text : String
         set(value) {
