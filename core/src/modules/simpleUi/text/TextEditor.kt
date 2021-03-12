@@ -6,10 +6,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Point
 import com.pungo.modules.inputProcessor.InputHandler
 import modules.application.PuniversalValues
+import modules.basic.Colour
 import modules.uiPlots.DrawData
 
 class TextEditor: TextBox{
-    constructor(fontPath: String, punto:Int,initialText: String="", alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, colour: Color = Color.WHITE, digit: Int?=null): super(initialText, fontPath, alignment, punto, punto, colour){
+    constructor(fontPath: String, punto:Int, initialText: String="", alignment: PunGlyph.TextAlignment=PunGlyph.TextAlignment.CENTRE, colour: Colour = Colour.WHITE, digit: Int?=null): super(initialText, fontPath, alignment, punto, punto, colour){
         this.digit = digit
     }
     constructor(textBox: TextBox, digit: Int?=null): super(textBox){

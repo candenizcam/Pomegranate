@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.pungo.modules.basic.geometry.Rectangle
 import com.pungo.modules.physicsField.PhysicsLayout
 import com.pungo.modules.scenes.Scene
-import modules.basic.Colours
+import modules.basic.Colour
 
 import modules.simpleUi.*
 import modules.simpleUi.text.ColouredTextBox
@@ -21,11 +21,12 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         val r1 = Rectangle(-16f,244f,1f,49f)
         val r2 = Rectangle(0.1f,0.54f,0.22f,0.14f)
         val r3 = r1.getSubRectangle(r2).invertSubRectangle(r2)
+        val c = Colour.rgba256(64,115,63,1)
 
 
 
         mainDistrict.addFullPlot("bg",Rectangle(0f,1f, 0f,1f)).also{
-            it.element = Displayer(Colours.byHSV(0.2f,0f,0.2f,1f))
+            it.element = Displayer(Colour.hsva(0.2f,0f,0.2f,1f))
         }
 
 
@@ -37,7 +38,7 @@ class TestScene: Scene("testScene",0f,sceneScaling = SceneDistrict.ResizeReactio
         }
 
         mainDistrict.findPlot("grid",1,3).also {
-            (it.element as TextBox).recolour(Color.RED)
+            (it.element as TextBox).recolour(Colour.RED)
         }
 
         /*
