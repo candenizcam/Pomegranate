@@ -76,13 +76,13 @@ class Colour private constructor(r: Float, g: Float, b: Float, a: Float) {
                     }
                 }
                 6->{
-                    (0..3).map { decodeHex(hexCode[2*it])*16 + decodeHex(hexCode[2*it+1])  }.let{
+                    (0..2).map { decodeHex(hexCode[2*it])*16 + decodeHex(hexCode[2*it+1])  }.let{
                         Colour(it[0]/255f,it[1]/255f,it[2]/255f,1f)
                     }
 
                 }
                 8->{
-                    (0..4).map { decodeHex(hexCode[2*it])*16 + decodeHex(hexCode[2*it+1])  }.let{
+                    (0..3).map { decodeHex(hexCode[2*it])*16 + decodeHex(hexCode[2*it+1])  }.let{
                         Colour(it[0]/255f,it[1]/255f,it[2]/255f,it[3]/255f)
                     }
                 }
